@@ -1,0 +1,15 @@
+{
+    "parser": "babel-eslint",
+    "extends": "hubspot",
+    "plugins": [
+        "react",
+        "react-native"
+    ],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".android.js", ".ios.js"]
+            }
+        }
+    }
+}
