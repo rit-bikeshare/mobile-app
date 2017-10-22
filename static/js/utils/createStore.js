@@ -2,7 +2,10 @@ import {
   applyMiddleware,
   createStore as createReduxStore,
   compose,
-} from 'Redux';
+} from 'redux';
+
+import { persistStore, autoRehydrate } from 'redux-persist';
+import createSensitiveStorage from 'redux-persist-sensitive-storage';
 
 import thunk from 'redux-thunk';
 
@@ -13,8 +16,19 @@ export default function createStore(initialState) {
     = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
   const createStoreWithMiddleware = composeEnhancers(
-    applyMiddleware(thunk)
+    applyMiddleware(thunk),
+    autoRehydrate()
   )(createReduxStore);
 
-  return createStoreWithMiddleware(reducer, initialState);
+  const store = createStoreWithMiddleware(reducer, initialState);
+
+  persistStore(store, {
+    whitelist: ['authReducer'],
+    storage: createSensitiveStorage({
+      keychainService: 'RITBikeShare',
+      sharedPreferencesName: 'RITBikeShare'
+    })
+  });
+
+  return store;
 }

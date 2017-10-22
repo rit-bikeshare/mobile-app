@@ -1,24 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Provider } from 'react-redux';
+import { NativeRouter, Route, } from 'react-router-native';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+import createStore from 'BikeShare/utils/createStore';
+import MainContainer from 'BikeShare/containers/MainContainer';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-        <Text>Cool</Text>
-      </View>
-    );
-  }
-}
+const store = createStore();
+export default () => {
+  return (
+    <Provider store={store}>
+      <NativeRouter>
+        <Route path="/" component={MainContainer} />
+      </NativeRouter>
+    </Provider>
+  );
+};
