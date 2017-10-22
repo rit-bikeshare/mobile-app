@@ -9,7 +9,7 @@
     "changed:js": "npm run changed --silent | grep --color=never '.*\\.js$'",
     "clean": "rm -rf node_modules",
     "fix-githooks": "prepush -c package.json remove && node node_modules/husky/bin/install",
-    "lint:all": "eslint .",
+    "lint:all": "eslint . --fix",
     "lint:changed:js": "npm run changed:js --silent | xargs eslint",
     "precommit": "lint-staged",
     "prepush": "npm run lint:changed:js",
@@ -41,14 +41,13 @@
     "@expo/vector-icons": "^5.2.0",
     "babel": "^6.23.0",
     "babel-plugin-module-alias": "^1.6.0",
-    "eslint-plugin-react-native": "^3.1.0",
     "expo": "^21.0.3",
     "immutable": "^3.8.2",
     "keymirror": "^0.1.1",
     "native-base": "^2.3.3",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.0.tar.gz",
+    "react": "react@16.0.0-alpha.12",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.1.tar.gz",
     "react-native-scripts": "^1.5.0",
     "react-native-sensitive-info": "^5.1.0",
     "react-redux": "^5.0.6",
@@ -60,13 +59,14 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
-    "babel-eslint": "^8.0.1",
-    "enzyme": "^3.1.0",
+    "babel-eslint": "^7.1.1",
+    "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.2",
-    "enzyme-to-json": "next",
-    "eslint": "^4.9.0",
+    "enzyme-to-json": "^3.0.0",
+    "eslint": "^3.17.1",
     "eslint-config-hubspot": "^7.3.1",
-    "eslint-plugin-react": "^7.4.0",
+    "eslint-plugin-react": "^6.10.1",
+    "eslint-plugin-react-native": "^3.1.0",
     "husky": "^0.14.3",
     "jest": "^21.2.1",
     "jest-expo": "^22.0.0",
@@ -76,6 +76,6 @@
     "prepush": "^3.1.11",
     "prettier": "^1.7.4",
     "react-addons-test-utils": "^15.6.2",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0-0"
   }
 }
