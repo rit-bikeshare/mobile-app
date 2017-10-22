@@ -1,5 +1,22 @@
 {
   "expo": {
-    "sdkVersion": "21.0.0"
+    "sdkVersion": "21.0.0",
+    "ios": {
+      "bundleIdentifier": "BikeShare",
+      "publishBundlePath": "ios/bikeshare/Supporting/shell-app.bundle",
+      "publishManifestPath": "ios/bikeshare/Supporting/shell-app-manifest.json"
+    },
+    "android": {
+      "package": "com.rit.bikeshare"
+    },
+    "name": "BikeShare",
+    "slug": "bikeshare",
+    "version": "0.1.0",
+    "isDetached": true,
+    "detach": {
+      "scheme": "exp65f6b6ce79f04735ae91cb60326b73b9",
+      "iosExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/ios-v1.20.5-sdk21.0.0-11e2eb3f-807e-48d4-8685-b0694f874637.tar.gz",
+      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v1.20.0-sdk21.0.0-38791499-fe99-4600-950d-cf7e2e85cea9.tar.gz"
+    }
   }
 }

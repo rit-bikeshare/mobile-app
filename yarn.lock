@@ -963,7 +963,7 @@ babel-preset-expo@^3.0.0:
 
 babel-preset-fbjs@^1.0.0:
   version "1.0.0"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/babel-preset-fbjs/-/babel-preset-fbjs-1.0.0.tgz#c972e5c9b301d4ec9e7971f4aec3e14ac017a8b0"
+  resolved "https://registry.yarnpkg.com/babel-preset-fbjs/-/babel-preset-fbjs-1.0.0.tgz#c972e5c9b301d4ec9e7971f4aec3e14ac017a8b0"
   dependencies:
     babel-plugin-check-es2015-constants "^6.7.2"
     babel-plugin-syntax-flow "^6.5.0"
@@ -1348,7 +1348,7 @@ bser@1.0.2:
 
 bser@^1.0.2:
   version "1.0.3"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/bser/-/bser-1.0.3.tgz#d63da19ee17330a0e260d2a34422b21a89520317"
+  resolved "https://registry.yarnpkg.com/bser/-/bser-1.0.3.tgz#d63da19ee17330a0e260d2a34422b21a89520317"
   dependencies:
     node-int64 "^0.4.0"
 
@@ -1860,7 +1860,7 @@ create-react-class@^15.5.2, create-react-class@^15.6.0:
 
 cross-spawn@^3.0.1:
   version "3.0.1"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/cross-spawn/-/cross-spawn-3.0.1.tgz#1256037ecb9f0c5f79e3d6ef135e30770184b982"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-3.0.1.tgz#1256037ecb9f0c5f79e3d6ef135e30770184b982"
   dependencies:
     lru-cache "^4.0.1"
     which "^1.2.9"
@@ -2534,9 +2534,9 @@ expect@^21.2.1:
     jest-message-util "^21.2.1"
     jest-regex-util "^21.2.0"
 
-expo@^21.0.0:
-  version "21.0.2"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/expo/-/expo-21.0.2.tgz#8420b9f4b95503c464575a31fd9c820363caef9d"
+expo@^21.0.3:
+  version "21.0.3"
+  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/expo/-/expo-21.0.3.tgz#d30172e97b3b48cc67afae8a94fc245f284112d3"
   dependencies:
     "@expo/vector-icons" "^5.0.0"
     babel-preset-expo "^3.0.0"
@@ -2665,7 +2665,7 @@ fbemitter@^2.1.1:
 
 fbjs-scripts@^0.7.0:
   version "0.7.1"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/fbjs-scripts/-/fbjs-scripts-0.7.1.tgz#4f115e218e243e3addbf0eddaac1e3c62f703fac"
+  resolved "https://registry.yarnpkg.com/fbjs-scripts/-/fbjs-scripts-0.7.1.tgz#4f115e218e243e3addbf0eddaac1e3c62f703fac"
   dependencies:
     babel-core "^6.7.2"
     babel-preset-fbjs "^1.0.0"
@@ -2678,7 +2678,7 @@ fbjs-scripts@^0.7.0:
 
 fbjs@0.8.12:
   version "0.8.12"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/fbjs/-/fbjs-0.8.12.tgz#10b5d92f76d45575fd63a217d4ea02bea2f8ed04"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.12.tgz#10b5d92f76d45575fd63a217d4ea02bea2f8ed04"
   dependencies:
     core-js "^1.0.0"
     isomorphic-fetch "^2.1.1"
@@ -3951,11 +3951,11 @@ jest-diff@^21.2.1:
 
 jest-docblock@20.1.0-chi.1:
   version "20.1.0-chi.1"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/jest-docblock/-/jest-docblock-20.1.0-chi.1.tgz#06981ab0e59498a2492333b0c5502a82e4603207"
+  resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-20.1.0-chi.1.tgz#06981ab0e59498a2492333b0c5502a82e4603207"
 
 jest-docblock@20.1.0-delta.4:
   version "20.1.0-delta.4"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/jest-docblock/-/jest-docblock-20.1.0-delta.4.tgz#360d4f5fb702730c4136c4e71e5706188a694682"
+  resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-20.1.0-delta.4.tgz#360d4f5fb702730c4136c4e71e5706188a694682"
 
 jest-docblock@^20.0.3:
   version "20.0.3"
@@ -3963,7 +3963,7 @@ jest-docblock@^20.0.3:
 
 jest-docblock@^20.1.0-chi.1:
   version "20.1.0-echo.1"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/jest-docblock/-/jest-docblock-20.1.0-echo.1.tgz#be02f43ee019f97e6b83267c746ac7b40d290fe8"
+  resolved "https://registry.yarnpkg.com/jest-docblock/-/jest-docblock-20.1.0-echo.1.tgz#be02f43ee019f97e6b83267c746ac7b40d290fe8"
 
 jest-docblock@^21.2.0:
   version "21.2.0"
@@ -4014,7 +4014,7 @@ jest-get-type@^21.2.0:
 
 jest-haste-map@20.1.0-chi.1:
   version "20.1.0-chi.1"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/jest-haste-map/-/jest-haste-map-20.1.0-chi.1.tgz#db5f5f31362c76e242b40ea9a3ccfa364719cee3"
+  resolved "https://registry.yarnpkg.com/jest-haste-map/-/jest-haste-map-20.1.0-chi.1.tgz#db5f5f31362c76e242b40ea9a3ccfa364719cee3"
   dependencies:
     fb-watchman "^2.0.0"
     graceful-fs "^4.1.11"
@@ -4025,7 +4025,7 @@ jest-haste-map@20.1.0-chi.1:
 
 jest-haste-map@20.1.0-delta.4:
   version "20.1.0-delta.4"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/jest-haste-map/-/jest-haste-map-20.1.0-delta.4.tgz#12e32b297a6dd49705cacde938029fc158834006"
+  resolved "https://registry.yarnpkg.com/jest-haste-map/-/jest-haste-map-20.1.0-delta.4.tgz#12e32b297a6dd49705cacde938029fc158834006"
   dependencies:
     fb-watchman "^2.0.0"
     graceful-fs "^4.1.11"
@@ -4982,7 +4982,7 @@ methods@^1.1.1, methods@~1.1.2:
 
 metro-bundler@^0.11.0:
   version "0.11.0"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/metro-bundler/-/metro-bundler-0.11.0.tgz#ba5d2ae34943da28a37c2098047ad265c16fddf4"
+  resolved "https://registry.yarnpkg.com/metro-bundler/-/metro-bundler-0.11.0.tgz#ba5d2ae34943da28a37c2098047ad265c16fddf4"
   dependencies:
     absolute-path "^0.0.0"
     async "^2.4.0"
@@ -5872,7 +5872,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -6134,9 +6134,9 @@ react-native-vector-icons@~4.4.2:
     prop-types "^15.5.10"
     yargs "^8.0.2"
 
-react-native@^0.48.4:
-  version "0.48.4"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/react-native/-/react-native-0.48.4.tgz#f305e9fef069a5b3f6a7250ddd50f603cf30ab2d"
+"react-native@https://github.com/expo/react-native/archive/sdk-21.0.0.tar.gz":
+  version "0.48.3"
+  resolved "https://github.com/expo/react-native/archive/sdk-21.0.0.tar.gz#3d931fc155441bafa018aa647ad732ebdd437d92"
   dependencies:
     absolute-path "^0.0.0"
     art "^0.10.0"
@@ -6291,15 +6291,14 @@ react-tween-state@^0.1.5:
     raf "^3.1.0"
     tween-functions "^1.0.1"
 
-react@16.0.0-alpha.12:
-  version "16.0.0-alpha.12"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/react/-/react-16.0.0-alpha.12.tgz#8c59485281485df319b6f77682d8dd0621c08194"
+react@^16.0.0:
+  version "16.0.0"
+  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/react/-/react-16.0.0.tgz#ce7df8f1941b036f02b2cca9dbd0cb1f0e855e2d"
   dependencies:
-    create-react-class "^15.5.2"
-    fbjs "^0.8.9"
+    fbjs "^0.8.16"
     loose-envify "^1.1.0"
-    object-assign "^4.1.0"
-    prop-types "^15.5.6"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 read-chunk@^2.0.0:
   version "2.1.0"
@@ -6380,7 +6379,7 @@ readdirp@^2.0.0:
 
 rebound@^0.0.13:
   version "0.0.13"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/rebound/-/rebound-0.0.13.tgz#4a225254caf7da756797b19c5817bf7a7941fac1"
+  resolved "https://registry.yarnpkg.com/rebound/-/rebound-0.0.13.tgz#4a225254caf7da756797b19c5817bf7a7941fac1"
 
 reduce-reducers@^0.1.0:
   version "0.1.2"
@@ -6732,7 +6731,7 @@ sane@^2.0.0:
 
 sane@~1.4.1:
   version "1.4.1"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/sane/-/sane-1.4.1.tgz#88f763d74040f5f0c256b6163db399bf110ac715"
+  resolved "https://registry.yarnpkg.com/sane/-/sane-1.4.1.tgz#88f763d74040f5f0c256b6163db399bf110ac715"
   dependencies:
     exec-sh "^0.2.0"
     fb-watchman "^1.8.0"
