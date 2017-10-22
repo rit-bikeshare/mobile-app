@@ -6,3 +6,8 @@ export default new Record({
   firstName: null,
   lastName: null
 });
+
+export function isEmpty({ username, authToken }) {
+  return username === null
+  && authToken === null;
+}
