@@ -6,7 +6,7 @@
         "transform-react-jsx-source",
         ["module-alias", [
           { "src": "./static/js", "expose": "BikeShare" },
-          { "src": "./static/img", "expose": "BikeShare/img" },
+          { "src": "./img", "expose": "BikeShare/img" },
           { "src": "./static/test", "expose": "BikeShare/test" }
         ]]
       ]
