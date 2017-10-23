@@ -1,16 +1,73 @@
 import React from 'react';
+import { MapView } from 'expo';
+import { Container, Text, Button, Header, Body, Title, Left, Right, Icon, Drawer } from 'native-base';
 
-import { Text, View } from 'react-native';
+import mapStyle from 'BikeShare/styles/map';
+import { PROVIDER_GOOGLE } from 'BikeShare/constants/MapProviders';
 
-import styles from 'BikeShare/styles/base';
+import SideBar from 'BikeShare/components/Sidebar';
 
-export default () => {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <Text>Changes you make will automatically reload.</Text>
-      <Text>Shake your phone to open the developer menu.</Text>
-      <Text>Cool</Text>
-    </View>
-  );
-};
+export default class Main extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      region: {
+        latitude: 43.08447438334887,
+        latitudeDelta: 0.00900991980918775,
+        longitude: -77.67920080572367,
+        longitudeDelta: 0.007426701486110687
+      },
+    };
+    this.onRegionChange = this.onRegionChange.bind(this);
+    this.openDrawer = this.openDrawer.bind(this);
+  }
+
+  onRegionChange(region) {
+    this.setState({ region });
+  }
+
+  closeDrawer() {
+    this.drawer._root.close();
+  }
+
+  openDrawer() {
+    this.drawer._root.open();
+  }
+
+  render() {
+    return (
+      <Drawer
+        ref={ref => { this.drawer = ref; }}
+        content={<SideBar />}
+        onClose={() => this.closeDrawer()}
+      >
+        <Container>
+          <Header>
+            <Left>
+              <Button
+                transparent={true}
+                onPress={this.openDrawer}
+              >
+                <Icon name="menu" />
+              </Button>
+            </Left>
+            <Body>
+              <Title>RIT BikeShare</Title>
+            </Body>
+            <Right />
+          </Header>
+          <MapView
+            style={{ flex: 1 }}
+            initialRegion={this.state.region}
+            onRegionChange={this.onRegionChange}
+            provider={PROVIDER_GOOGLE}
+            customMapStyle={mapStyle}
+          />
+          <Button full={true} info={true}>
+            <Text>Primary</Text>
+          </Button>
+        </Container>
+      </Drawer>
+    );
+  }
+}
