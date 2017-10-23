@@ -5,7 +5,6 @@ import Expo from 'expo';
 import { StyleProvider } from 'native-base';
 
 import getTheme from './native-base-theme/components';
-import material from './native-base-theme/variables/material';
 
 export default class App extends React.Component {
   constructor() {
@@ -31,7 +30,7 @@ export default class App extends React.Component {
     }
 
     return (
-      <StyleProvider style={getTheme(material)}>
+      <StyleProvider style={getTheme()}>
         <Index />
       </StyleProvider>
     );
