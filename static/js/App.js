@@ -13,7 +13,7 @@ const store = createStore();
  * In order to match that functionality, their recomendation is to make a wrapper
  * component, in this case AppContainer, and add your child routes there.
  * So becasuse of this, most of the routing for the app is in AppContainer.
-*/
+ */
 
 export default () => {
   return (

@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { Image } from 'react-native';
 import { Container, Button, Text, Title, H1, Body, Content, Header } from 'native-base';
 
-import { setUserData as setUserDataAction } from 'BikeShare/redux/actions/userData';
+import { setUserData as setUserDataAction } from 'BikeShare/redux/actions/userDataActions';
 
 import styles from 'BikeShare/styles/login';
-import { index } from 'BikeShare/constants/urls';
+import { checkout } from 'BikeShare/constants/urls';
 
 import bikeClipArt from 'BikeShare/img/BikeClipArt.png';
 
@@ -31,7 +31,7 @@ class LoginContainer extends React.Component {
       firstName: 'test',
       lastName: 'test'
     });
-    history.replace(index);
+    history.replace(checkout);
   }
 
   render() {

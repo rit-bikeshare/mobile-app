@@ -1,13 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { MapView } from 'expo';
 import { Container, Text, Button, Header, Body, Title, Left, Right, Icon, Drawer } from 'native-base';
 
 import mapStyle from 'BikeShare/styles/map';
+import { checkout } from 'BikeShare/constants/urls';
 import { PROVIDER_GOOGLE } from 'BikeShare/constants/MapProviders';
 
 import SideBar from 'BikeShare/components/Sidebar';
 
 export default class Main extends React.Component {
+  static propTypes = {
+    history: PropTypes.object
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -20,6 +27,12 @@ export default class Main extends React.Component {
     };
     this.onRegionChange = this.onRegionChange.bind(this);
     this.openDrawer = this.openDrawer.bind(this);
+    this.routeToCheckout = this.routeToCheckout.bind(this);
+  }
+
+  routeToCheckout() {
+    const { history } = this.props;
+    history.push(checkout);
   }
 
   onRegionChange(region) {
@@ -63,8 +76,8 @@ export default class Main extends React.Component {
             provider={PROVIDER_GOOGLE}
             customMapStyle={mapStyle}
           />
-          <Button full={true} info={true}>
-            <Text>Primary</Text>
+          <Button full={true} info={true} onPress={this.routeToCheckout}>
+            <Text>Checkout a bike</Text>
           </Button>
         </Container>
       </Drawer>

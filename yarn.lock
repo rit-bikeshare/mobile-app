@@ -53,6 +53,10 @@
     lodash "^4.17.4"
     react-native-vector-icons "4.1.1"
 
+"@hs/transmute@^1.4.0":
+  version "1.4.0"
+  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/@hs/transmute/-/transmute-1.4.0.tgz#1c976172bcf4e8d9e08fe6637b05743584bdc3c1"
+
 "@segment/loosely-validate-event@^1.1.2":
   version "1.1.2"
   resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/@segment/loosely-validate-event/-/loosely-validate-event-1.1.2.tgz#d77840999e3f7e43e74b3b0d43391c1526f793b8"
@@ -6139,10 +6143,6 @@ react-native-maps@0.15.3:
   version "0.15.3"
   resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/react-native-maps/-/react-native-maps-0.15.3.tgz#5d9e0a8e30ecc51dc755b7a3b9d6b6ed5e2dd08c"
 
-react-native-maps@^0.17.1:
-  version "0.17.1"
-  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/react-native-maps/-/react-native-maps-0.17.1.tgz#ab2236341fd984dac8864202ae55331bc262f60c"
-
 react-native-safe-module@^1.1.0:
   version "1.2.0"
   resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/react-native-safe-module/-/react-native-safe-module-1.2.0.tgz#a23824ca24edc2901913694a76646475113d570d"
@@ -6349,7 +6349,7 @@ react-tween-state@^0.1.5:
     raf "^3.1.0"
     tween-functions "^1.0.1"
 
-react@react@16.0.0-alpha.12:
+react@16.0.0-alpha.12:
   version "16.0.0-alpha.12"
   resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/react/-/react-16.0.0-alpha.12.tgz#8c59485281485df319b6f77682d8dd0621c08194"
   dependencies:
@@ -6663,6 +6663,10 @@ require-uncached@^1.0.2:
 reqwest@2.0.5:
   version "2.0.5"
   resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/reqwest/-/reqwest-2.0.5.tgz#00fb15ac4918c419ca82b43f24c78882e66039a1"
+
+reselect@^3.0.1:
+  version "3.0.1"
+  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/reselect/-/reselect-3.0.1.tgz#efdaa98ea7451324d092b2b2163a6a1d7a9a2147"
 
 resolve-from@^1.0.0:
   version "1.0.1"
