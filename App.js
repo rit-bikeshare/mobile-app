@@ -2,7 +2,7 @@ import React from 'react';
 import Index from 'BikeShare/App';
 import Expo from 'expo';
 
-import { StyleProvider } from 'native-base';
+import { StyleProvider, Container } from 'native-base';
 
 import getTheme from './native-base-theme/components';
 
@@ -31,7 +31,9 @@ export default class App extends React.Component {
 
     return (
       <StyleProvider style={getTheme()}>
-        <Index />
+        <Container style={{ marginTop: Expo.Constants.statusBarHeight }}>
+          <Index />
+        </Container>
       </StyleProvider>
     );
   }
