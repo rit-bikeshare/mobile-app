@@ -6,6 +6,8 @@ import { StyleProvider, Container } from 'native-base';
 
 import getTheme from './native-base-theme/components';
 
+import { isAndroid } from 'BikeShare/utils/platform';
+
 export default class App extends React.Component {
   constructor() {
     super();
@@ -29,9 +31,10 @@ export default class App extends React.Component {
       return <Expo.AppLoading />;
     }
 
+    const marginTop = isAndroid() ? Expo.Constants.statusBarHeight : null;
     return (
       <StyleProvider style={getTheme()}>
-        <Container style={{ marginTop: Expo.Constants.statusBarHeight }}>
+        <Container style={{ marginTop }}>
           <Index />
         </Container>
       </StyleProvider>
