@@ -17,7 +17,7 @@ class AppContainer extends React.Component {
   componentWillMount() {
     const { history, userData } = this.props;
     if (isEmpty(userData)) {
-      history.push(login);
+      history.replace(login);
     }
   }
 

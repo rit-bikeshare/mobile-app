@@ -2,14 +2,17 @@
     "parser": "babel-eslint",
     "extends": "hubspot",
     "plugins": [
-        "react",
-        "react-native"
+      "react",
+      "react-native"
     ],
+    "rules": {
+      "react/jsx-handler-names": "off"
+    },
     "settings": {
-        "import/resolver": {
-            "node": {
-                "extensions": [".js", ".android.js", ".ios.js"]
-            }
+      "import/resolver": {
+        "node": {
+            "extensions": [".js", ".android.js", ".ios.js"]
         }
+      }
     }
 }
