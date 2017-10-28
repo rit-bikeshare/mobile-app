@@ -6,7 +6,7 @@ import UserData from 'BikeShare/data/records/UserData';
 const initialState = new UserData();
 
 export default handleActions({
-  [ActionTypes.USER_AUTHENTICATED](state, action) {
+  [ActionTypes.SET_USER_DATA](state, action) {
     return new UserData(action.payload);
   }
 }, initialState);

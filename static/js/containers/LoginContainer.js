@@ -1,30 +1,62 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
 import { Image } from 'react-native';
 import { Container, Button, Text, Title, H1, Body, Content, Header } from 'native-base';
+
+import { setUserData as setUserDataAction } from 'BikeShare/redux/actions/userData';
+
 import styles from 'BikeShare/styles/login';
+import { index } from 'BikeShare/constants/urls';
 
 import bikeClipArt from 'BikeShare/img/BikeClipArt.png';
 
-const LoginContainer = () => {
-  return (
-    <Container>
-      <Header>
-        <Body>
-          <Title>RIT Bike Share</Title>
-        </Body>
-      </Header>
-      <Content contentContainerStyle={styles.container}>
-        <Image
-          source={bikeClipArt}
-          style={styles.logo}
-        />
-        <H1 style={styles.title}>RIT Bike Share</H1>
-        <Button style={styles.button}>
-          <Text>Login</Text>
-        </Button>
-      </Content>
-    </Container>
-  );
-};
+class LoginContainer extends React.Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired,
+    setUserData: PropTypes.func.isRequired,
+  }
 
-export default LoginContainer;
+  constructor(props) {
+    super(props);
+    this.clickLogin = this.clickLogin.bind(this);
+  }
+
+  clickLogin() {
+    const { history, setUserData } = this.props;
+    setUserData({
+      username: 'test',
+      authToken: 'test',
+      firstName: 'test',
+      lastName: 'test'
+    });
+    history.replace(index);
+  }
+
+  render() {
+    return (
+      <Container>
+        <Header>
+          <Body>
+            <Title>RIT Bike Share</Title>
+          </Body>
+        </Header>
+        <Content contentContainerStyle={styles.container}>
+          <Image
+            source={bikeClipArt}
+            style={styles.logo}
+          />
+          <H1 style={styles.title}>RIT Bike Share</H1>
+          <Button style={styles.button} onPress={this.clickLogin}>
+            <Text>Login</Text>
+          </Button>
+        </Content>
+      </Container>
+    );
+  }
+}
+
+export default connect(null, {
+  setUserData: setUserDataAction
+})(LoginContainer);

@@ -296,7 +296,7 @@ export default (variables = variable) => {
     flexDirection: 'row',
     paddingHorizontal: 10,
     justifyContent: 'center',
-    paddingTop: platform === 'ios' ? (variables.isIphoneX ? 39 : 15) : 0,
+    paddingTop: platform === 'ios' ? (variables.isIphoneX ? 39 : 0) : 0,
     borderBottomWidth: platform === 'ios' ? 1 / PixelRatio.getPixelSizeForLayoutSize(1) : 0,
     borderBottomColor: variables.toolbarDefaultBorder,
     height: variables.toolbarHeight,
