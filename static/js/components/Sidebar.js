@@ -10,7 +10,7 @@ import {
   Left
 } from 'native-base';
 
-import styles from 'BikeShare/styles/Sidebar';
+import styles from 'BikeShare/styles/sidebar';
 
 
 const data = [
