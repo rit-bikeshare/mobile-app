@@ -5,7 +5,6 @@ import {
 } from 'redux';
 
 import { persistStore, autoRehydrate } from 'redux-persist';
-import createSensitiveStorage from 'redux-persist-sensitive-storage';
 
 import thunk from 'redux-thunk';
 
@@ -23,11 +22,7 @@ export default function createStore(initialState) {
   const store = createStoreWithMiddleware(reducer, initialState);
 
   persistStore(store, {
-    whitelist: ['authReducer'],
-    storage: createSensitiveStorage({
-      keychainService: 'RITBikeShare',
-      sharedPreferencesName: 'RITBikeShare'
-    })
+    whitelist: ['authReducer']
   });
 
   return store;
