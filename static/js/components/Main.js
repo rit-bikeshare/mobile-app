@@ -18,12 +18,8 @@ export default class Main extends React.Component {
         longitudeDelta: 0.007426701486110687
       },
     };
-    this.onRegionChange = this.onRegionChange.bind(this);
-    this.openDrawer = this.openDrawer.bind(this);
-  }
 
-  onRegionChange(region) {
-    this.setState({ region });
+    this.openDrawer = this.openDrawer.bind(this);
   }
 
   closeDrawer() {
@@ -59,7 +55,6 @@ export default class Main extends React.Component {
           <MapView
             style={{ flex: 1 }}
             initialRegion={this.state.region}
-            onRegionChange={this.onRegionChange}
             provider={PROVIDER_GOOGLE}
             customMapStyle={mapStyle}
           />
