@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BarcodeScanner from 'BikeShare/components/scanner/BarcodeScanner';
+import QRScanner from 'BikeShare/components/scanner/QRScanner';
 
 export default () => {
   return (
-    <BarcodeScanner />
+    <QRScanner />
   );
 };

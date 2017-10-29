@@ -38,7 +38,7 @@ class BarcodeScanner extends React.Component {
 
   handleBarCodeRead({ data }) {
     Alert.alert(
-      'Barcode read',
+      'QR code read',
       data
     );
   }
