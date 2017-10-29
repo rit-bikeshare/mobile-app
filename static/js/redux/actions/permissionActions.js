@@ -1,9 +1,13 @@
 import { createAction } from 'redux-actions';
 import { Permissions } from 'expo';
 
-import { cameraPermissionGranted } from 'BikeShare/selectors/permissionSelectors';
+import permissionSelectors from 'BikeShare/selectors/permissionSelectors';
 import ActionTypes from 'BikeShare/redux/ActionTypes';
 import { PENDING } from 'BikeShare/constants/PermissionValues';
+
+const {
+  cameraPermissionGranted
+} = permissionSelectors;
 
 const updateCameraPermission = createAction(
   ActionTypes.SET_CAMERA_PERMISSION

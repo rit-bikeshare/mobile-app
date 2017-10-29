@@ -1,12 +1,14 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { NativeRouter, Route, Switch } from 'react-router-native';
-
+import { Route, Switch, BackButton } from 'react-router-native';
+import createHistory from 'history/createMemoryHistory';
+import { ConnectedRouter } from 'react-router-redux';
 import createStore from 'BikeShare/utils/createStore';
 import AppContainer from 'BikeShare/containers/AppContainer';
 import LoginContainer from 'BikeShare/containers/LoginContainer';
 
-const store = createStore();
+const history = createHistory();
+const store = createStore({}, history);
 
 /*
  * So react router v4 is kinda dumb and doesn't allow nested routes.
@@ -18,12 +20,14 @@ const store = createStore();
 export default () => {
   return (
     <Provider store={store}>
-      <NativeRouter>
-        <Switch>
-          <Route path="/login" component={LoginContainer} />
-          <Route component={AppContainer} />
-        </Switch>
-      </NativeRouter>
+      <ConnectedRouter history={history}>
+        <BackButton>
+          <Switch>
+            <Route path="/login" component={LoginContainer} />
+            <Route component={AppContainer} />
+          </Switch>
+        </BackButton>
+      </ConnectedRouter>
     </Provider>
   );
 };

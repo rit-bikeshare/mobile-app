@@ -7,8 +7,8 @@ import { StyleProvider, Container } from 'native-base';
 import getTheme from './native-base-theme/components';
 
 export default class App extends React.Component {
-  constructor() {
-    super();
+  constructor(args) {
+    super(args);
     this.state = {
       isReady: false
     };

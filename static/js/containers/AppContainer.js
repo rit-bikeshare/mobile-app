@@ -25,7 +25,7 @@ class AppContainer extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path="/" component={MainContainer} />
+        <Route exact={true} path="/" component={MainContainer} />
         <Route path="/checkout" component={CheckoutContainer} />
       </Switch>
     );

@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 import { BarCodeScanner } from 'expo';
-import { Button, Text } from 'native-base';
+import { View, Button, Text, Icon } from 'native-base';
 
 import { askForCameraPermission as askForCameraPermissionAction } from 'BikeShare/redux/actions/permissionActions';
 import permissionSelectors from 'BikeShare/selectors/permissionSelectors';
@@ -21,20 +21,56 @@ class BarcodeScanner extends React.Component {
     askForCameraPermission: PropTypes.func,
     cameraPermissionGranted: PropTypes.bool,
     cameraPermissionPending: PropTypes.bool
-  };
+  }
 
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      torchActive: false
+    };
+    this.toggleTorch = this.toggleTorch.bind(this);
+  }
+
+  componentDidMount() {
     const { askForCameraPermission } = this.props;
     askForCameraPermission();
   }
 
+  handleBarCodeRead({ data }) {
+    Alert.alert(
+      'Barcode read',
+      data
+    );
+  }
+
+  toggleTorch() {
+    const { torchActive } = this.state;
+    this.setState({
+      torchActive: !torchActive
+    });
+  }
+
   renderBarcodeScanner() {
+    const { torchActive } = this.state;
     return (
-      <BarCodeScanner
-        barCodeTypes={[QR_BARCODE_TYPE]}
-        onBarCodeRead={this.handleBarCodeRead}
-        style={StyleSheet.absoluteFill}
-      />
+      <View style={StyleSheet.absoluteFill}>
+        <BarCodeScanner
+          barCodeTypes={[QR_BARCODE_TYPE]}
+          onBarCodeRead={this.handleBarCodeRead}
+          style={StyleSheet.absoluteFill}
+          torchMode={torchActive ? 'on' : 'off'}
+        />
+        <Button
+          bordered={true}
+          light={true}
+          active={false}
+          onPress={this.toggleTorch}
+          style={{ position: 'absolute', bottom: 10, right: 10 }}
+        >
+          <Icon name="md-flash" />
+          <Text>Torch</Text>
+        </Button>
+      </View>
     );
   }
 
@@ -72,8 +108,6 @@ const mapStateToProps = state => ({
   cameraPermissionGranted: cameraPermissionGrantedSelector(state)
 });
 
-const mapDispatchToProps = () => ({
+export default connect(mapStateToProps, {
   askForCameraPermission: askForCameraPermissionAction
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(BarcodeScanner);
+})(BarcodeScanner);

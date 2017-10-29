@@ -8,7 +8,7 @@ import { Container, Button, Text, Title, H1, Body, Content, Header } from 'nativ
 import { setUserData as setUserDataAction } from 'BikeShare/redux/actions/userDataActions';
 
 import styles from 'BikeShare/styles/login';
-import { checkout } from 'BikeShare/constants/urls';
+import { index } from 'BikeShare/constants/urls';
 
 import bikeClipArt from 'BikeShare/img/BikeClipArt.png';
 
@@ -31,7 +31,7 @@ class LoginContainer extends React.Component {
       firstName: 'test',
       lastName: 'test'
     });
-    history.replace(checkout);
+    history.replace(index);
   }
 
   render() {
