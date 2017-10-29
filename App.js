@@ -4,7 +4,8 @@ import Expo from 'expo';
 
 import { StyleProvider, Container } from 'native-base';
 
-import getTheme from './native-base-theme/components';
+import getTheme from 'BikeShare/theme/components';
+import commonColor from 'BikeShare/theme/variables/commonColor';
 
 export default class App extends React.Component {
   constructor() {
@@ -19,6 +20,7 @@ export default class App extends React.Component {
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'),
+      'MaterialCommunityIcons': require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf'),
     });
 
     this.setState({ isReady: true });
@@ -30,7 +32,7 @@ export default class App extends React.Component {
     }
 
     return (
-      <StyleProvider style={getTheme()}>
+      <StyleProvider style={getTheme(commonColor)}>
         <Container style={{ marginTop: Expo.Constants.statusBarHeight }}>
           <Index />
         </Container>
