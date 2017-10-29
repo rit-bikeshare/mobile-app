@@ -16,18 +16,24 @@ const {
 
 const QR_BARCODE_TYPE = BarCodeScanner.Constants.BarCodeType.qr;
 
-class BarcodeScanner extends React.Component {
+class QRScanner extends React.Component {
   static propTypes = {
     askForCameraPermission: PropTypes.func,
     cameraPermissionGranted: PropTypes.bool,
-    cameraPermissionPending: PropTypes.bool
+    cameraPermissionPending: PropTypes.bool,
+    handleQRCodeScan: PropTypes.func
   }
 
-  constructor(props) {
-    super(props);
+  static defaultProps = {
+    handleQRCodeScan: () => null
+  }
+
+  constructor(props, defaultProps) {
+    super(props, defaultProps);
     this.state = {
       torchActive: false
     };
+    this.handleBarCodeRead = this.handleBarCodeRead.bind(this);
     this.toggleTorch = this.toggleTorch.bind(this);
   }
 
@@ -37,10 +43,12 @@ class BarcodeScanner extends React.Component {
   }
 
   handleBarCodeRead({ data }) {
+    const { handleQRCodeScan } = this.props;
     Alert.alert(
       'QR code read',
       data
     );
+    handleQRCodeScan(data);
   }
 
   toggleTorch() {
@@ -110,4 +118,4 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   askForCameraPermission: askForCameraPermissionAction
-})(BarcodeScanner);
+})(QRScanner);
