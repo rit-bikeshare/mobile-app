@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { StyleSheet, Alert } from 'react-native';
+import { StyleSheet, Alert, StatusBar } from 'react-native';
 import { BarCodeScanner } from 'expo';
 import { View, Button, Text, Icon } from 'native-base';
 
@@ -62,6 +62,7 @@ class QRScanner extends React.Component {
     const { torchActive } = this.state;
     return (
       <View style={StyleSheet.absoluteFill}>
+        <StatusBar hidden={true} />
         <BarCodeScanner
           barCodeTypes={[QR_BARCODE_TYPE]}
           onBarCodeRead={this.handleBarCodeRead}
