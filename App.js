@@ -8,6 +8,9 @@ import getTheme from 'BikeShare/theme/components';
 import commonColor from 'BikeShare/theme/variables/commonColor';
 import { isIOS } from 'BikeShare/utils/platform';
 
+import getTheme from 'BikeShare/theme/components';
+import commonColor from 'BikeShare/theme/variables/commonColor';
+
 const {
   brandPrimary
 } = commonColor;
@@ -25,6 +28,7 @@ export default class App extends React.Component {
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'),
+      'MaterialCommunityIcons': require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf'),
     });
 
     this.setState({ isReady: true });
