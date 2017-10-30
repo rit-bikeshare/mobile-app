@@ -8,16 +8,13 @@ import getTheme from 'BikeShare/theme/components';
 import commonColor from 'BikeShare/theme/variables/commonColor';
 import { isIOS } from 'BikeShare/utils/platform';
 
-import getTheme from 'BikeShare/theme/components';
-import commonColor from 'BikeShare/theme/variables/commonColor';
-
 const {
   brandPrimary
 } = commonColor;
 
 export default class App extends React.Component {
-  constructor() {
-    super();
+  constructor(args) {
+    super(args);
     this.state = {
       isReady: false
     };

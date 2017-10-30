@@ -46,12 +46,23 @@
   dependencies:
     cross-spawn "^5.1.0"
 
-"@expo/vector-icons@^5.0.0", "@expo/vector-icons@^5.2.0":
+"@expo/vector-icons@^5.0.0":
   version "5.2.0"
   resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/@expo/vector-icons/-/vector-icons-5.2.0.tgz#877f75c00bf21313cdb231c92cbcfd40e46ee2a1"
   dependencies:
     lodash "^4.17.4"
     react-native-vector-icons "4.1.1"
+
+"@expo/vector-icons@^6.1.0":
+  version "6.1.0"
+  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/@expo/vector-icons/-/vector-icons-6.1.0.tgz#3f4c5b3a44105fc5204723fab11885b93773a822"
+  dependencies:
+    lodash "^4.17.4"
+    react-native-vector-icons "4.4.2"
+
+"@hs/transmute@^1.4.0":
+  version "1.4.0"
+  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/@hs/transmute/-/transmute-1.4.0.tgz#1c976172bcf4e8d9e08fe6637b05743584bdc3c1"
 
 "@segment/loosely-validate-event@^1.1.2":
   version "1.1.2"
@@ -6323,7 +6334,7 @@ react-native-vector-icons@4.1.1:
     prop-types "^15.5.8"
     yargs "^6.3.0"
 
-react-native-vector-icons@^4.4.2, react-native-vector-icons@~4.4.2:
+react-native-vector-icons@4.4.2, react-native-vector-icons@^4.4.2, react-native-vector-icons@~4.4.2:
   version "4.4.2"
   resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/react-native-vector-icons/-/react-native-vector-icons-4.4.2.tgz#090f42ee0396c4cc4eae0ddaa518028ba8df40c7"
   dependencies:
@@ -6444,6 +6455,14 @@ react-router-native@^4.2.0:
     prop-types "^15.5.4"
     react-router "^4.2.0"
 
+react-router-redux@next:
+  version "5.0.0-alpha.8"
+  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/react-router-redux/-/react-router-redux-5.0.0-alpha.8.tgz#5242c705730b2ac862aff7a8e90f870d0cf45e12"
+  dependencies:
+    history "^4.7.2"
+    prop-types "^15.6.0"
+    react-router "^4.2.0"
+
 react-router@^4.2.0:
   version "4.2.0"
   resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/react-router/-/react-router-4.2.0.tgz#61f7b3e3770daeb24062dae3eedef1b054155986"
@@ -6488,7 +6507,7 @@ react-tween-state@^0.1.5:
     raf "^3.1.0"
     tween-functions "^1.0.1"
 
-react@react@16.0.0-alpha.12:
+react@16.0.0-alpha.12:
   version "16.0.0-alpha.12"
   resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/react/-/react-16.0.0-alpha.12.tgz#8c59485281485df319b6f77682d8dd0621c08194"
   dependencies:
@@ -6809,6 +6828,10 @@ require-uncached@^1.0.2:
 reqwest@2.0.5:
   version "2.0.5"
   resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/reqwest/-/reqwest-2.0.5.tgz#00fb15ac4918c419ca82b43f24c78882e66039a1"
+
+reselect@^3.0.1:
+  version "3.0.1"
+  resolved "https://npm.hubteam.com/npm-nexus/repository/npm-all/reselect/-/reselect-3.0.1.tgz#efdaa98ea7451324d092b2b2163a6a1d7a9a2147"
 
 resolve-from@^1.0.0:
   version "1.0.1"

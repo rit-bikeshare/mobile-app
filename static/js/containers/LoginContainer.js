@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Image } from 'react-native';
 import { Container, Button, Text, H1, Content } from 'native-base';
 
-import { setUserData as setUserDataAction } from 'BikeShare/redux/actions/userData';
+import { setUserData as setUserDataAction } from 'BikeShare/redux/actions/userDataActions';
 
 import styles from 'BikeShare/styles/login';
 import { index } from 'BikeShare/constants/urls';

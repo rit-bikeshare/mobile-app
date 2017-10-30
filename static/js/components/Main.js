@@ -18,7 +18,7 @@ export default class Main extends React.Component {
     return (
       <StyleProvider style={getTheme(materialIcons)}>
         <Container>
-          <Tabs initialPage={1}>
+          <Tabs initialPage={0}>
             <Tab heading={this.renderTabHeading('bike')}>
               <MapView />
             </Tab>

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-native';
+import { Route, Switch } from 'react-router-native';
 
 import MainContainer from 'BikeShare/containers/MainContainer';
+import CheckoutContainer from 'BikeShare/containers/CheckoutContainer';
 
 import UserData, { isEmpty } from 'BikeShare/data/records/UserData';
 import { login } from 'BikeShare/constants/urls';
@@ -23,7 +24,10 @@ class AppContainer extends React.Component {
 
   render() {
     return (
-      <Route path="/" component={MainContainer} />
+      <Switch>
+        <Route exact={true} path="/" component={MainContainer} />
+        <Route path="/checkout" component={CheckoutContainer} />
+      </Switch>
     );
   }
 }

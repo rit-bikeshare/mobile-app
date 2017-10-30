@@ -1,11 +1,19 @@
 import React from 'react';
-import { MapView } from 'expo';
+import PropTypes from 'prop-types';
+import { MapView as ExpoMapView } from 'expo';
 import { Container, Text, Button } from 'native-base';
+import { connect } from 'react-redux';
+import { push as pushAction } from 'react-router-redux';
 
 import mapStyle from 'BikeShare/styles/map';
 import { PROVIDER_GOOGLE } from 'BikeShare/constants/MapProviders';
+import { checkout } from 'BikeShare/constants/urls';
 
-export default class Main extends React.Component {
+class MapView extends React.Component {
+  static propTypes = {
+    push: PropTypes.func
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -16,21 +24,31 @@ export default class Main extends React.Component {
         longitudeDelta: 0.007426701486110687
       },
     };
+    this.routeToCheckout = this.routeToCheckout.bind(this);
+  }
+
+  routeToCheckout() {
+    const { push } = this.props;
+    push(checkout);
   }
 
   render() {
     return (
       <Container>
-        <MapView
+        <ExpoMapView
           style={{ flex: 1 }}
           initialRegion={this.state.region}
           provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
         />
-        <Button full={true}>
-          <Text>Primary</Text>
+        <Button full={true} onPress={this.routeToCheckout}>
+          <Text>Checkout a bike</Text>
         </Button>
       </Container>
     );
   }
 }
+
+export default connect(null, {
+  push: pushAction
+})(MapView);
