@@ -41,7 +41,7 @@ class MapView extends React.Component {
           provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
         />
-        <Button full={true} info={true} onPress={this.routeToCheckout}>
+        <Button full={true} onPress={this.routeToCheckout}>
           <Text>Checkout a bike</Text>
         </Button>
       </Container>
