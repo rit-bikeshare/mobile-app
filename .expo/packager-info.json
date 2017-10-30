@@ -1,8 +1,8 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 62949,
-  "expoServerNgrokUrl": "https://zs-fqm.gdaunton.bikeshare.exp.direct",
-  "packagerNgrokUrl": "https://packager.zs-fqm.gdaunton.bikeshare.exp.direct",
-  "ngrokPid": 62969
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
