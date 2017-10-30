@@ -10,7 +10,7 @@ import { setUserData as setUserDataAction } from 'BikeShare/redux/actions/userDa
 import styles from 'BikeShare/styles/login';
 import { index } from 'BikeShare/constants/urls';
 
-import bikeClipArt from 'BikeShare/img/BikeClipArt.png';
+import bikeClipArt from 'img/BikeClipArt.png';
 
 class LoginContainer extends React.Component {
   static propTypes = {

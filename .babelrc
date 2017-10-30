@@ -4,12 +4,14 @@
     "development": {
       "plugins": [
         "transform-react-jsx-source",
-        ["module-alias", [
-          { "src": "./static/js", "expose": "BikeShare" },
-          { "src": "./img", "expose": "BikeShare/img" },
-          { "src": "./static/test", "expose": "BikeShare/test" },
-          { "src": "./native-base-theme", "expose": "BikeShare/theme" }
-        ]]
+        ["module-resolver", {
+          "alias": {
+            "img": "./img",
+            "BikeShare": "./src/js",
+            "test": "./src/test",
+            "theme": "./native-base-theme"
+          }
+        }]
       ]
     }
   }

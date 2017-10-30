@@ -41,7 +41,7 @@
     "@expo/vector-icons": "^6.1.0",
     "@hs/transmute": "^1.4.0",
     "babel": "^6.23.0",
-    "babel-plugin-module-alias": "^1.6.0",
+    "babel-plugin-module-resolver": "^2.7.1",
     "expo": "^21.0.3",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
