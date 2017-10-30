@@ -1,11 +1,19 @@
 import React from 'react';
-import Index from 'BikeShare/App';
 import Expo from 'expo';
+import { StatusBar } from 'react-native';
+import { StyleProvider, Container, View } from 'native-base';
 
-import { StyleProvider, Container } from 'native-base';
+import Index from 'BikeShare/App';
+import getTheme from 'BikeShare/theme/components';
+import commonColor from 'BikeShare/theme/variables/commonColor';
+import { isIOS } from 'BikeShare/utils/platform';
 
 import getTheme from 'BikeShare/theme/components';
 import commonColor from 'BikeShare/theme/variables/commonColor';
+
+const {
+  brandPrimary
+} = commonColor;
 
 export default class App extends React.Component {
   constructor() {
@@ -26,6 +34,20 @@ export default class App extends React.Component {
     this.setState({ isReady: true });
   }
 
+  renderStatusBarPadding() {
+    if (!isIOS()) return null;
+
+    return (
+      <View
+        style={{
+          backgroundColor: brandPrimary,
+          height: Expo.Constants.statusBarHeight,
+          width: '100%'
+        }}
+      />
+    );
+  }
+
   render() {
     if (!this.state.isReady) {
       return <Expo.AppLoading />;
@@ -33,7 +55,12 @@ export default class App extends React.Component {
 
     return (
       <StyleProvider style={getTheme(commonColor)}>
-        <Container style={{ marginTop: Expo.Constants.statusBarHeight }}>
+        <Container>
+          {this.renderStatusBarPadding()}
+          <StatusBar
+            backgroundColor={brandPrimary}
+            barStyle="light-content"
+          />
           <Index />
         </Container>
       </StyleProvider>

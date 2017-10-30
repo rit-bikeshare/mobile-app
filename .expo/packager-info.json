@@ -1,8 +1,8 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19003,
-  "packagerPid": 23234,
-  "expoServerNgrokUrl": "https://de-iau.gdaunton.bikeshare.exp.direct",
-  "packagerNgrokUrl": "https://packager.de-iau.gdaunton.bikeshare.exp.direct",
-  "ngrokPid": 23252
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
