@@ -2,7 +2,7 @@
   "name": "BikeShare",
   "version": "0.1.0",
   "private": true,
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "index.js",
   "scripts": {
     "test": "node node_modules/jest/bin/jest.js --watch",
     "changed": "git diff-tree --no-commit-id --name-only -r --diff-filter=a HEAD $(git merge-base HEAD origin/master)",

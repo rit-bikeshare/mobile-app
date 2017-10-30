@@ -95,7 +95,7 @@ class QRScanner extends React.Component {
     }
 
     if (cameraPermissionPending) {
-      return null;
+      return <View />;
     }
 
     return (

@@ -26,13 +26,14 @@ export default class App extends React.Component {
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'),
       'MaterialCommunityIcons': require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf'),
+      'Material Design Icons': require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf'),
     });
 
     this.setState({ isReady: true });
   }
 
   renderStatusBarPadding() {
-    if (!isIOS()) return null;
+    if (!isIOS()) return <View />;
 
     return (
       <View

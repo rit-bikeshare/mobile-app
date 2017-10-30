@@ -1,18 +1,14 @@
 {
   "presets": ["babel-preset-expo"],
-  "env": {
-    "development": {
-      "plugins": [
-        "transform-react-jsx-source",
-        ["module-resolver", {
-          "alias": {
-            "img": "./img",
-            "BikeShare": "./src/js",
-            "test": "./src/test",
-            "theme": "./native-base-theme"
-          }
-        }]
-      ]
-    }
-  }
+  "plugins": [
+    "transform-react-jsx-source",
+    ["module-resolver", {
+      "alias": {
+        "img": "./img",
+        "BikeShare": "./src/js",
+        "test": "./src/test",
+        "theme": "./native-base-theme"
+      }
+    }]
+  ]
 }
