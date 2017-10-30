@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { Image } from 'react-native';
-import { Container, Button, Text, Title, H1, Body, Content, Header } from 'native-base';
+import { Container, Button, Text, H1, Content } from 'native-base';
 
 import { setUserData as setUserDataAction } from 'BikeShare/redux/actions/userData';
 
@@ -37,11 +37,6 @@ class LoginContainer extends React.Component {
   render() {
     return (
       <Container>
-        <Header>
-          <Body>
-            <Title>RIT Bike Share</Title>
-          </Body>
-        </Header>
         <Content contentContainerStyle={styles.container}>
           <Image
             source={bikeClipArt}
