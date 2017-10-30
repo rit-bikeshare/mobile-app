@@ -79,6 +79,7 @@
     "prepush": "^3.1.11",
     "prettier": "^1.7.4",
     "react-addons-test-utils": "^15.6.2",
+    "react-devtools": "^2.5.2",
     "react-dom": "^16.0.0-0"
   }
 }

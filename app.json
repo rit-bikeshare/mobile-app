@@ -7,6 +7,9 @@
     "android": {
       "package": "com.rit.bikeshare"
     },
+    "androidStatusBar": {
+      "backgroundColor": "#2874F0"
+    },
     "name": "BikeShare",
     "slug": "bikeshare",
     "version": "0.1.0",
