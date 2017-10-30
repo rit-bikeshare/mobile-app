@@ -3,7 +3,7 @@ import Expo from 'expo';
 import { StatusBar } from 'react-native';
 import { StyleProvider, Container, View } from 'native-base';
 
-import Router from './Router';
+import Router from 'BikeShare/Router';
 import getTheme from 'theme/components';
 import commonColor from 'theme/variables/commonColor';
 import { isIOS } from 'BikeShare/utils/platform';
