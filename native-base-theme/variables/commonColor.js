@@ -8,7 +8,7 @@ const platform = Platform.OS;
 const platformStyle = undefined;
 const isIphoneX = platform === 'ios' && deviceHeight === 812 && deviceWidth === 375;
 
-export default {
+const theme = {
   platformStyle,
   platform,
   // AndroidRipple
@@ -109,7 +109,7 @@ export default {
   cardDefaultBg: '#fff',
 
   // Color
-  brandPrimary: '#2874F0',
+  brandPrimary: '#F36E1F',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
@@ -146,8 +146,14 @@ export default {
   tabActiveBgColor: platform === 'ios' ? '#1569f4' : undefined,
 
   // Tab
-  tabDefaultBg: '#2874F0',
-  topTabBarTextColor: '#b3c7f9',
+  get tabDefaultBg() {
+    return this.brandPrimary;
+  },
+  get topTabBarTextColor() {
+    return color(this.tabDefaultBg)
+      .lighten(0.5)
+      .hex();
+  },
   topTabBarActiveTextColor: '#fff',
   topTabActiveBgColor: platform === 'ios' ? '#1569f4' : undefined,
   topTabBarBorderColor: '#fff',
@@ -287,3 +293,5 @@ export default {
   // New Variable
   inputGroupRoundedBorderRadius: 30,
 };
+
+export default theme;
