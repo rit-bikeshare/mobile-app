@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import { goBack as goBackAction } from 'react-router-redux';
 import { StyleSheet, Alert, StatusBar } from 'react-native';
 import { BarCodeScanner } from 'expo';
-import { View, Button, Text, Icon } from 'native-base';
+import { View, Button, Text, Icon, Container } from 'native-base';
 
 import { askForCameraPermission as askForCameraPermissionAction } from 'BikeShare/redux/actions/permissionActions';
 import permissionSelectors from 'BikeShare/selectors/permissionSelectors';
@@ -21,7 +21,8 @@ class QRScanner extends React.Component {
     askForCameraPermission: PropTypes.func,
     cameraPermissionGranted: PropTypes.bool,
     cameraPermissionPending: PropTypes.bool,
-    handleQRCodeScan: PropTypes.func
+    handleQRCodeScan: PropTypes.func,
+    goBack: PropTypes.func
   }
 
   static defaultProps = {
@@ -58,27 +59,31 @@ class QRScanner extends React.Component {
     });
   }
 
+  renderTorchButton() {
+    return (
+      <Button
+        bordered={true}
+        light={true}
+        onPress={this.toggleTorch}
+        style={{ position: 'absolute', bottom: 10, right: 10 }}
+      >
+        <Icon name="md-flash" />
+        <Text>Torch</Text>
+      </Button>
+    );
+  }
+
   renderBarcodeScanner() {
     const { torchActive } = this.state;
     return (
       <View style={StyleSheet.absoluteFill}>
-        <StatusBar hidden={true} />
         <BarCodeScanner
           barCodeTypes={[QR_BARCODE_TYPE]}
           onBarCodeRead={this.handleBarCodeRead}
           style={StyleSheet.absoluteFill}
           torchMode={torchActive ? 'on' : 'off'}
         />
-        <Button
-          bordered={true}
-          light={true}
-          active={false}
-          onPress={this.toggleTorch}
-          style={{ position: 'absolute', bottom: 10, right: 10 }}
-        >
-          <Icon name="md-flash" />
-          <Text>Torch</Text>
-        </Button>
+        {this.renderTorchButton()}
       </View>
     );
   }
@@ -107,8 +112,32 @@ class QRScanner extends React.Component {
     );
   }
 
+  renderBackButton() {
+    const { goBack } = this.props;
+    return (
+      <Button
+        transparent={true}
+        light={true}
+        onPress={goBack}
+        style={{
+          position: 'absolute',
+          top: 10,
+          left: 10
+        }}
+      >
+        <Icon name="close" style={{ fontSize: 30 }} />
+      </Button>
+    );
+  }
+
   render() {
-    return this.renderContent();
+    return (
+      <Container>
+        <StatusBar hidden={true} />
+        {this.renderContent()}
+        {this.renderBackButton()}
+      </Container>
+    );
   }
 }
 
@@ -118,5 +147,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  askForCameraPermission: askForCameraPermissionAction
+  askForCameraPermission: askForCameraPermissionAction,
+  goBack: goBackAction
 })(QRScanner);
