@@ -1,0 +1,22 @@
+import { createSelector } from 'reselect';
+import { get, getIn } from '@hs/transmute';
+
+import { UNINITIALIZED } from 'BikeShare/constants/RequestStatus';
+import MapMarker from 'BikeShare/data/records/MapMarker';
+
+const getBikeRackFetchStatus = getIn(['requestStatuses', 'bikeRackFetchStatus']);
+const getBikeRacks = get('bikeRacks');
+
+export const hasNotFetchedBikeRacks = createSelector(
+  getBikeRackFetchStatus,
+  bikeRackFetchStatus => bikeRackFetchStatus.status === UNINITIALIZED
+);
+
+export const getBikeRackCoords = createSelector(
+  getBikeRacks,
+  bikeRacks => bikeRacks.map(({ lat, lon, id }) => new MapMarker({
+    latitude: lat,
+    longitude: lon,
+    id
+  }))
+);
