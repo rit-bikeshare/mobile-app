@@ -6,14 +6,19 @@ import { Container, Text, Button } from 'native-base';
 import { connect } from 'react-redux';
 import { push as pushAction } from 'react-router-redux';
 
+import { getMapMarkers } from 'BikeShare/selectors/mapSelectors';
 import mapStyle from 'BikeShare/styles/map';
 import { PROVIDER_GOOGLE } from 'BikeShare/constants/MapProviders';
 import { checkout } from 'BikeShare/constants/urls';
+import {
+  fetchBikeRacksIfEmpty as fetchBikeRacksIfEmptyAction
+} from 'BikeShare/redux/actions/bikeRackActions';
 
 class MapView extends React.Component {
   static propTypes = {
     push: PropTypes.func,
     markers: PropTypes.instanceOf(Map),
+    fetchBikeRacksIfEmpty: PropTypes.func
   };
 
   constructor(props) {
@@ -27,6 +32,11 @@ class MapView extends React.Component {
       },
     };
     this.routeToCheckout = this.routeToCheckout.bind(this);
+  }
+
+  componentWillMount() {
+    const { fetchBikeRacksIfEmpty } = this.props;
+    fetchBikeRacksIfEmpty();
   }
 
   routeToCheckout() {
@@ -70,9 +80,10 @@ class MapView extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  markers: state.mapData.markers,
+  markers: getMapMarkers(state),
 });
 
 export default connect(mapStateToProps, {
   push: pushAction,
+  fetchBikeRacksIfEmpty: fetchBikeRacksIfEmptyAction
 })(MapView);

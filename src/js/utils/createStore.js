@@ -9,6 +9,7 @@ import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 
 import reducer from 'BikeShare/redux/reducers/rootReducer';
+import api from 'BikeShare/data/api';
 
 /**
  * creates a redux store from the root reducer given the initialState.
@@ -23,7 +24,7 @@ export default function createStore(initialState, history) {
 
   const createStoreWithMiddleware = composeEnhancers(
     applyMiddleware(
-      thunk,
+      thunk.withExtraArgument(api),
       routerMiddleware(history)
     ),
     autoRehydrate()
