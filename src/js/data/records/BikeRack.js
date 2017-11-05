@@ -1,5 +1,6 @@
 import { Record } from 'immutable';
 
+// eslint-disable-next-line no-useless-escape
 const find = /(\_\w)/g;
 
 const convert = matches => {
