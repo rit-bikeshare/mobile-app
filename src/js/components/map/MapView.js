@@ -71,6 +71,7 @@ class MapView extends React.Component {
           initialRegion={this.state.region}
           provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
+          showsUserLocation={true}
         >
           {this.renderMarkers()}
         </ExpoMapView>
