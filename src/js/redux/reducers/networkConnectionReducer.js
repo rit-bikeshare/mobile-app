@@ -5,4 +5,4 @@ export default handleActions({
   [ActionTypes.SET_NETWORK_CONNECTION_STATUS](state, action) {
     return action.payload;
   }
-});
+}, 'online');
