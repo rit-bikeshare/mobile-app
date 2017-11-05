@@ -13,6 +13,7 @@ import { checkout } from 'BikeShare/constants/urls';
 import {
   fetchBikeRacksIfEmpty as fetchBikeRacksIfEmptyAction
 } from 'BikeShare/redux/actions/bikeRackActions';
+import BikeRackMarker from 'BikeShare/components/map/BikeRackMarker';
 
 class MapView extends React.Component {
   static propTypes = {
@@ -54,7 +55,9 @@ class MapView extends React.Component {
             latitude: marker.get('latitude'),
             longitude: marker.get('longitude'),
           }}
-        />
+        >
+          <BikeRackMarker availableBikes={marker.get('data')} />
+        </ExpoMapView.Marker>
       ))
       .toList()
       .toJS();

@@ -14,9 +14,10 @@ export const hasNotFetchedBikeRacks = createSelector(
 
 export const getBikeRackCoords = createSelector(
   getBikeRacks,
-  bikeRacks => bikeRacks.map(({ lat, lon, id }) => new MapMarker({
+  bikeRacks => bikeRacks.map(({ lat, lon, id, bikeCount }) => new MapMarker({
     latitude: lat,
     longitude: lon,
-    id
+    id,
+    data: bikeCount
   }))
 );

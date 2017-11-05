@@ -23,17 +23,17 @@ const store = createStore({}, history);
 const handleConnectivityChange = isConnected =>
   store.dispatch(networkConnectionChange(isConnected));
 
-export default class Router extends React.component {
+class Router extends React.Component {
   componentWillMount() {
     NetInfo.isConnected.addEventListener(
-      'change',
+      'connectionChange',
       handleConnectivityChange
     );
   }
 
   componentWillUnmount() {
     NetInfo.isConnected.removeEventListener(
-      'change',
+      'connectionChange',
       handleConnectivityChange
     );
   }
@@ -53,3 +53,5 @@ export default class Router extends React.component {
     );
   }
 }
+
+export default Router;
