@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { MapView as ExpoMapView } from 'expo';
-import { Container, Text, Button } from 'native-base';
+import { Container, Text, Button, View } from 'native-base';
 import { connect } from 'react-redux';
 import { push as pushAction } from 'react-router-redux';
 
@@ -14,6 +14,8 @@ import {
   fetchBikeRacksIfEmpty as fetchBikeRacksIfEmptyAction
 } from 'BikeShare/redux/actions/bikeRackActions';
 import BikeRackMarker from 'BikeShare/components/map/BikeRackMarker';
+import Icon from 'BikeShare/components/lib/Icon';
+import style from 'BikeShare/styles/mapView';
 
 class MapView extends React.Component {
   static propTypes = {
@@ -75,9 +77,15 @@ class MapView extends React.Component {
         >
           {this.renderMarkers()}
         </ExpoMapView>
-        <Button full={true} onPress={this.routeToCheckout}>
-          <Text>Checkout a bike</Text>
-        </Button>
+        <View style={style.buttonWrapper}>
+          <Button
+            style={style.checkoutButton}
+            onPress={this.routeToCheckout}
+          >
+            <Icon name="qrcode" iconFamily="MaterialCommunityIcons" />
+            <Text style={style.checkoutText} uppercase={false}>Checkout</Text>
+          </Button>
+        </View>
       </Container>
     );
   }
