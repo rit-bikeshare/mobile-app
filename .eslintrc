@@ -6,7 +6,10 @@
       "react-native"
     ],
     "rules": {
-      "react/jsx-handler-names": "off"
+      "react/jsx-handler-names": "off",
+      "no-unused-vars": [2, {
+        varsIgnorePattern: "^__"
+      }]
     },
     "settings": {
       "import/resolver": {

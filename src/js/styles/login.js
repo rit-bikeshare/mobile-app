@@ -6,27 +6,56 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'column'
   },
   button: {
+    height: 50,
+    marginBottom: 12,
     alignSelf: 'center'
   },
+  subtext: {
+    fontSize: 12,
+    color: '#bfc1c1',
+    backgroundColor: 'transparent'
+  },
+  loginButtonWrapper: {
+    marginTop: '60%',
+  },
   logo: {
-    marginBottom: 32,
-    maxWidth: 309,
-    maxHeight: 69
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    marginTop: '25%',
+  },
+  bikeLogo: {
+    fontSize: 40,
+    color: variables.brandPrimary,
+    backgroundColor: 'transparent'
+  },
+  shareLogo: {
+    fontSize: 40,
+    backgroundColor: 'transparent'
+  },
+  footer: {
+    width: '100%',
+    alignSelf: 'flex-end',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 'auto',
+    opacity: 0
   },
   bike: {
-    position: 'absolute',
-    right: -25,
-    bottom: -25
+    minHeight: 126,
+    minWidth: 195,
+    marginBottom: -25,
+    marginRight: -25
   },
   dash: {
+    transform: [{ translateY: 20 }],
     height: 5,
     width: '52%',
-    position: 'absolute',
-    left: 0,
-    bottom: 20,
     backgroundColor: variables.brandPrimary
   }
 });
