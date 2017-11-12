@@ -1,8 +1,9 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image } from 'react-native';
 import { MapView as ExpoMapView } from 'expo';
-import { Button, View, Text, Content, H2 } from 'native-base';
+import { Button, View, Text, Content } from 'native-base';
 
 import styles from 'BikeShare/styles/login';
 import mapStyle from 'BikeShare/styles/map';
@@ -40,7 +41,7 @@ const Login = ({ handleLogin }) => {
         <Text style={styles.bikeLogo}>Bike</Text>
         <Text style={styles.shareLogo}>Share</Text>
       </View>
-      <Text style={styles.subtext}>It's free, use it.™</Text>
+      <Text style={styles.subtext}>It's free, use it.</Text>
       <View style={styles.loginButtonWrapper}>
         <Button style={styles.button} onPress={handleLogin}>
           <Text uppercase={false}>Log in with RIT</Text>
