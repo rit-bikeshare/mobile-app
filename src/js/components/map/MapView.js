@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { MapView as ExpoMapView } from 'expo';
-import { Container, Text, Button, View } from 'native-base';
+import { Button, Container, Text, View } from 'native-base';
 import { connect } from 'react-redux';
 import { push as pushAction } from 'react-router-redux';
 
 import { getMapMarkers } from 'BikeShare/selectors/mapSelectors';
-import mapStyle from 'BikeShare/styles/map';
 import { PROVIDER_GOOGLE } from 'BikeShare/constants/MapProviders';
 import { checkout } from 'BikeShare/constants/urls';
 import {
@@ -72,7 +71,6 @@ class MapView extends React.Component {
           style={{ flex: 1 }}
           initialRegion={this.state.region}
           provider={PROVIDER_GOOGLE}
-          customMapStyle={mapStyle}
           showsUserLocation={true}
         >
           {this.renderMarkers()}
