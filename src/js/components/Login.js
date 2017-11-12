@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image } from 'react-native';
-import { Container, Button, Text, H1, Content } from 'native-base';
+import { View, Button, Text, Content } from 'native-base';
 import styles from 'BikeShare/styles/login';
-import bikeClipArt from 'img/BikeClipArt.png';
+import bikeShareLogo from 'img/bikeShareLogo.png';
+import bike from 'img/bike.png';
 
 const Login = ({ handleLogin }) => {
   return (
-    <Container>
-      <Content contentContainerStyle={styles.container}>
-        <Image
-          source={bikeClipArt}
-          style={styles.logo}
+    <Content contentContainerStyle={styles.container}>
+      <Image
+        source={bikeShareLogo}
+        style={styles.logo}
         />
-        <H1 style={styles.title}>RIT Bike Share</H1>
-        <Button style={styles.button} onPress={handleLogin}>
-          <Text>Login</Text>
-        </Button>
-      </Content>
-    </Container>
+      <Button style={styles.button} onPress={handleLogin}>
+        <Text>Login</Text>
+      </Button>
+      <Image source={bike} style={styles.bike} />
+      <View style={styles.dash} />
+    </Content>
   );
 };
 
