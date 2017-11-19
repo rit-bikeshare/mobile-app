@@ -1,3 +1,5 @@
+/* eslint-disable no-throw-literal */
+
 const baseApiUrl = 'http://scottiepi.student.rit.edu:8071';
 
 export function get(url) {
