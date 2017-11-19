@@ -22,4 +22,13 @@ export default handleActions({
   [ActionTypes.FETCH_BIKE_RACKS_FAILED](state) {
     return state.set('bikeRackFetchStatus', new RequestStatus({ status: FAILED }));
   },
+  [ActionTypes.BIKE_CHECKOUT](state) {
+    return state.set('bikeCheckoutStatus', new RequestStatus({ status: PENDING }));
+  },
+  [ActionTypes.BIKE_CHECKOUT_SUCCESS](state) {
+    return state.set('bikeCheckoutStatus', new RequestStatus({ status: SUCCESS }));
+  },
+  [ActionTypes.BIKE_CHECKOUT_FAILED](state, action) {
+    return state.set('bikeCheckoutStatus', new RequestStatus({ status: FAILED, ...action.payload }));
+  },
 }, new RequestStatuses());

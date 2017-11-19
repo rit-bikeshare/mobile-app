@@ -1,5 +1,7 @@
 import { Record } from 'immutable';
-import { UNINITIALIZED } from 'BikeShare/constants/RequestStatus';
+import RequestStatusTypes from 'BikeShare/constants/RequestStatus';
+
+const { UNINITIALIZED } = RequestStatusTypes;
 
 export default new Record({
   status: UNINITIALIZED,

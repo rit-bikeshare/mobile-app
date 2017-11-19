@@ -1,8 +1,10 @@
 import { createSelector } from 'reselect';
 import { get, getIn } from '@hs/transmute';
 
-import { UNINITIALIZED } from 'BikeShare/constants/RequestStatus';
+import RequestStatusTypes from 'BikeShare/constants/RequestStatus';
 import MapMarker from 'BikeShare/data/records/MapMarker';
+
+const { UNINITIALIZED } = RequestStatusTypes;
 
 const getBikeRackFetchStatus = getIn(['requestStatuses', 'bikeRackFetchStatus']);
 const getBikeRacks = get('bikeRacks');
