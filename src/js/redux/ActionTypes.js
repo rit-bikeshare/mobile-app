@@ -10,5 +10,9 @@ export default keyMirror({
 
   FETCH_BIKE_RACKS: null,
   FETCH_BIKE_RACKS_SUCCESS: null,
-  FETCH_BIKE_RACKS_FAILED: null
+  FETCH_BIKE_RACKS_FAILED: null,
+
+  BIKE_CHECKOUT: null,
+  BIKE_CHECKOUT_SUCCESS: null,
+  BIKE_CHECKOUT_FAILED: null,
 });

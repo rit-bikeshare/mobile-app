@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { goBack as goBackAction } from 'react-router-redux';
-import { StyleSheet, Alert, StatusBar } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import { BarCodeScanner } from 'expo';
 import { View, Button, Text, Icon, Container } from 'native-base';
 
@@ -21,12 +20,13 @@ class QRScanner extends React.Component {
     askForCameraPermission: PropTypes.func,
     cameraPermissionGranted: PropTypes.bool,
     cameraPermissionPending: PropTypes.bool,
-    handleQRCodeScan: PropTypes.func,
-    goBack: PropTypes.func
+    onQRCodeScan: PropTypes.func,
+    onClose: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    handleQRCodeScan: () => null
+    onQRCodeScan: () => null,
+    onClose: () => null
   }
 
   constructor(props, defaultProps) {
@@ -44,12 +44,8 @@ class QRScanner extends React.Component {
   }
 
   handleBarCodeRead({ data }) {
-    const { handleQRCodeScan } = this.props;
-    Alert.alert(
-      'QR code read',
-      data
-    );
-    handleQRCodeScan(data);
+    const { onQRCodeScan } = this.props;
+    onQRCodeScan(data);
   }
 
   toggleTorch() {
@@ -113,12 +109,12 @@ class QRScanner extends React.Component {
   }
 
   renderBackButton() {
-    const { goBack } = this.props;
+    const { onClose } = this.props;
     return (
       <Button
         transparent={true}
         light={true}
-        onPress={goBack}
+        onPress={onClose}
         style={{
           position: 'absolute',
           top: 10,
@@ -147,6 +143,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  askForCameraPermission: askForCameraPermissionAction,
-  goBack: goBackAction
+  askForCameraPermission: askForCameraPermissionAction
 })(QRScanner);

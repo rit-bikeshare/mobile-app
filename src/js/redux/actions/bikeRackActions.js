@@ -21,9 +21,8 @@ export function fetchBikeRacksIfEmpty() {
     if (hasNotFetched) {
       dispatch(fetchBikeRackAction());
       api.bikeRack.fetch().then(
-        data => dispatch(fetchBikeRacksSuccess(data)),
-        error => dispatch(fetchBikeRacksFailed(error))
-      );
+        data => dispatch(fetchBikeRacksSuccess(data))
+      ).catch(error => dispatch(fetchBikeRacksFailed(error)));
     }
   };
 }
