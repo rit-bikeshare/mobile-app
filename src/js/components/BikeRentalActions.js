@@ -32,8 +32,12 @@ class BikeRentalActions extends React.Component {
   }
 
   renderCheckedOutView() {
+    const { returnBike } = this.props;
     return (
-      <Button style={styles.checkoutButton}>
+      <Button
+        style={styles.checkoutButton}
+        onPress={returnBike}
+      >
         <Icon name="map-marker" iconFamily="MaterialCommunityIcons" />
         <Text style={styles.checkoutText} uppercase={false}>Return</Text>
       </Button>
