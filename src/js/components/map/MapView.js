@@ -2,15 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { MapView as ExpoMapView } from 'expo';
-import { Button, Container, Text, View } from 'native-base';
+import { Container } from 'native-base';
 import { connect } from 'react-redux';
 import { push as pushAction } from 'react-router-redux';
 
+import RentalTimer from './RentalTimer';
 import { getMapMarkers } from 'BikeShare/selectors/mapSelectors';
 import { PROVIDER_GOOGLE } from 'BikeShare/constants/MapProviders';
 import { checkout } from 'BikeShare/constants/urls';
 import BikeRackMarker from 'BikeShare/components/map/BikeRackMarker';
-import Icon from 'BikeShare/components/lib/Icon';
+import BikeRentalActions from 'BikeShare/components/BikeRentalActions';
 import style from 'BikeShare/styles/mapView';
 
 class MapView extends React.Component {
@@ -58,6 +59,7 @@ class MapView extends React.Component {
   render() {
     return (
       <Container>
+        <RentalTimer />
         <ExpoMapView
           style={{ flex: 1 }}
           initialRegion={this.state.region}
@@ -66,15 +68,10 @@ class MapView extends React.Component {
         >
           {this.renderMarkers()}
         </ExpoMapView>
-        <View style={style.buttonWrapper}>
-          <Button
-            style={style.checkoutButton}
-            onPress={this.routeToCheckout}
-          >
-            <Icon name="qrcode" iconFamily="MaterialCommunityIcons" />
-            <Text style={style.checkoutText} uppercase={false}>Checkout</Text>
-          </Button>
-        </View>
+        <BikeRentalActions
+          style={style.actionsWrapper}
+          checkoutBike={this.routeToCheckout}
+        />
       </Container>
     );
   }

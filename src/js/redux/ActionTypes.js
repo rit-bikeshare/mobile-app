@@ -15,4 +15,8 @@ export default keyMirror({
   BIKE_CHECKOUT: null,
   BIKE_CHECKOUT_SUCCESS: null,
   BIKE_CHECKOUT_FAILED: null,
+
+  FETCH_CURRENT_RENTAL: null,
+  FETCH_CURRENT_RENTAL_SUCCESS: null,
+  FETCH_CURRENT_RENTAL_FAILED: null,
 });
