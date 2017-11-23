@@ -1,5 +1,7 @@
 import { createAction } from 'redux-actions';
 
+import { hasNotFetchedCurrentRental } from 'BikeShare/selectors/bikeSelectors';
+
 import ActionTypes from 'BikeShare/redux/ActionTypes';
 
 const bikeCheckout = createAction(
@@ -14,19 +16,49 @@ const checkoutFailed = createAction(
   ActionTypes.BIKE_CHECKOUT_FAILED
 );
 
+const rentalFetch = createAction(
+  ActionTypes.FETCH_CURRENT_RENTAL
+);
+
+const fetchRentalSuccess = createAction(
+  ActionTypes.FETCH_CURRENT_RENTAL_SUCCESS
+);
+
+const fetchRentalFailed = createAction(
+  ActionTypes.FETCH_CURRENT_RENTAL_FAILED
+);
+
+function fetchCurrentRental() {
+  return (dispatch, getState, api) => {
+    dispatch(rentalFetch());
+    api.bike.fetchRentals()
+      .then(data => dispatch(fetchRentalSuccess(data[0])))
+      .catch(error => dispatch(fetchRentalFailed(error)))
+      .done();
+  };
+}
+
+export function fetchCurrentRentalIfNotAlready() {
+  return (dispatch, getState) => {
+    const hasNotFetched = hasNotFetchedCurrentRental(getState());
+    if (hasNotFetched) {
+      dispatch(fetchCurrentRental());
+    }
+  };
+}
+
 export function checkoutBike(bikeId) {
   return (dispatch, getState, api) => {
-    const { currentBike } = getState();
-    if (!currentBike) {
-      dispatch(bikeCheckout());
-      const fetchResult = api.bike.checkout(bikeId);
-      fetchResult.then(
-        () => dispatch(checkoutSuccess(bikeId))
-      )
+    dispatch(bikeCheckout());
+    api.bike.checkout(bikeId)
+      .then(data => dispatch(checkoutSuccess(data)))
       .catch(error => dispatch(checkoutFailed(error)))
       .done();
-    } else {
-      dispatch(checkoutFailed('You already have a bike checked out.'));
-    }
+  };
+}
+
+export function lockBike() {
+  return () => {
+    console.log('lock da bike');
   };
 }

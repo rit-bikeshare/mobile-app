@@ -1,4 +1,4 @@
-import { post } from 'BikeShare/data/api/request';
+import { post, get } from 'BikeShare/data/api/request';
 
 function trimUndefinedKeys(obj) {
   const propNames = Object.getOwnPropertyNames(obj);
@@ -12,6 +12,10 @@ function trimUndefinedKeys(obj) {
 }
 
 export default {
+  fetchRentals() {
+    return get('rentals');
+  },
+
   canCheckout(bikeId) {
     return post('can-checkout', {
       bike: bikeId

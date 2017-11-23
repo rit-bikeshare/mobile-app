@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
 
-const baseApiUrl = 'http://scottiepi.student.rit.edu:8071';
+const baseApiUrl = 'http://spin.se.rit.edu/';
 
 export function get(url) {
   // always add a trailing slash

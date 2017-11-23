@@ -19,9 +19,10 @@ export default handleActions({
     const newState = state.set('bikeRackFetchStatus', new RequestStatus({ status: SUCCESS }));
     return newState;
   },
-  [ActionTypes.FETCH_BIKE_RACKS_FAILED](state) {
-    return state.set('bikeRackFetchStatus', new RequestStatus({ status: FAILED }));
+  [ActionTypes.FETCH_BIKE_RACKS_FAILED](state, action) {
+    return state.set('bikeRackFetchStatus', new RequestStatus({ status: FAILED, ...action.payload }));
   },
+
   [ActionTypes.BIKE_CHECKOUT](state) {
     return state.set('bikeCheckoutStatus', new RequestStatus({ status: PENDING }));
   },
@@ -30,5 +31,15 @@ export default handleActions({
   },
   [ActionTypes.BIKE_CHECKOUT_FAILED](state, action) {
     return state.set('bikeCheckoutStatus', new RequestStatus({ status: FAILED, ...action.payload }));
+  },
+
+  [ActionTypes.FETCH_CURRENT_RENTAL](state) {
+    return state.set('currentRentalFetchStatus', new RequestStatus({ status: PENDING }));
+  },
+  [ActionTypes.FETCH_CURRENT_RENTAL_SUCCESS](state) {
+    return state.set('currentRentalFetchStatus', new RequestStatus({ status: SUCCESS }));
+  },
+  [ActionTypes.FETCH_CURRENT_RENTAL_FAILED](state, action) {
+    return state.set('currentRentalFetchStatus', new RequestStatus({ status: FAILED, ...action.payload }));
   },
 }, new RequestStatuses());

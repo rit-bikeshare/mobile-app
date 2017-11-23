@@ -6,6 +6,9 @@ import { Route, Switch } from 'react-router-native';
 import {
   fetchBikeRacksIfEmpty as fetchBikeRacksIfEmptyAction
 } from 'BikeShare/redux/actions/bikeRackActions';
+import {
+  fetchCurrentRentalIfNotAlready as fetchCurrentRentalIfNotAlreadyAction
+} from 'BikeShare/redux/actions/bikeActions';
 
 import MainContainer from 'BikeShare/containers/MainContainer';
 import CheckoutContainer from 'BikeShare/containers/CheckoutContainer';
@@ -17,14 +20,16 @@ class AppContainer extends React.Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
     userData: PropTypes.instanceOf(UserData),
-    fetchBikeRacksIfEmpty: PropTypes.func
+    fetchBikeRacksIfEmpty: PropTypes.func,
+    fetchCurrentRentalIfNotAlready: PropTypes.func
   }
 
   componentWillMount() {
     const { history, userData } = this.props;
-    const { fetchBikeRacksIfEmpty } = this.props;
+    const { fetchBikeRacksIfEmpty, fetchCurrentRentalIfNotAlready } = this.props;
 
     fetchBikeRacksIfEmpty();
+    fetchCurrentRentalIfNotAlready();
     if (isEmpty(userData)) {
       history.replace(login);
     }
@@ -47,5 +52,6 @@ const stateSelectors = state => {
 };
 
 export default connect(stateSelectors, {
-  fetchBikeRacksIfEmpty: fetchBikeRacksIfEmptyAction
+  fetchBikeRacksIfEmpty: fetchBikeRacksIfEmptyAction,
+  fetchCurrentRentalIfNotAlready: fetchCurrentRentalIfNotAlreadyAction
 })(AppContainer);
