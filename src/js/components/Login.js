@@ -10,8 +10,6 @@ import mapStyle from 'BikeShare/styles/map';
 
 import { PROVIDER_GOOGLE } from 'BikeShare/constants/MapProviders';
 
-import bike from 'img/bike.png';
-
 const Login = ({ handleLogin }) => {
   return (
     <Content contentContainerStyle={styles.container}>
@@ -47,10 +45,6 @@ const Login = ({ handleLogin }) => {
           <Text uppercase={false}>Log in with RIT</Text>
         </Button>
         <Text style={styles.subtext}>This will redirect you to login with shibboleth.</Text>
-      </View>
-      <View style={styles.footer}>
-        <View style={styles.dash} />
-        <Image source={bike} style={styles.bike} />
       </View>
     </Content>
   );

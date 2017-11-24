@@ -124,6 +124,12 @@ export function checkinCurrentBikeByBikeRack(bikeRack) {
   };
 }
 
+export function reportDamage() {
+  return () => {
+    console.log('damage');
+  };
+}
+
 export function lockBike() {
   return () => {
     console.log('lock da bike');

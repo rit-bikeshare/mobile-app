@@ -6,7 +6,7 @@ import styles from 'BikeShare/styles/checkoutSuccess';
 import Icon from 'BikeShare/components/lib/Icon';
 import helmets from 'img/helmets.png';
 
-const CheckoutSuccess = ({ onClose }) => {
+const CheckinSuccess = ({ onClose, reportDamage }) => {
   return (
     <View style={styles.container}>
       <Button
@@ -26,26 +26,27 @@ const CheckoutSuccess = ({ onClose }) => {
         <Text style={{ textAlign: 'center', paddingBottom: 32 }}>
           Please read through the information below.
         </Text>
-        <H2 style={styles.header}>Safety Tips</H2>
+        <H2 style={styles.header}>Bike Damage</H2>
         <Text style={{ textAlign: 'center', paddingBottom: 24 }}>
-          Follow the illustrations below on how to properly wear a bike helment.
-          If you have a helment, wear it!
+          Inspect the bike for any damage that may have occured during your trip.
+          If there is any, please report it with the "Report Damage" button below.
         </Text>
       </View>
-      <View style={styles.helmentsWrapper}>
-        <Image resizeMode="contain" style={styles.helments} source={helmets} />
-      </View>
       <View style={styles.actions}>
+        <Button onPress={reportDamage} transparent={true}>
+          <Text uppercase={false}>Report Damage</Text>
+        </Button>
         <Button onPress={onClose} style={{ marginLeft: 12 }}>
-          <Text uppercase={false}>OK, I'm ready to go</Text>
+          <Text uppercase={false}>OK, Looks good</Text>
         </Button>
       </View>
     </View>
   );
 };
 
-CheckoutSuccess.propTypes = {
-  onClose: PropTypes.func.isRequired
+CheckinSuccess.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  reportDamage: PropTypes.func.isRequired
 };
 
-export default CheckoutSuccess;
+export default CheckinSuccess;

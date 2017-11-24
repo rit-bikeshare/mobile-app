@@ -12,12 +12,13 @@ import {
 
 import {
   checkinCurrentBikeByLocation as checkinCurrentBikeByLocationAction,
-  checkinCurrentBikeByBikeRack as checkinCurrentBikeByBikeRackAction
+  checkinCurrentBikeByBikeRack as checkinCurrentBikeByBikeRackAction,
+  reportDamage as reportDamageAction
 } from 'BikeShare/redux/actions/bikeActions';
 
 import QRScanner from 'BikeShare/components/scanner/QRScanner';
 import ErrorView from 'BikeShare/components/status/ErrorView';
-import CheckoutSuccess from 'BikeShare/components/status/CheckoutSuccess';
+import CheckinSuccess from 'BikeShare/components/status/CheckinSuccess';
 
 import RequestStatus from 'BikeShare/constants/RequestStatus';
 import parseDeepLink from 'BikeShare/utils/parseDeepLink';
@@ -35,6 +36,7 @@ class CheckinContainer extends React.Component {
     onClose: PropTypes.func,
     checkinCurrentBikeByLocation: PropTypes.func,
     checkinCurrentBikeByBikeRack: PropTypes.func,
+    reportDamage: PropTypes.func
   }
 
   constructor(props) {
@@ -74,7 +76,8 @@ class CheckinContainer extends React.Component {
   }
 
   renderStatusMessage() {
-    const { bikeCheckinError, bikeCheckinStatus, onClose } = this.props;
+    const { bikeCheckinError, bikeCheckinStatus, onClose, reportDamage } = this.props;
+
     if (bikeCheckinStatus === PENDING) {
       return (
         <View style={style.statusWrapper}>
@@ -96,7 +99,7 @@ class CheckinContainer extends React.Component {
     }
 
     return (
-      <CheckoutSuccess />
+      <CheckinSuccess onClose={onClose} reportDamage={reportDamage} />
     );
   }
   renderContent() {
@@ -130,7 +133,8 @@ const mapStateToProps = state => ({
 
 const actions = {
   checkinCurrentBikeByLocation: checkinCurrentBikeByLocationAction,
-  checkinCurrentBikeByBikeRack: checkinCurrentBikeByBikeRackAction
+  checkinCurrentBikeByBikeRack: checkinCurrentBikeByBikeRackAction,
+  reportDamage: reportDamageAction
 };
 
 export default connect(mapStateToProps, actions)(CheckinContainer);

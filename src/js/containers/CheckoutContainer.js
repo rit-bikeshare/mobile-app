@@ -94,7 +94,7 @@ class CheckoutContainer extends React.Component {
     }
 
     return (
-      <CheckoutSuccess />
+      <CheckoutSuccess onClose={onClose} />
     );
   }
 
