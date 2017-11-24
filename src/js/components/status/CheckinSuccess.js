@@ -1,10 +1,10 @@
+/* eslint-disable react/no-unescaped-entities */
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image } from 'react-native';
 import { Text, View, Button, H2, H1 } from 'native-base';
 import styles from 'BikeShare/styles/checkoutSuccess';
 import Icon from 'BikeShare/components/lib/Icon';
-import helmets from 'img/helmets.png';
 
 const CheckinSuccess = ({ onClose, reportDamage }) => {
   return (
