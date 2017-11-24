@@ -16,10 +16,10 @@ export function get(url) {
       if (response.ok) return response.json();
 
       const error = await response.json();
-      throw {
+      return Promise.reject({
         code: response.status,
         message: error.detail
-      };
+      });
     }
   );
 }
@@ -39,10 +39,11 @@ export function post(url, body) {
       if (response.ok) return response.json();
 
       const error = await response.json();
-      throw {
+
+      return Promise.reject({
         code: response.status,
         message: error.detail
-      };
+      });
     }
   );
 }

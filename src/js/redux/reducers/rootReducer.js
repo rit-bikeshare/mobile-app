@@ -7,6 +7,7 @@ import { routerReducer } from 'react-router-redux';
 import networkConnectionReducer from 'BikeShare/redux/reducers/networkConnectionReducer';
 import bikeRackReducer from 'BikeShare/redux/reducers/bikeRackReducer';
 import currentBikeReducer from 'BikeShare/redux/reducers/currentBikeReducer';
+import settingsReducer from 'BikeShare/redux/reducers/settingsReducer';
 
 export default combineReducers({
   permissions: permissionReducer,
@@ -15,5 +16,6 @@ export default combineReducers({
   routing: routerReducer,
   networkConnectionStatus: networkConnectionReducer,
   bikeRacks: bikeRackReducer,
-  currentBike: currentBikeReducer
+  currentBike: currentBikeReducer,
+  settings: settingsReducer
 });

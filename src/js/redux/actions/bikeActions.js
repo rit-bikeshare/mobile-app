@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { Permissions, Location } from 'expo';
+import * as turf from '@turf/turf';
 
 import { hasNotFetchedCurrentRental } from 'BikeShare/selectors/bikeSelectors';
 import ActionTypes from 'BikeShare/redux/ActionTypes';
@@ -35,8 +36,10 @@ function fetchCurrentRental() {
   return (dispatch, getState, api) => {
     dispatch(rentalFetch());
     api.bike.fetchRentals()
-      .then(data => dispatch(fetchRentalSuccess(data[0])))
-      .catch(error => dispatch(fetchRentalFailed(error)))
+      .then(
+        data => dispatch(fetchRentalSuccess(data[0])),
+        error => dispatch(fetchRentalFailed(error))
+      )
       .done();
   };
 }
@@ -61,8 +64,10 @@ export function checkoutBike(bikeId) {
   return (dispatch, getState, api) => {
     dispatch(bikeCheckout());
     api.bike.checkout(bikeId)
-      .then(data => dispatch(checkoutSuccess(data)))
-      .catch(error => dispatch(checkoutFailed(error)))
+      .then(
+        data => dispatch(checkoutSuccess(data)),
+        error => dispatch(checkoutFailed(error))
+      )
       .done();
   };
 }
@@ -98,17 +103,34 @@ function getLocationAsync(dispatch) {
     });
 }
 
+function getBikeRackByLocation(bikeRacks, { latitude, longitude, accuracy }) {
+  const radiusInRadians = turf.lengthToRadians(accuracy, 'meters');
+  const locationArea = turf.circle(turf.point([longitude, latitude]), radiusInRadians, { units: 'radians' });
+  return bikeRacks.find(({ checkInArea }) => {
+    return turf.booleanOverlap(checkInArea, locationArea)
+      || turf.booleanContains(checkInArea, locationArea);
+  });
+}
+
 export function checkinCurrentBikeByLocation() {
   return (dispatch, getState, api) => {
-    const { currentBike } = getState();
+    const { currentBike, bikeRacks } = getState();
     dispatch(bikeCheckin());
     getLocationAsync(dispatch)
       .then(({ coords }) => {
-        const { latitude, longitude } = coords;
-        api.bike.checkin(currentBike.bike, { lat: latitude, lon: longitude })
-          .then(data => dispatch(checkinSuccess(data)))
-          .catch(error => dispatch(checkinFailed(error)))
-          .done();
+        const bikeRack = getBikeRackByLocation(bikeRacks, coords);
+        if (!bikeRack) {
+          dispatch(checkinFailed({
+            message: 'No bike rack at current location.'
+          }));
+        } else {
+          api.bike.checkin(currentBike.bike, bikeRack.id)
+            .then(
+              data => dispatch(checkinSuccess(data)),
+              error => dispatch(checkinFailed(error))
+            )
+            .done();
+        }
       });
   };
 }
@@ -117,9 +139,11 @@ export function checkinCurrentBikeByBikeRack(bikeRack) {
   return (dispatch, getState, api) => {
     const { currentBike } = getState();
     dispatch(bikeCheckin());
-    api.bike.checkin(currentBike.bike, null, bikeRack)
-      .then(data => dispatch(checkinSuccess(data)))
-      .catch(error => dispatch(checkinFailed(error)))
+    api.bike.checkin(currentBike.bike, bikeRack)
+      .then(
+        data => dispatch(checkinSuccess(data)),
+        error => dispatch(checkinFailed(error))
+      )
       .done();
   };
 }

@@ -9,6 +9,10 @@ export default handleActions({
     ActionTypes.FETCH_CURRENT_RENTAL_SUCCESS,
     ActionTypes.BIKE_CHECKIN_SUCCESS
   )](state, action) {
+    if (!action.payload) {
+      return new BikeRental();
+    }
+
     const {
       rentedAt,
       shouldReturnAt,

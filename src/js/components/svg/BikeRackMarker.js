@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Svg } from 'expo';
+import { Image } from 'react-native';
+import { Text, View } from 'native-base';
 
 const {
   G,
-  Text,
+  Text: SvgText,
   Path,
   Circle
 } = Svg;
 
 export default class BikeRackMarker extends React.Component {
   static propTypes = {
-    availableBikes: PropTypes.node
+    availableBikes: PropTypes.node,
+    useTiger: PropTypes.bool
   };
 
   renderText(availableBikes) {
     if (availableBikes === null) return null;
 
     return (
-      <Text textAnchor="middle" fill="#FFFFFF" fontSize="18" x="28" y="30">
+      <SvgText textAnchor="middle" fill="#FFFFFF" fontSize="18" x="28" y="30">
         {availableBikes}
-      </Text>
+      </SvgText>
     );
   }
 
@@ -40,8 +43,21 @@ export default class BikeRackMarker extends React.Component {
       </Svg>
     );
   }
-  render() {
+
+  renderTiger() {
     const { availableBikes } = this.props;
+    return (
+      <Text style={{ position: 'absolute', left: 7, top: 5 }}>
+        {availableBikes}
+      </Text>
+    );
+  }
+
+  render() {
+    const { availableBikes, useTiger } = this.props;
+    if (useTiger) {
+      return this.renderTiger();
+    }
     return this.renderSvg(availableBikes);
   }
 }
