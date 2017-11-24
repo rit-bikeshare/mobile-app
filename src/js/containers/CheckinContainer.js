@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { Platform, ActivityIndicator } from 'react-native';
 import { View, Button, Text } from 'native-base';
 import { connect } from 'react-redux';
-import BlurView from 'BikeShare/components/lib/BlurView';
+import { BlurView } from 'expo';
 
 import {
-  getBikeCheckoutStatus as getBikeCheckoutStatusSelector,
-  getBikeCheckoutError as getBikeCheckoutErrorSelector
+  getBikeCheckinStatus as getBikeCheckinStatusSelector,
+  getBikeCheckinError as getBikeCheckinErrorSelector
 } from 'BikeShare/selectors/bikeSelectors';
 
-import { checkoutBike as checkoutBikeAction } from 'BikeShare/redux/actions/bikeActions';
+import { checkinBike as checkinBikeAction } from 'BikeShare/redux/actions/bikeActions';
 
 import QRScanner from 'BikeShare/components/scanner/QRScanner';
 import ErrorView from 'BikeShare/components/status/ErrorView';
@@ -18,7 +18,6 @@ import CheckoutSuccess from 'BikeShare/components/status/CheckoutSuccess';
 
 import RequestStatus from 'BikeShare/constants/RequestStatus';
 import parseDeepLink from 'BikeShare/utils/parseDeepLink';
-import style from 'BikeShare/styles/checkout';
 
 const {
   UNINITIALIZED,
@@ -27,11 +26,11 @@ const {
   SUCCESS
 } = RequestStatus;
 
-class CheckoutContainer extends React.Component {
+class CheckinContainer extends React.Component {
   static propTypes = {
-    bikeCheckoutStatus: PropTypes.oneOf(Object.keys(RequestStatus)),
-    bikeCheckoutError: PropTypes.string,
-    checkoutBike: PropTypes.func,
+    bikeCheckinStatus: PropTypes.oneOf(Object.keys(RequestStatus)),
+    bikeCheckinError: PropTypes.string,
+    checkinBike: PropTypes.func,
     onClose: PropTypes.func
   }
 
@@ -46,8 +45,8 @@ class CheckoutContainer extends React.Component {
   }
 
   componentWillMount() {
-    const { bikeCheckoutStatus } = this.props;
-    if (bikeCheckoutStatus === UNINITIALIZED) {
+    const { bikeCheckinStatus } = this.props;
+    if (bikeCheckinStatus === UNINITIALIZED) {
       this.setState({
         qrScannerVisible: true
       });
@@ -55,10 +54,10 @@ class CheckoutContainer extends React.Component {
   }
 
   handleQRCodeScan(data) {
-    const { checkoutBike } = this.props;
+    const { checkinBike } = this.props;
     const [action, bikeId] = parseDeepLink(data);
     if (action === 'check-out') {
-      checkoutBike(bikeId);
+      checkinBike(bikeId);
       this.closeQRScanner();
     }
   }
@@ -87,45 +86,49 @@ class CheckoutContainer extends React.Component {
   }
 
   renderContent() {
-    const { bikeCheckoutError, bikeCheckoutStatus, onClose } = this.props;
+    const { bikeCheckinError, bikeCheckinStatus } = this.props;
 
-    if (bikeCheckoutStatus === PENDING) {
+    if (bikeCheckinStatus === PENDING) {
       return (
-        <View style={style.statusWrapper}>
-          <ActivityIndicator size={(Platform.OS === 'ios') ? 'large' : 100} />
-          <Text style={style.statusText}>Checking Bike Out...</Text>
+        <View>
+          <ActivityIndicator />
+          <Text>Checking Bike Out...</Text>
         </View>
       );
     }
 
-    if (bikeCheckoutStatus === FAILED) {
+    if (bikeCheckinStatus === FAILED) {
       return (
-        <View style={style.statusWrapper}>
-          <ErrorView title="Error Checking Out Bike" subText={bikeCheckoutError} onClose={onClose} />
-          <Button style={style.rescanButton} onPress={this.openQRScanner}>
+        <View>
+          <ErrorView title="Error Checking Out Bike" subText={bikeCheckinError} />
+          <Button onPress={this.openQRScanner}>
             <Text>Rescan</Text>
           </Button>
         </View>
       );
     }
 
-    if (bikeCheckoutStatus === SUCCESS) {
+    if (bikeCheckinStatus === SUCCESS) {
       return (
         <CheckoutSuccess />
       );
     }
 
-    return <View />;
+    return (
+      <View
+        style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent', height: '100%' }}
+      >
+        <ActivityIndicator size={(Platform.OS === 'ios') ? 'large' : 100} />
+        <Text style={{ fontSize: 25, paddingTop: 10 }}>Loading</Text>
+      </View>
+    );
   }
 
   render() {
     return (
       <BlurView
-        tint="light"
-        intensity={80}
-        style={{
-          height: '100%'
-        }}
+        intensity={100}
+        style={{ height: '100%' }}
       >
         {/* {this.renderQRScanner()} */}
         {this.renderContent()}
@@ -135,12 +138,12 @@ class CheckoutContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  bikeCheckoutStatus: getBikeCheckoutStatusSelector(state),
-  bikeCheckoutError: getBikeCheckoutErrorSelector(state)
+  bikeCheckinStatus: getBikeCheckinStatusSelector(state),
+  bikeCheckinError: getBikeCheckinErrorSelector(state)
 });
 
 const actions = {
-  checkoutBike: checkoutBikeAction
+  checkinBike: checkinBikeAction
 };
 
-export default connect(mapStateToProps, actions)(CheckoutContainer);
+export default connect(mapStateToProps, actions)(CheckinContainer);

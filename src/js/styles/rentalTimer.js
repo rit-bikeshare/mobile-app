@@ -10,9 +10,12 @@ export default StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
   },
+  text: {
+    color: '#ffffff'
+  },
   timer: {
     fontSize: 20,
-    paddingLeft: 8,
+    paddingLeft: 4,
     color: '#ffffff'
   },
   icon: {

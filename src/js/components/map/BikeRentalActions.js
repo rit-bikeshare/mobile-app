@@ -13,7 +13,7 @@ import 'moment-duration-format';
 class BikeRentalActions extends React.Component {
   static propTypes = {
     checkoutBike: PropTypes.func,
-    returnBike: PropTypes.func,
+    checkinBike: PropTypes.func,
     currentBike: PropTypes.instanceOf(BikeRental),
     style: PropTypes.number
   }
@@ -32,11 +32,11 @@ class BikeRentalActions extends React.Component {
   }
 
   renderCheckedOutView() {
-    const { returnBike } = this.props;
+    const { checkinBike } = this.props;
     return (
       <Button
         style={styles.checkoutButton}
-        onPress={returnBike}
+        onPress={checkinBike}
       >
         <Icon name="map-marker" iconFamily="MaterialCommunityIcons" />
         <Text style={styles.checkoutText} uppercase={false}>Return</Text>

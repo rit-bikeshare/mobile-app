@@ -6,6 +6,17 @@ import RequestStatusTypes from 'BikeShare/constants/RequestStatus';
 const { UNINITIALIZED } = RequestStatusTypes;
 const getCurrentRentalFetchStatus = getIn(['requestStatuses', 'currentRentalFetchStatus']);
 const getBikeCheckoutRequestStatus = getIn(['requestStatuses', 'bikeCheckoutStatus']);
+const getBikeCheckinRequestStatus = getIn(['requestStatuses', 'bikeCheckinStatus']);
+
+export const getBikeCheckinStatus = createSelector(
+  getBikeCheckinRequestStatus,
+  bikeCheckinStatus => bikeCheckinStatus.status
+);
+
+export const getBikeCheckinError = createSelector(
+  getBikeCheckinRequestStatus,
+  bikeCheckinStatus => bikeCheckinStatus.message
+);
 
 export const getBikeCheckoutStatus = createSelector(
   getBikeCheckoutRequestStatus,
