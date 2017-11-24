@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Platform, ActivityIndicator } from 'react-native';
 import { View, Button, Text } from 'native-base';
 import { connect } from 'react-redux';
-import BlurView from 'BikeShare/components/lib/BlurView';
 
 import {
   getBikeCheckinStatus as getBikeCheckinStatusSelector,
@@ -115,13 +114,9 @@ class CheckinContainer extends React.Component {
 
   render() {
     return (
-      <BlurView
-        tint="light"
-        intensity={80}
-        style={{ height: '100%' }}
-      >
+      <View style={{ height: '100%', backgroundColor: '#fff' }}>
         {this.renderContent()}
-      </BlurView>
+      </View>
     );
   }
 }
