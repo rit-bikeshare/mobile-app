@@ -1,10 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Modal, ActivityIndicator } from 'react-native';
-import { connect } from 'react-redux';
 import { Container, View } from 'native-base';
 
-import CheckinContainer from 'BikeShare/containers/CheckinContainer';
 import CheckoutContainer from 'BikeShare/containers/CheckoutContainer';
 import MapView from 'BikeShare/components/map/MapView';
 import RentalTimer from 'BikeShare/components/map/RentalTimer';
