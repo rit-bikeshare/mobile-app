@@ -21,10 +21,8 @@ import parseDeepLink from 'BikeShare/utils/parseDeepLink';
 import style from 'BikeShare/styles/checkout';
 
 const {
-  UNINITIALIZED,
   PENDING,
-  FAILED,
-  SUCCESS
+  FAILED
 } = RequestStatus;
 
 class CheckoutContainer extends React.Component {
