@@ -89,7 +89,7 @@ class CheckinContainer extends React.Component {
         <View style={style.statusWrapper}>
           <ErrorView title="Error Checking In Bike" subText={bikeCheckinError} onClose={onClose} />
           <Button style={style.rescanButton} onPress={this.openQRScanner}>
-            <Text uppercase={false}>Check in with QR Code</Text>
+            <Text uppercase={false}>Check in with QR code</Text>
           </Button>
         </View>
       );
