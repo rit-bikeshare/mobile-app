@@ -15,14 +15,19 @@ const fetchBikeRackAction = createAction(
   ActionTypes.FETCH_BIKE_RACKS
 );
 
-export function fetchBikeRacksIfEmpty() {
+export function fetchBikeRacks() {
   return (dispatch, getState, api) => {
+    dispatch(fetchBikeRackAction());
+    api.bikeRack.fetch()
+      .then(data => dispatch(fetchBikeRacksSuccess(data)))
+      .catch(error => dispatch(fetchBikeRacksFailed(error)));
+  };
+}
+export function fetchBikeRacksIfEmpty() {
+  return (dispatch, getState) => {
     const hasNotFetched = hasNotFetchedBikeRacks(getState());
     if (hasNotFetched) {
-      dispatch(fetchBikeRackAction());
-      api.bikeRack.fetch().then(
-        data => dispatch(fetchBikeRacksSuccess(data))
-      ).catch(error => dispatch(fetchBikeRacksFailed(error)));
+      dispatch(fetchBikeRacks());
     }
   };
 }

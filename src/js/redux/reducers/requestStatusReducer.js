@@ -33,6 +33,16 @@ export default handleActions({
     return state.set('bikeCheckoutStatus', new RequestStatus({ status: FAILED, ...action.payload }));
   },
 
+  [ActionTypes.BIKE_CHECKIN](state) {
+    return state.set('bikeCheckinStatus', new RequestStatus({ status: PENDING }));
+  },
+  [ActionTypes.BIKE_CHECKIN_SUCCESS](state) {
+    return state.set('bikeCheckinStatus', new RequestStatus({ status: SUCCESS }));
+  },
+  [ActionTypes.BIKE_CHECKIN_FAILED](state, action) {
+    return state.set('bikeCheckinStatus', new RequestStatus({ status: FAILED, ...action.payload }));
+  },
+
   [ActionTypes.FETCH_CURRENT_RENTAL](state) {
     return state.set('currentRentalFetchStatus', new RequestStatus({ status: PENDING }));
   },

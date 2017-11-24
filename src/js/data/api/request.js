@@ -1,6 +1,6 @@
 /* eslint-disable no-throw-literal */
 
-const baseApiUrl = 'http://spin.se.rit.edu/';
+const baseApiUrl = 'http://spin.se.rit.edu';
 
 export function get(url) {
   // always add a trailing slash
@@ -13,7 +13,7 @@ export function get(url) {
     }
   }).then(
     async response => {
-      if (response.status === 200) return response.json();
+      if (response.ok) return response.json();
 
       const error = await response.json();
       throw {
@@ -36,7 +36,7 @@ export function post(url, body) {
     body: JSON.stringify(body)
   }).then(
     async response => {
-      if (response.status === 200) return response.json();
+      if (response.ok) return response.json();
 
       const error = await response.json();
       throw {

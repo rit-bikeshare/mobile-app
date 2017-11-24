@@ -3,6 +3,7 @@ import { Modal, ActivityIndicator } from 'react-native';
 import { Container, View } from 'native-base';
 
 import CheckoutContainer from 'BikeShare/containers/CheckoutContainer';
+import CheckinContainer from 'BikeShare/containers/CheckinContainer';
 import MapView from 'BikeShare/components/map/MapView';
 import RentalTimer from 'BikeShare/components/map/RentalTimer';
 import BikeRentalActions from 'BikeShare/components/map/BikeRentalActions';
@@ -53,7 +54,7 @@ class MapContainer extends React.Component {
     }
 
     if (showCheckin) {
-      return <CheckoutContainer onClose={this.closeModal} />;
+      return <CheckinContainer onClose={this.closeModal} />;
     }
 
     return <View />;

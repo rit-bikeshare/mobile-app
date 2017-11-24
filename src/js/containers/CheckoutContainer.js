@@ -46,12 +46,9 @@ class CheckoutContainer extends React.Component {
   }
 
   componentWillMount() {
-    const { bikeCheckoutStatus } = this.props;
-    if (bikeCheckoutStatus === UNINITIALIZED) {
-      this.setState({
-        qrScannerVisible: true
-      });
-    }
+    this.setState({
+      qrScannerVisible: true
+    });
   }
 
   handleQRCodeScan(data) {
@@ -75,18 +72,7 @@ class CheckoutContainer extends React.Component {
     });
   }
 
-  renderQRScanner() {
-    const { onClose } = this.props;
-    const { qrScannerVisible } = this.state;
-
-    if (!qrScannerVisible) {
-      return null;
-    }
-
-    return <QRScanner onQRCodeScan={this.handleQRCodeScan} onClose={onClose} />;
-  }
-
-  renderContent() {
+  renderStatusMessage() {
     const { bikeCheckoutError, bikeCheckoutStatus, onClose } = this.props;
 
     if (bikeCheckoutStatus === PENDING) {
@@ -109,13 +95,20 @@ class CheckoutContainer extends React.Component {
       );
     }
 
-    if (bikeCheckoutStatus === SUCCESS) {
-      return (
-        <CheckoutSuccess />
-      );
+    return (
+      <CheckoutSuccess />
+    );
+  }
+
+  renderContent() {
+    const { onClose } = this.props;
+    const { qrScannerVisible } = this.state;
+
+    if (!qrScannerVisible) {
+      return this.renderStatusMessage();
     }
 
-    return <View />;
+    return <QRScanner onQRCodeScan={this.handleQRCodeScan} onClose={onClose} />;
   }
 
   render() {
@@ -127,7 +120,6 @@ class CheckoutContainer extends React.Component {
           height: '100%'
         }}
       >
-        {/* {this.renderQRScanner()} */}
         {this.renderContent()}
       </BlurView>
     );

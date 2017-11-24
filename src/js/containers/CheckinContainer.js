@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 import { Platform, ActivityIndicator } from 'react-native';
 import { View, Button, Text } from 'native-base';
 import { connect } from 'react-redux';
-import { BlurView } from 'expo';
+import BlurView from 'BikeShare/components/lib/BlurView';
 
 import {
   getBikeCheckinStatus as getBikeCheckinStatusSelector,
   getBikeCheckinError as getBikeCheckinErrorSelector
 } from 'BikeShare/selectors/bikeSelectors';
 
-import { checkinBike as checkinBikeAction } from 'BikeShare/redux/actions/bikeActions';
+import {
+  checkinCurrentBikeByLocation as checkinCurrentBikeByLocationAction,
+  checkinCurrentBikeByBikeRack as checkinCurrentBikeByBikeRackAction
+} from 'BikeShare/redux/actions/bikeActions';
 
 import QRScanner from 'BikeShare/components/scanner/QRScanner';
 import ErrorView from 'BikeShare/components/status/ErrorView';
@@ -18,20 +21,20 @@ import CheckoutSuccess from 'BikeShare/components/status/CheckoutSuccess';
 
 import RequestStatus from 'BikeShare/constants/RequestStatus';
 import parseDeepLink from 'BikeShare/utils/parseDeepLink';
+import style from 'BikeShare/styles/checkout';
 
 const {
-  UNINITIALIZED,
   PENDING,
-  FAILED,
-  SUCCESS
+  FAILED
 } = RequestStatus;
 
 class CheckinContainer extends React.Component {
   static propTypes = {
     bikeCheckinStatus: PropTypes.oneOf(Object.keys(RequestStatus)),
     bikeCheckinError: PropTypes.string,
-    checkinBike: PropTypes.func,
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    checkinCurrentBikeByLocation: PropTypes.func,
+    checkinCurrentBikeByBikeRack: PropTypes.func,
   }
 
   constructor(props) {
@@ -45,19 +48,15 @@ class CheckinContainer extends React.Component {
   }
 
   componentWillMount() {
-    const { bikeCheckinStatus } = this.props;
-    if (bikeCheckinStatus === UNINITIALIZED) {
-      this.setState({
-        qrScannerVisible: true
-      });
-    }
+    const { checkinCurrentBikeByLocation } = this.props;
+    checkinCurrentBikeByLocation();
   }
 
   handleQRCodeScan(data) {
-    const { checkinBike } = this.props;
-    const [action, bikeId] = parseDeepLink(data);
-    if (action === 'check-out') {
-      checkinBike(bikeId);
+    const { checkinCurrentBikeByBikeRack } = this.props;
+    const [action, bikeRackId] = parseDeepLink(data);
+    if (action === 'check-in') {
+      checkinCurrentBikeByBikeRack(bikeRackId);
       this.closeQRScanner();
     }
   }
@@ -74,63 +73,50 @@ class CheckinContainer extends React.Component {
     });
   }
 
-  renderQRScanner() {
-    const { onClose } = this.props;
-    const { qrScannerVisible } = this.state;
-
-    if (!qrScannerVisible) {
-      return null;
-    }
-
-    return <QRScanner onQRCodeScan={this.handleQRCodeScan} onClose={onClose} />;
-  }
-
-  renderContent() {
-    const { bikeCheckinError, bikeCheckinStatus } = this.props;
-
+  renderStatusMessage() {
+    const { bikeCheckinError, bikeCheckinStatus, onClose } = this.props;
     if (bikeCheckinStatus === PENDING) {
       return (
-        <View>
-          <ActivityIndicator />
-          <Text>Checking Bike Out...</Text>
+        <View style={style.statusWrapper}>
+          <ActivityIndicator size={(Platform.OS === 'ios') ? 'large' : 100} />
+          <Text style={style.statusText}>Checking Bike In...</Text>
         </View>
       );
     }
 
     if (bikeCheckinStatus === FAILED) {
       return (
-        <View>
-          <ErrorView title="Error Checking Out Bike" subText={bikeCheckinError} />
-          <Button onPress={this.openQRScanner}>
-            <Text>Rescan</Text>
+        <View style={style.statusWrapper}>
+          <ErrorView title="Error Checking In Bike" subText={bikeCheckinError} onClose={onClose} />
+          <Button style={style.rescanButton} onPress={this.openQRScanner}>
+            <Text uppercase={false}>Check in with QR Code</Text>
           </Button>
         </View>
       );
     }
 
-    if (bikeCheckinStatus === SUCCESS) {
-      return (
-        <CheckoutSuccess />
-      );
+    return (
+      <CheckoutSuccess />
+    );
+  }
+  renderContent() {
+    const { onClose } = this.props;
+    const { qrScannerVisible } = this.state;
+
+    if (!qrScannerVisible) {
+      return this.renderStatusMessage();
     }
 
-    return (
-      <View
-        style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent', height: '100%' }}
-      >
-        <ActivityIndicator size={(Platform.OS === 'ios') ? 'large' : 100} />
-        <Text style={{ fontSize: 25, paddingTop: 10 }}>Loading</Text>
-      </View>
-    );
+    return <QRScanner onQRCodeScan={this.handleQRCodeScan} onClose={onClose} />;
   }
 
   render() {
     return (
       <BlurView
-        intensity={100}
+        tint="light"
+        intensity={80}
         style={{ height: '100%' }}
       >
-        {/* {this.renderQRScanner()} */}
         {this.renderContent()}
       </BlurView>
     );
@@ -143,7 +129,8 @@ const mapStateToProps = state => ({
 });
 
 const actions = {
-  checkinBike: checkinBikeAction
+  checkinCurrentBikeByLocation: checkinCurrentBikeByLocationAction,
+  checkinCurrentBikeByBikeRack: checkinCurrentBikeByBikeRackAction
 };
 
 export default connect(mapStateToProps, actions)(CheckinContainer);

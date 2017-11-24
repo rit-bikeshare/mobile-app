@@ -1,5 +1,6 @@
 import { Record } from 'immutable';
 
 export default new Record({
-  camera: null
+  camera: null,
+  location: null
 });

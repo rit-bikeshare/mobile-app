@@ -47,12 +47,20 @@ class RentalTimer extends React.Component {
       this.setTimerInterval(nextProps);
     }
     if (!isCurrentlyRented(currentBike) && isCurrentlyRented(prevBike)) {
-      clearInterval(this.timerInterval);
+      this.resetTimer();
     }
   }
 
   componentWillUnmount() {
     clearInterval(this.timerInterval);
+  }
+
+  resetTimer() {
+    clearInterval(this.timerInterval);
+    this.setState({
+      timerValue: 0,
+      over24: false
+    });
   }
 
   setTimerInterval(props) {

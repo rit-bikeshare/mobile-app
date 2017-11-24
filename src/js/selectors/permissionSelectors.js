@@ -39,7 +39,8 @@ function createPermissionSelectors(permissionKey) {
 }
 
 const selectors = {
-  ...createPermissionSelectors('camera')
+  ...createPermissionSelectors('camera'),
+  ...createPermissionSelectors('location'),
 };
 
 export default selectors;
