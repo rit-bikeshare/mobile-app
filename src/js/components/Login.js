@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Image } from 'react-native';
 import { MapView as ExpoMapView } from 'expo';
 import { Button, View, Text, Content } from 'native-base';
 
@@ -9,8 +8,6 @@ import styles from 'BikeShare/styles/login';
 import mapStyle from 'BikeShare/styles/map';
 
 import { PROVIDER_GOOGLE } from 'BikeShare/constants/MapProviders';
-
-import bike from 'img/bike.png';
 
 const Login = ({ handleLogin }) => {
   return (
@@ -47,10 +44,6 @@ const Login = ({ handleLogin }) => {
           <Text uppercase={false}>Log in with RIT</Text>
         </Button>
         <Text style={styles.subtext}>This will redirect you to login with shibboleth.</Text>
-      </View>
-      <View style={styles.footer}>
-        <View style={styles.dash} />
-        <Image source={bike} style={styles.bike} />
       </View>
     </Content>
   );

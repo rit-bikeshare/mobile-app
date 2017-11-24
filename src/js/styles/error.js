@@ -4,8 +4,9 @@ import variables from 'theme/variables/commonColor';
 
 export default StyleSheet.create({
   container: {
+    width: '100%',
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -16,6 +17,11 @@ export default StyleSheet.create({
   },
   errorIcon: {
     color: variables.brandDanger,
-    fontSize: 40
+    fontSize: 100,
+    marginBottom: 8
+  },
+  subtext: {
+    fontSize: 18,
+    color: '#bfc1c1',
   }
 });

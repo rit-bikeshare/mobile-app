@@ -6,7 +6,8 @@ import ActionTypes from 'BikeShare/redux/ActionTypes';
 export default handleActions({
   [combineActions(
     ActionTypes.BIKE_CHECKOUT_SUCCESS,
-    ActionTypes.FETCH_CURRENT_RENTAL_SUCCESS
+    ActionTypes.FETCH_CURRENT_RENTAL_SUCCESS,
+    ActionTypes.BIKE_CHECKIN_SUCCESS
   )](state, action) {
     const {
       rentedAt,

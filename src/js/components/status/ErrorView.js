@@ -5,16 +5,20 @@ import { Button, H1, View, Text } from 'native-base';
 import styles from 'BikeShare/styles/error';
 import Icon from 'BikeShare/components/lib/Icon';
 
-const ErrorView = ({ title, subText, onBack }) => {
+const ErrorView = ({ title, subText, onClose }) => {
   return (
     <View style={styles.container}>
-      <Button style={styles.backButton} transparent={true} onPress={onBack}>
-        <Icon name="arrow-back" />
-        <Text>Back</Text>
+      <Button
+        transparent={true}
+        dark={true}
+        onPress={onClose}
+        style={styles.backButton}
+      >
+        <Icon name="close" iconFamily="MaterialCommunityIcons" style={{ fontSize: 30 }} />
       </Button>
       <Icon style={styles.errorIcon} name="error-outline" iconFamily="MaterialIcons" />
       <H1>{title}</H1>
-      <Text>{subText}</Text>
+      <Text style={styles.subtext}>{subText}</Text>
     </View>
   );
 };
@@ -22,7 +26,7 @@ const ErrorView = ({ title, subText, onBack }) => {
 ErrorView.propTypes = {
   title: PropTypes.string.isRequired,
   subText: PropTypes.string,
-  onBack: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired
 };
 
 export default ErrorView;

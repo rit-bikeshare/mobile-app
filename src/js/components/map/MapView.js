@@ -2,22 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { MapView as ExpoMapView } from 'expo';
-import { Container } from 'native-base';
-import { connect } from 'react-redux';
-import { push as pushAction } from 'react-router-redux';
 
-import RentalTimer from './RentalTimer';
+import { connect } from 'react-redux';
+
 import { getMapMarkers } from 'BikeShare/selectors/mapSelectors';
 import { PROVIDER_GOOGLE } from 'BikeShare/constants/MapProviders';
-import { checkout } from 'BikeShare/constants/urls';
-import BikeRackMarker from 'BikeShare/components/map/BikeRackMarker';
-import BikeRentalActions from 'BikeShare/components/BikeRentalActions';
-import style from 'BikeShare/styles/mapView';
+import BikeRackMarker from 'BikeShare/components/svg/BikeRackMarker';
+
 
 class MapView extends React.Component {
   static propTypes = {
-    push: PropTypes.func,
-    markers: PropTypes.instanceOf(Map)
+    markers: PropTypes.instanceOf(Map),
   };
 
   constructor(props) {
@@ -30,12 +25,6 @@ class MapView extends React.Component {
         longitudeDelta: 0.007426701486110687,
       },
     };
-    this.routeToCheckout = this.routeToCheckout.bind(this);
-  }
-
-  routeToCheckout() {
-    const { push } = this.props;
-    push(checkout);
   }
 
   renderMarkers() {
@@ -58,21 +47,15 @@ class MapView extends React.Component {
 
   render() {
     return (
-      <Container>
-        <RentalTimer />
-        <ExpoMapView
-          style={{ flex: 1 }}
-          initialRegion={this.state.region}
-          provider={PROVIDER_GOOGLE}
-          showsUserLocation={true}
-        >
-          {this.renderMarkers()}
-        </ExpoMapView>
-        <BikeRentalActions
-          style={style.actionsWrapper}
-          checkoutBike={this.routeToCheckout}
-        />
-      </Container>
+      <ExpoMapView
+        style={{ flex: 1 }}
+        initialRegion={this.state.region}
+        provider={PROVIDER_GOOGLE}
+        showsUserLocation={true}
+        showsMyLocationButton={true}
+      >
+        {this.renderMarkers()}
+      </ExpoMapView>
     );
   }
 }
@@ -81,6 +64,4 @@ const mapStateToProps = state => ({
   markers: getMapMarkers(state),
 });
 
-export default connect(mapStateToProps, {
-  push: pushAction
-})(MapView);
+export default connect(mapStateToProps)(MapView);

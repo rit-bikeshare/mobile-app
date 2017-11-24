@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { StyleSheet, StatusBar } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { BarCodeScanner } from 'expo';
-import { View, Button, Text, Icon, Container } from 'native-base';
+import { View, Button, Text, Container } from 'native-base';
 
 import { askForCameraPermission as askForCameraPermissionAction } from 'BikeShare/redux/actions/permissionActions';
 import permissionSelectors from 'BikeShare/selectors/permissionSelectors';
+import Icon from 'BikeShare/components/lib/Icon';
 
 const {
   cameraPermissionGranted: cameraPermissionGrantedSelector,
@@ -63,7 +64,7 @@ class QRScanner extends React.Component {
         onPress={this.toggleTorch}
         style={{ position: 'absolute', bottom: 10, right: 10 }}
       >
-        <Icon name="md-flash" />
+        <Icon name="md-flash" iconFamily="Ionicons" />
         <Text>Torch</Text>
       </Button>
     );
@@ -121,7 +122,7 @@ class QRScanner extends React.Component {
           left: 10
         }}
       >
-        <Icon name="close" style={{ fontSize: 30 }} />
+        <Icon name="close" iconFamily="MaterialCommunityIcons" style={{ fontSize: 30 }} />
       </Button>
     );
   }
@@ -129,7 +130,6 @@ class QRScanner extends React.Component {
   render() {
     return (
       <Container>
-        <StatusBar hidden={true} />
         {this.renderContent()}
         {this.renderBackButton()}
       </Container>

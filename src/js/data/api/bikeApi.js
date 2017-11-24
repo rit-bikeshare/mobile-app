@@ -28,11 +28,13 @@ export default {
     });
   },
 
-  checkin(bikeId, location, bikeRackId) {
+  checkin(bike, coords, bikerack) {
+    const { lat, lon } = coords || {};
     const data = trimUndefinedKeys({
-      bikeId,
-      location,
-      bikeRackId
+      bike,
+      lat,
+      lon,
+      bikerack
     });
     return post('checkin', data);
   }
