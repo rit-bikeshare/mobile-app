@@ -30,12 +30,12 @@ const CheckoutSuccess = ({ onClose }) => {
         </Text>
         <H2 style={styles.header}>Safety Tips</H2>
         <Text style={{ textAlign: 'center', paddingBottom: 24 }}>
-          Follow the illustrations below on how to properly wear a bike helment.
-          If you have a helment, wear it!
+          Follow the illustrations below on how to properly wear a bike helmet.
+          If you have a helmet, wear it!
         </Text>
       </View>
-      <View style={styles.helmentsWrapper}>
-        <Image resizeMode="contain" style={styles.helments} source={helmets} />
+      <View style={styles.helmetsWrapper}>
+        <Image resizeMode="contain" style={styles.helmets} source={helmets} />
       </View>
       <View style={styles.actions}>
         <Button onPress={onClose} style={{ marginLeft: 12 }}>

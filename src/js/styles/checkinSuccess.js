@@ -38,11 +38,11 @@ export default StyleSheet.create({
     color: variables.brandPrimary,
     paddingBottom: 12
   },
-  helments: {
+  helmets: {
     width: 300,
     height: 115
   },
-  helmentsWrapper: {
+  helmetsWrapper: {
     alignItems: 'center',
     width: '100%',
     paddingTop: 10,

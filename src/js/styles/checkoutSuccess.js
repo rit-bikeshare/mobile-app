@@ -37,11 +37,11 @@ export default StyleSheet.create({
   header: {
     color: variables.brandPrimary
   },
-  helments: {
+  helmets: {
     width: 300,
     height: 115
   },
-  helmentsWrapper: {
+  helmetsWrapper: {
     alignItems: 'center',
     width: '100%',
     paddingTop: 10,
