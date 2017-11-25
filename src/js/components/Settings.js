@@ -62,7 +62,7 @@ class Settings extends React.Component {
           </ListItem>
           <ListItem>
             <Body>
-              <Text>Pull To Refresh on main view</Text>
+              <Text>Pull to refresh on main view</Text>
             </Body>
             <Right>
               <Switch value={pullToRefresh} onValueChange={this.setPullToRefresh} />
