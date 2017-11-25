@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, ActivityIndicator } from 'react-native';
-import { Container, View } from 'native-base';
+import { View } from 'native-base';
 
 import CheckoutContainer from 'BikeShare/containers/CheckoutContainer';
 import CheckinContainer from 'BikeShare/containers/CheckinContainer';
@@ -76,7 +76,7 @@ class MapContainer extends React.Component {
 
   render() {
     return (
-      <Container>
+      <View style={{ flexGrow: 1 }}>
         {this.renderModal()}
         <RentalTimer />
         <MapView tigerMode={true} />
@@ -85,7 +85,7 @@ class MapContainer extends React.Component {
           checkoutBike={this.handleClickCheckout}
           checkinBike={this.handleClickCheckin}
         />
-      </Container>
+      </View>
     );
   }
 }

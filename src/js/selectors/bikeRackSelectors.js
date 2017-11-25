@@ -6,7 +6,7 @@ import MapMarker from 'BikeShare/data/records/MapMarker';
 
 const { UNINITIALIZED } = RequestStatusTypes;
 
-const getBikeRackFetchStatus = getIn(['requestStatuses', 'bikeRackFetchStatus']);
+export const getBikeRackFetchStatus = getIn(['requestStatuses', 'bikeRackFetchStatus']);
 const getBikeRacks = get('bikeRacks');
 
 export const hasNotFetchedBikeRacks = createSelector(

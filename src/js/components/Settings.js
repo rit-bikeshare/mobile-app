@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListItem, List, Body, Switch, Right, Text, Container } from 'native-base';
+import { ListItem, List, Body, Switch, Right, Text, View } from 'native-base';
 import { connect } from 'react-redux';
 
 import { setSetting as setSettingAction } from 'BikeShare/redux/actions/settingsActions';
@@ -32,7 +32,7 @@ class Settings extends React.Component {
   render() {
     const { tigerMode, debug } = this.props;
     return (
-      <Container>
+      <View style={{ flexGrow: 1 }}>
         <List>
           <ListItem itemDivider={true}>
             <Text>Settings</Text>
@@ -54,7 +54,7 @@ class Settings extends React.Component {
             </Right>
           </ListItem>
         </List>
-      </Container>
+      </View>
     );
   }
 }
