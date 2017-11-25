@@ -9,7 +9,8 @@ class Settings extends React.Component {
   static propTypes = {
     setSetting: PropTypes.func,
     debug: PropTypes.bool,
-    tigerMode: PropTypes.bool
+    tigerMode: PropTypes.bool,
+    pullToRefresh: PropTypes.bool
   }
 
   constructor(props) {
@@ -17,6 +18,7 @@ class Settings extends React.Component {
 
     this.setTigerMode = this.setTigerMode.bind(this);
     this.setDebugMode = this.setDebugMode.bind(this);
+    this.setPullToRefresh = this.setPullToRefresh.bind(this);
   }
 
   setTigerMode(value) {
@@ -29,8 +31,13 @@ class Settings extends React.Component {
     setSetting('debug', value);
   }
 
+  setPullToRefresh(value) {
+    const { setSetting } = this.props;
+    setSetting('pullToRefresh', value);
+  }
+
   render() {
-    const { tigerMode, debug } = this.props;
+    const { tigerMode, debug, pullToRefresh } = this.props;
     return (
       <View style={{ flexGrow: 1 }}>
         <List>
@@ -53,6 +60,14 @@ class Settings extends React.Component {
               <Switch value={debug} onValueChange={this.setDebugMode} />
             </Right>
           </ListItem>
+          <ListItem>
+            <Body>
+              <Text>Pull To Refresh on main view</Text>
+            </Body>
+            <Right>
+              <Switch value={pullToRefresh} onValueChange={this.setPullToRefresh} />
+            </Right>
+          </ListItem>
         </List>
       </View>
     );
@@ -61,7 +76,8 @@ class Settings extends React.Component {
 
 const mapStateToProps = state => ({
   debug: state.settings.debug,
-  tigerMode: state.settings.tigerMode
+  tigerMode: state.settings.tigerMode,
+  pullToRefresh: state.settings.pullToRefresh
 });
 
 export default connect(mapStateToProps, {

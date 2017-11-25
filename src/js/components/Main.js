@@ -22,7 +22,8 @@ const {
 class Main extends React.Component {
   static propTypes = {
     bikeRackFetchStatus: PropTypes.oneOf(Object.keys(RequestStatus)),
-    fetchBikeRacks: PropTypes.func
+    fetchBikeRacks: PropTypes.func,
+    pullToRefresh: PropTypes.bool
   }
   constructor(props) {
     super(props);
@@ -61,35 +62,54 @@ class Main extends React.Component {
     );
   }
 
-  render() {
+  renderTabs() {
+    return (
+      <Tabs initialPage={0}>
+        <Tab heading={this.renderTabHeading('bike', 'MaterialCommunityIcons')}>
+          <MapContainer />
+        </Tab>
+        <Tab heading={this.renderTabHeading('more-horiz', 'MaterialIcons')}>
+          <Settings />
+        </Tab>
+      </Tabs>
+    );
+  }
+
+  renderContent() {
     const { refreshing } = this.state;
+    const { pullToRefresh } = this.props;
+
+    if (!pullToRefresh) {
+      return this.renderTabs();
+    }
+
+    return (
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            onRefresh={this.handleRefreash}
+            refreshing={refreshing}
+          />
+        }
+        contentContainerStyle={{ flexGrow: 1 }}
+       >
+        {this.renderTabs()}
+      </ScrollView>
+    );
+  }
+
+  render() {
     return (
       <StyleProvider style={getTheme(materialIcons)}>
-        <ScrollView
-          refreshControl={
-            <RefreshControl
-              onRefresh={this.handleRefreash}
-              refreshing={refreshing}
-            />
-          }
-          contentContainerStyle={{ flexGrow: 1 }}
-        >
-          <Tabs initialPage={0}>
-            <Tab heading={this.renderTabHeading('bike', 'MaterialCommunityIcons')}>
-              <MapContainer />
-            </Tab>
-            <Tab heading={this.renderTabHeading('more-horiz', 'MaterialIcons')}>
-              <Settings />
-            </Tab>
-          </Tabs>
-        </ScrollView>
+        {this.renderContent()}
       </StyleProvider>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  bikeRackFetchStatus: getBikeRackFetchStatus(state).status
+  bikeRackFetchStatus: getBikeRackFetchStatus(state).status,
+  pullToRefresh: state.settings.pullToRefresh
 });
 
 export default connect(mapStateToProps, {

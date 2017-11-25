@@ -54,6 +54,8 @@ class MapView extends React.Component {
         });
         return (
           <ExpoMapView.Polygon
+            fillColor="rgba(243,110,31,0.25)"
+            strokeColor="rgba(243,110,31,0.5)"
             key={bikeRack.get('id')}
             coordinates={formattedCoords}
           />
