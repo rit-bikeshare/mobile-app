@@ -4,10 +4,13 @@ import {
   compose,
 } from 'redux';
 
-import { persistStore, autoRehydrate } from 'redux-persist';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
+import immutableTransform from 'redux-persist-transform-immutable';
 
+import SettingsData from 'BikeShare/data/records/SettingsData';
 import reducer from 'BikeShare/redux/reducers/rootReducer';
 import api from 'BikeShare/data/api';
 
@@ -22,19 +25,25 @@ export default function createStore(initialState, history) {
   const composeEnhancers
     = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+  const config = {
+    key: 'root',
+    storage,
+    whitelist: ['authReducer', 'settings'],
+    transforms: [immutableTransform({ records: [SettingsData] })]
+  };
+
+  const reducers = persistReducer(config, reducer);
+
   const createStoreWithMiddleware = composeEnhancers(
     applyMiddleware(
       thunk.withExtraArgument(api),
       routerMiddleware(history)
-    ),
-    autoRehydrate()
+    )
   )(createReduxStore);
 
-  const store = createStoreWithMiddleware(reducer, initialState);
+  const store = createStoreWithMiddleware(reducers, initialState);
 
-  persistStore(store, {
-    whitelist: ['authReducer']
-  });
+  persistStore(store);
 
   return store;
 }

@@ -79,7 +79,7 @@ class MapContainer extends React.Component {
       <Container>
         {this.renderModal()}
         <RentalTimer />
-        <MapView />
+        <MapView tigerMode={true} />
         <BikeRentalActions
           style={style.actionsWrapper}
           checkoutBike={this.handleClickCheckout}

@@ -24,4 +24,6 @@ export default keyMirror({
   FETCH_CURRENT_RENTAL: null,
   FETCH_CURRENT_RENTAL_SUCCESS: null,
   FETCH_CURRENT_RENTAL_FAILED: null,
+
+  SET_SETTING: null
 });

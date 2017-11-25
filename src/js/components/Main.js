@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleProvider, View, Root, Tabs, Tab, TabHeading } from 'native-base';
+import { StyleProvider, Root, Tabs, Tab, TabHeading } from 'native-base';
 
 import Icon from 'BikeShare/components/lib/Icon';
 import MapContainer from 'BikeShare/containers/MapContainer';
+import Settings from 'BikeShare/components/Settings';
 import getTheme from 'theme/components';
 import materialIcons from 'theme/variables/materialIcons';
 
@@ -24,7 +25,7 @@ export default class Main extends React.Component {
               <MapContainer />
             </Tab>
             <Tab heading={this.renderTabHeading('more-horiz', 'MaterialIcons')}>
-              <View />
+              <Settings />
             </Tab>
           </Tabs>
         </Root>

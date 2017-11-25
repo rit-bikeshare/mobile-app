@@ -28,12 +28,9 @@ export default {
     });
   },
 
-  checkin(bike, coords, bikerack) {
-    const { lat, lon } = coords || {};
+  checkin(bike, bikerack) {
     const data = trimUndefinedKeys({
       bike,
-      lat,
-      lon,
       bikerack
     });
     return post('checkin', data);
