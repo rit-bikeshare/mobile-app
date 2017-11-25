@@ -68,7 +68,7 @@ class MapView extends React.Component {
     return (
       <ExpoMapView
         key={tigerMode ? 'tigerMode' : 'default'}
-        style={{ flex: 1 }}
+        style={{ flexGrow: 1 }}
         customMapStyle={tigerMode ? rit : null}
         initialRegion={{
           latitude: 43.08447438334887,
