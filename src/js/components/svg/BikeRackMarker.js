@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Svg } from 'expo';
-import { Image } from 'react-native';
-import { Text, View } from 'native-base';
+import { Text } from 'native-base';
 
 const {
   G,
