@@ -26,7 +26,7 @@ class BikeRentalActions extends React.Component {
         onPress={checkoutBike}
       >
         <Icon name="qrcode" iconFamily="MaterialCommunityIcons" />
-        <Text style={styles.checkoutText} uppercase={false}>Checkout</Text>
+        <Text style={styles.checkoutText} uppercase={false}>Check out</Text>
       </Button>
     );
   }

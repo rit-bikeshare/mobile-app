@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListItem, List, Body, Switch, Right, Text, Container } from 'native-base';
+import { ListItem, List, Body, Switch, Right, Text, View } from 'native-base';
 import { connect } from 'react-redux';
 
 import { setSetting as setSettingAction } from 'BikeShare/redux/actions/settingsActions';
@@ -9,7 +9,8 @@ class Settings extends React.Component {
   static propTypes = {
     setSetting: PropTypes.func,
     debug: PropTypes.bool,
-    tigerMode: PropTypes.bool
+    tigerMode: PropTypes.bool,
+    pullToRefresh: PropTypes.bool
   }
 
   constructor(props) {
@@ -17,6 +18,7 @@ class Settings extends React.Component {
 
     this.setTigerMode = this.setTigerMode.bind(this);
     this.setDebugMode = this.setDebugMode.bind(this);
+    this.setPullToRefresh = this.setPullToRefresh.bind(this);
   }
 
   setTigerMode(value) {
@@ -29,10 +31,15 @@ class Settings extends React.Component {
     setSetting('debug', value);
   }
 
+  setPullToRefresh(value) {
+    const { setSetting } = this.props;
+    setSetting('pullToRefresh', value);
+  }
+
   render() {
-    const { tigerMode, debug } = this.props;
+    const { tigerMode, debug, pullToRefresh } = this.props;
     return (
-      <Container>
+      <View style={{ flexGrow: 1 }}>
         <List>
           <ListItem itemDivider={true}>
             <Text>Settings</Text>
@@ -53,15 +60,24 @@ class Settings extends React.Component {
               <Switch value={debug} onValueChange={this.setDebugMode} />
             </Right>
           </ListItem>
+          <ListItem>
+            <Body>
+              <Text>Pull to refresh on main view</Text>
+            </Body>
+            <Right>
+              <Switch value={pullToRefresh} onValueChange={this.setPullToRefresh} />
+            </Right>
+          </ListItem>
         </List>
-      </Container>
+      </View>
     );
   }
 }
 
 const mapStateToProps = state => ({
   debug: state.settings.debug,
-  tigerMode: state.settings.tigerMode
+  tigerMode: state.settings.tigerMode,
+  pullToRefresh: state.settings.pullToRefresh
 });
 
 export default connect(mapStateToProps, {
