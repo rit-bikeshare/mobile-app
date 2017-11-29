@@ -15,7 +15,7 @@ export default StyleSheet.create({
   },
   subtext: {
     fontSize: 12,
-    color: '#bfc1c1',
+    color: '#a7a7a9',
     backgroundColor: 'transparent'
   },
   loginButtonWrapper: {

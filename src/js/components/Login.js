@@ -1,9 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Image } from 'react-native';
 import { MapView as ExpoMapView } from 'expo';
 import { Button, View, Text, Content } from 'native-base';
 
+import logo from 'img/logo.png';
 import styles from 'BikeShare/styles/login';
 import mapStyle from 'BikeShare/styles/map';
 
@@ -35,10 +37,8 @@ const Login = ({ handleLogin }) => {
         pitchEnabled={false}
       />
       <View style={styles.logo}>
-        <Text style={styles.bikeLogo}>Bike</Text>
-        <Text style={styles.shareLogo}>Share</Text>
+        <Image resizeMode="contain" source={logo} style={{ width: 330, height: 75 }} />
       </View>
-      <Text style={styles.subtext}>It's free, use it.</Text>
       <View style={styles.loginButtonWrapper}>
         <Button style={styles.button} onPress={handleLogin}>
           <Text uppercase={false}>Log in with RIT</Text>
