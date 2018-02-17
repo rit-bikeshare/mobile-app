@@ -3,8 +3,10 @@ jobs:
     - stage: test
       if: branch = master OR type IN (pull_request)
       language: node_js
+      node_js: 'node'
       cache: yarn
-      script: "yarn run ci"
+      install: 'yarn install'
+      script: 'yarn run ci'
 
     - stage: detach and link deps
       if: master AND (env(rebuild-android) = true OR tag = Rebuild android) OR (env(rebuild-ios) = true OR tag = Rebuild ios)
@@ -16,6 +18,7 @@ jobs:
           - $HOME/android
           - $HOME/ios
       language: node_js
+      node_js: 'node'
       install: 'yarn install'
       script: 
         - 'exp detach'
@@ -49,6 +52,7 @@ jobs:
     - stage: publish javascript
       if: branch = master
       language: node_js
+      node_js: 'node'
       install: 'yarn install'
       before_script: 'exp login -u $EXPO_USER -p $EXPO_PASS'
       script: 'exp publish'
