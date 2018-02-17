@@ -6,6 +6,7 @@ jobs:
       node_js: 'node'
       cache: yarn
       install: 'yarn install'
+      after_failure: 'cat yarn-error.log'
       script: 'yarn run ci'
 
     - stage: detach and link deps
@@ -20,6 +21,7 @@ jobs:
       language: node_js
       node_js: 'node'
       install: 'yarn install'
+      after_failure: 'cat yarn-error.log'
       script: 
         - 'exp detach'
         - 'react-native link'
@@ -54,6 +56,7 @@ jobs:
       language: node_js
       node_js: 'node'
       install: 'yarn install'
+      after_failure: 'cat yarn-error.log'
       before_script: 'exp login -u $EXPO_USER -p $EXPO_PASS'
       script: 'exp publish'
       
