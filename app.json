@@ -12,7 +12,7 @@
     },
     "loading": {
       "icon": "./img/icon.png",
-      "backgroundColor": "#F36E1F",
+      "backgroundColor": "#F36E1F"
     },
     "primaryColor": "#F36E1F",
     "name": "BikeShare",

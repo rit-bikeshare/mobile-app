@@ -16,7 +16,8 @@
     "prettier": "prettier --single-quote --trailing-comma es5",
     "prettier:verify": "sh bin/prettier-verify.sh",
     "prettier:write": "npm run prettier -- --write \"static/**/*.js\"",
-    "watch": "npm-watch"
+    "watch": "npm-watch",
+    "subrepo-setup": "git clone https://github.com/ingydotnet/git-subrepo /usr/local/git-subrepo && echo 'source /usr/local/git-subrepo/.rc' >> ~/.bashrc"
   },
   "lint-staged": {
     "*.js": [
