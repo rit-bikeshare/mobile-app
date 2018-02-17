@@ -1,0 +1,51 @@
+jobs:
+  include:
+    - stage: test
+      if: branch = master OR type IN (pull_request)
+      language: node_js
+      script: "yarn run ci"
+
+    - stage: detach and link deps
+      if: master AND ((env(rebuild-android) = true OR tag = Rebuild android) OR (env(rebuild-ios) = true OR tag = Rebuild ios))
+      cache:
+        directories:
+          - $HOME/android
+          - $HOME/ios
+      language: node_js
+      install: 'yarn install'
+      script: 
+        - 'exp detach'
+        - 'react-native link'
+
+    - stage: build android
+      if: branch = master AND (env(rebuild-android) = true OR tag = Rebuild android)
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
+          - $HOME/.android/build-cache
+      language: android
+      before_install: 'cd android'
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+
+    - stage: build ios
+      if: branch IS master AND (env(rebuild-ios) = true OR tag = Rebuild ios)
+      language: objective-c
+      before_install: 'cd ios'
+      xcode_project: MyNewProject.xcodeproj # path to your xcodeproj folder
+      xcode_scheme: MyNewProjectTests
+
+    - stage: publish javascript
+      if: branch = master
+      language: node_js
+      install: 'yarn install'
+      before_script: 'exp login -u $EXPO_USER -p $EXPO_PASS'
+      script: 'exp publish'
+      

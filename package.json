@@ -9,7 +9,7 @@
     "changed:js": "npm run changed --silent | grep --color=never '.*\\.js$'",
     "clean": "rm -rf node_modules",
     "fix-githooks": "prepush -c package.json remove && node node_modules/husky/bin/install",
-    "lint:all": "eslint . --fix",
+    "lint:all": "eslint .",
     "lint:changed:js": "npm run changed:js --silent | xargs eslint",
     "precommit": "lint-staged",
     "prepush": "npm run lint:changed:js",
@@ -17,14 +17,12 @@
     "prettier:verify": "sh bin/prettier-verify.sh",
     "prettier:write": "npm run prettier -- --write \"static/**/*.js\"",
     "watch": "npm-watch",
-    "subrepo-setup": "git clone https://github.com/ingydotnet/git-subrepo /usr/local/git-subrepo && echo 'source /usr/local/git-subrepo/.rc' >> ~/.bashrc"
+    "ci": "npm run lint-all && npm run test"
   },
   "lint-staged": {
     "*.js": [
-      "npm run --silent prettier:verify",
-      "npm run --silent prettier -- --write",
-      "eslint --fix",
-      "git add"
+      "prettier -l",
+      "eslint ."
     ]
   },
   "prepush": {
