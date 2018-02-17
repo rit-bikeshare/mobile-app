@@ -18,7 +18,7 @@ export default StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 10,
+    top: variables.isIphoneX ? 30 : 10,
     left: 10
   },
   icon: {
@@ -46,8 +46,7 @@ export default StyleSheet.create({
     width: '100%',
     paddingTop: 10,
     paddingBottom: 10,
-    backgroundColor: '#FAFAFA',
-    marginBottom: 20
+    backgroundColor: '#FAFAFA'
   },
   actions: {
     alignSelf: 'center',

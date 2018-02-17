@@ -8,14 +8,20 @@ export default StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 50,
-    paddingTop: variables.isIphoneX ? 20 : 0
+    paddingTop: variables.isIphoneX ? 20 : 0,
+    paddingBottom: variables.isIphoneX ? 20 : 0,
   },
   statusText: {
     fontSize: 20,
     paddingTop: 8
   },
   rescanButton: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginBottom: variables.isIphoneX ? 20 : 0
+  },
+  container: {
+    position: 'relative',
+    height: '100%',
+    backgroundColor: '#fff'
   }
 });

@@ -18,7 +18,8 @@ const Login = ({ handleLogin }) => {
         style={{
           position: 'absolute',
           width: '100%',
-          height: '100%'
+          height: '100%',
+          opacity: 0.5
         }}
         initialRegion={{
           latitude: 43.08447438334887,

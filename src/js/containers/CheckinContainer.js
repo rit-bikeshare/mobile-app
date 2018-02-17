@@ -114,7 +114,7 @@ class CheckinContainer extends React.Component {
 
   render() {
     return (
-      <View style={{ height: '100%', backgroundColor: '#fff' }}>
+      <View style={style.container}>
         {this.renderContent()}
       </View>
     );

@@ -8,6 +8,7 @@ import { View, Button, Text, Container } from 'native-base';
 import { askForCameraPermission as askForCameraPermissionAction } from 'BikeShare/redux/actions/permissionActions';
 import permissionSelectors from 'BikeShare/selectors/permissionSelectors';
 import Icon from 'BikeShare/components/lib/Icon';
+import styles from 'BikeShare/styles/qrScanner';
 
 const {
   cameraPermissionGranted: cameraPermissionGrantedSelector,
@@ -62,7 +63,7 @@ class QRScanner extends React.Component {
         bordered={true}
         light={true}
         onPress={this.toggleTorch}
-        style={{ position: 'absolute', bottom: 10, right: 10 }}
+        style={styles.torchButton}
       >
         <Icon name="md-flash" iconFamily="Ionicons" />
         <Text>Torch</Text>
@@ -116,11 +117,7 @@ class QRScanner extends React.Component {
         transparent={true}
         light={true}
         onPress={onClose}
-        style={{
-          position: 'absolute',
-          top: 10,
-          left: 10
-        }}
+        style={styles.closeButton}
       >
         <Icon name="close" iconFamily="MaterialCommunityIcons" style={{ fontSize: 30 }} />
       </Button>

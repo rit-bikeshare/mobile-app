@@ -38,7 +38,7 @@ const CheckoutSuccess = ({ onClose }) => {
         <Image resizeMode="contain" style={styles.helmets} source={helmets} />
       </View>
       <View style={styles.actions}>
-        <Button onPress={onClose} style={{ marginLeft: 12 }}>
+        <Button onPress={onClose}>
           <Text uppercase={false}>OK, I'm ready to go</Text>
         </Button>
       </View>
