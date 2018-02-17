@@ -3,10 +3,14 @@ jobs:
     - stage: test
       if: branch = master OR type IN (pull_request)
       language: node_js
+      cache: yarn
       script: "yarn run ci"
 
     - stage: detach and link deps
-      if: master AND ((env(rebuild-android) = true OR tag = Rebuild android) OR (env(rebuild-ios) = true OR tag = Rebuild ios))
+      if: master AND (env(rebuild-android) = true OR tag = Rebuild android) OR (env(rebuild-ios) = true OR tag = Rebuild ios)
+      before_cache:
+        - rm -fr  $HOME/android
+        - rm -fr $HOME/ios
       cache:
         directories:
           - $HOME/android
@@ -17,8 +21,9 @@ jobs:
         - 'exp detach'
         - 'react-native link'
 
-    - stage: build android
+    - stage: build
       if: branch = master AND (env(rebuild-android) = true OR tag = Rebuild android)
+      language: android
       before_cache:
         - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
         - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -27,7 +32,6 @@ jobs:
           - $HOME/.gradle/caches/
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
-      language: android
       before_install: 'cd android'
       android:
         components:
@@ -35,7 +39,7 @@ jobs:
           - platform-tools
           - tools
 
-    - stage: build ios
+    - stage: build
       if: branch IS master AND (env(rebuild-ios) = true OR tag = Rebuild ios)
       language: objective-c
       before_install: 'cd ios'
