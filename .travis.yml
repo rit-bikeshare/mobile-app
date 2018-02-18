@@ -3,11 +3,11 @@ jobs:
     - stage: test
       if: branch = master OR type IN (pull_request)
       language: node_js
-      node_js: 'node'
+      node_js: node
       cache: yarn
-      install: 'yarn install'
-      after_failure: 'cat $HOME/yarn-error.log'
-      script: 'yarn run ci'
+      install: yarn install
+      after_failure: cat ./yarn-error.log
+      script: yarn run ci
 
     - stage: detach and link deps
       if: master AND (env(rebuild-android) = true OR tag = Rebuild android) OR (env(rebuild-ios) = true OR tag = Rebuild ios)
@@ -19,12 +19,12 @@ jobs:
           - $HOME/android
           - $HOME/ios
       language: node_js
-      node_js: 'node'
-      install: 'yarn install'
-      after_failure: 'cat $HOME/yarn-error.log'
-      script: 
-        - 'exp detach'
-        - 'react-native link'
+      node_js: node
+      install: yarn install
+      after_failure: cat $HOME/yarn-error.log
+      script:
+        - exp detach
+        - react-native link
 
     - stage: build
       if: branch = master AND (env(rebuild-android) = true OR tag = Rebuild android)
@@ -37,7 +37,7 @@ jobs:
           - $HOME/.gradle/caches/
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
-      before_install: 'cd android'
+      before_install: cd android
       android:
         components:
           - tools
@@ -47,16 +47,16 @@ jobs:
     - stage: build
       if: branch IS master AND (env(rebuild-ios) = true OR tag = Rebuild ios)
       language: objective-c
-      before_install: 'cd ios'
+      before_install: cd ios
       xcode_project: MyNewProject.xcodeproj # path to your xcodeproj folder
       xcode_scheme: MyNewProjectTests
 
     - stage: publish javascript
       if: branch = master
       language: node_js
-      node_js: 'node'
-      install: 'yarn install'
-      after_failure: 'cat $HOME/yarn-error.log'
-      before_script: 'exp login -u $EXPO_USER -p $EXPO_PASS'
-      script: 'exp publish'
+      node_js: node
+      install: yarn install
+      after_failure: cat $HOME/yarn-error.log
+      before_script: exp login -u $EXPO_USER -p $EXPO_PASS
+      script: exp publish
       
