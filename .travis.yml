@@ -58,6 +58,7 @@ jobs:
           - tools
           - build-tools-26.0.1
           - android-26
+          - android-27
           - extra-android-support-27.0.2
           - extra-android-m2repository-27.0.2
           - extra-google-m2repository-27.0.2
