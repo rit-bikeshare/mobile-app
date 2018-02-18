@@ -4,7 +4,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/jest/bin/jest.js --watch",
+    "test": "node_modules/.bin/jest",
+    "clearCache": "node_modules/.bin/jest --clearCache",
     "changed": "git diff-tree --no-commit-id --name-only -r --diff-filter=a HEAD $(git merge-base HEAD origin/master)",
     "changed:js": "npm run changed --silent | grep --color=never '.*\\.js$'",
     "clean": "rm -rf node_modules",
@@ -31,10 +32,10 @@
     ]
   },
   "jest": {
-    "preset": "jest-expo",
-    "snapshotSerializers": [
-      "./node_modules/jest-serializer-enzyme"
-    ]
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|Expo|expo|native-base-shoutem-theme|react-native-easy-grid|react-native-drawer|react-router-native|@expo/vector-icons|native-base/node_modules/react-native-vector-icons))"
+    ],
+    "preset": "jest-expo"
   },
   "dependencies": {
     "@expo/vector-icons": "^6.1.0",
@@ -42,6 +43,7 @@
     "@turf/turf": "^5.0.4",
     "babel": "^6.23.0",
     "babel-plugin-module-resolver": "^2.7.1",
+    "bikelock-api": "git://github.com/rit-bikeshare/bikelock-api.git",
     "expo": "^21.0.3",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
@@ -62,8 +64,7 @@
     "redux-persist": "^5.4.0",
     "redux-persist-transform-immutable": "^4.3.0",
     "redux-thunk": "^2.2.0",
-    "reselect": "^3.0.1",
-    "bikelock-api": "git://github.com/rit-bikeshare/bikelock-api.git"
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -75,8 +76,8 @@
     "eslint-plugin-react": "^6.10.1",
     "eslint-plugin-react-native": "^3.1.0",
     "husky": "^0.14.3",
-    "jest": "^21.2.1",
-    "jest-expo": "^22.0.0",
+    "jest": "^22.3.0",
+    "jest-expo": "^25.1.0",
     "jest-serializer-enzyme": "^1.0.0",
     "lint-staged": "^4.3.0",
     "npm-watch": "^0.3.0",

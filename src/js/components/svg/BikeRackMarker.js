@@ -1,14 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Svg } from 'expo';
+import { Svg } from 'Expo';
 import { Text } from 'native-base';
 
-const {
-  G,
-  Text: SvgText,
-  Path,
-  Circle
-} = Svg;
+const { G, Text: SvgText, Path, Circle } = Svg;
 
 export default class BikeRackMarker extends React.Component {
   static propTypes = {
@@ -45,11 +40,7 @@ export default class BikeRackMarker extends React.Component {
 
   renderTiger() {
     const { availableBikes } = this.props;
-    return (
-      <Text style={{ position: 'absolute', left: 7, top: 5 }}>
-        {availableBikes}
-      </Text>
-    );
+    return <Text style={{ position: 'absolute', left: 7, top: 5 }}>{availableBikes}</Text>;
   }
 
   render() {

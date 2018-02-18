@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { MapView as ExpoMapView } from 'expo';
+import { MapView as ExpoMapView } from 'Expo';
 import { connect } from 'react-redux';
 
 import { getMapMarkers } from 'BikeShare/selectors/mapSelectors';
@@ -26,7 +26,7 @@ class MapView extends React.Component {
           key={marker.get('id')}
           coordinate={{
             latitude: marker.get('latitude'),
-            longitude: marker.get('longitude'),
+            longitude: marker.get('longitude')
           }}
           image={tigerMode ? tiger : null}
         >
@@ -76,7 +76,7 @@ class MapView extends React.Component {
           latitude: 43.08447438334887,
           latitudeDelta: 0.00900991980918775,
           longitude: -77.67920080572367,
-          longitudeDelta: 0.007426701486110687,
+          longitudeDelta: 0.007426701486110687
         }}
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}

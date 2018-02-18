@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { BarCodeScanner } from 'Expo';
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
-import { BarCodeScanner } from 'expo';
 import { View, Button, Text, Container } from 'native-base';
 
 import { askForCameraPermission as askForCameraPermissionAction } from 'BikeShare/redux/actions/permissionActions';
@@ -15,21 +15,21 @@ const {
   cameraPermissionPending: cameraPermissionPendingSelector
 } = permissionSelectors;
 
-const QR_BARCODE_TYPE = BarCodeScanner.Constants.BarCodeType.qr;
-
+console.log(BarCodeScanner);
 class QRScanner extends React.Component {
+  // static QR_BARCODE_TYPE = BarCodeScanner.Constants.BarCodeType.qr;
   static propTypes = {
     askForCameraPermission: PropTypes.func,
     cameraPermissionGranted: PropTypes.bool,
     cameraPermissionPending: PropTypes.bool,
     onQRCodeScan: PropTypes.func,
     onClose: PropTypes.func.isRequired
-  }
+  };
 
   static defaultProps = {
     onQRCodeScan: () => null,
     onClose: () => null
-  }
+  };
 
   constructor(props, defaultProps) {
     super(props, defaultProps);
@@ -59,12 +59,7 @@ class QRScanner extends React.Component {
 
   renderTorchButton() {
     return (
-      <Button
-        bordered={true}
-        light={true}
-        onPress={this.toggleTorch}
-        style={styles.torchButton}
-      >
+      <Button bordered={true} light={true} onPress={this.toggleTorch} style={styles.torchButton}>
         <Icon name="md-flash" iconFamily="Ionicons" />
         <Text>Torch</Text>
       </Button>
@@ -76,7 +71,7 @@ class QRScanner extends React.Component {
     return (
       <View style={StyleSheet.absoluteFill}>
         <BarCodeScanner
-          barCodeTypes={[QR_BARCODE_TYPE]}
+          barCodeTypes={['QR_BARCODE_TYPE']}
           onBarCodeRead={this.handleBarCodeRead}
           style={StyleSheet.absoluteFill}
           torchMode={torchActive ? 'on' : 'off'}
@@ -87,11 +82,7 @@ class QRScanner extends React.Component {
   }
 
   renderContent() {
-    const {
-      cameraPermissionGranted,
-      cameraPermissionPending,
-      askForCameraPermission
-    } = this.props;
+    const { cameraPermissionGranted, cameraPermissionPending, askForCameraPermission } = this.props;
 
     if (cameraPermissionGranted) {
       return this.renderBarcodeScanner();
@@ -103,9 +94,7 @@ class QRScanner extends React.Component {
 
     return (
       <Button onPress={askForCameraPermission}>
-        <Text>
-          We need your permission to use the camera
-        </Text>
+        <Text>We need your permission to use the camera</Text>
       </Button>
     );
   }
@@ -113,12 +102,7 @@ class QRScanner extends React.Component {
   renderBackButton() {
     const { onClose } = this.props;
     return (
-      <Button
-        transparent={true}
-        light={true}
-        onPress={onClose}
-        style={styles.closeButton}
-      >
+      <Button transparent={true} light={true} onPress={onClose} style={styles.closeButton}>
         <Icon name="close" iconFamily="MaterialCommunityIcons" style={{ fontSize: 30 }} />
       </Button>
     );

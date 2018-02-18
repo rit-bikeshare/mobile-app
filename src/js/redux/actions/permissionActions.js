@@ -1,22 +1,15 @@
 import { createAction } from 'redux-actions';
-import { Permissions } from 'expo';
+import { Permissions } from 'Expo';
 
 import permissionSelectors from 'BikeShare/selectors/permissionSelectors';
 import ActionTypes from 'BikeShare/redux/ActionTypes';
 import { PENDING } from 'BikeShare/constants/PermissionValues';
 
-const {
-  cameraPermissionGranted,
-  locationPermissionGranted
-} = permissionSelectors;
+const { cameraPermissionGranted, locationPermissionGranted } = permissionSelectors;
 
-const updateCameraPermission = createAction(
-  ActionTypes.SET_CAMERA_PERMISSION
-);
+const updateCameraPermission = createAction(ActionTypes.SET_CAMERA_PERMISSION);
 
-export const updateLocationPermission = createAction(
-  ActionTypes.SET_LOCATION_PERMISSION
-);
+export const updateLocationPermission = createAction(ActionTypes.SET_LOCATION_PERMISSION);
 
 /*
  * asks for permission for camera use if the permission is not already granted.
