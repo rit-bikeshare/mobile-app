@@ -2244,7 +2244,7 @@ big-integer@^1.6.7:
 
 "bikelock-api@git://github.com/rit-bikeshare/bikelock-api.git":
   version "1.0.0"
-  resolved "git://github.com/rit-bikeshare/bikelock-api.git#233375c553aca957230df79573e0b0be3bfd97fa"
+  resolved "git://github.com/rit-bikeshare/bikelock-api.git#8d1bdfd4b9e63fd0a223e8a5a8d958ac53e5e8ff"
 
 binary-extensions@^1.0.0:
   version "1.11.0"
