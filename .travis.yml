@@ -47,10 +47,9 @@ jobs:
         - yarn install
         - yarn run login -u $EXPO_USERNAME -p $EXPO_PASSWORD
         - yarn run detach
-        - mv keystore.tar.gz android/keystone.tar.gz
-        - cd android
         - mv test-keystore.jks android/test-keystore.jks
         - mv keystore.properties android/keystore.properties
+        - cd android
       before_script:
 
       script: "./gradlew clean build"
