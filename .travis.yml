@@ -40,12 +40,16 @@ jobs:
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
       before_install:
+        - openssl aes-256-cbc -K $encrypted_3ad684c6ba06_key -iv $encrypted_3ad684c6ba06_iv -in keystore.tar.enc -out keystore.tar -d
+        - tar -xzvf keystore.tar
+        - nvm install node
         - npm install -g yarn
         - yarn install
         - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
         - exp detach
         - react-native link
         - cd android
+      script: "./gradlew clean build"
       android:
         components:
           - tools
