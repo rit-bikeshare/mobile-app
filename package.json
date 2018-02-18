@@ -45,7 +45,7 @@
     "@turf/turf": "^5.0.4",
     "babel": "^6.23.0",
     "babel-plugin-module-resolver": "^2.7.1",
-    "bikelock-api": "git+ssh://github.com/ritstudentgovernment/bikelock-api.git",
+    "bikelock-api": "git+ssh://git@github.com:ritstudentgovernment/bikelock-api.git",
     "expo": "^21.0.3",
     "history": "^4.7.2",
     "immutable": "^3.8.2",

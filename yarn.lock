@@ -2242,7 +2242,7 @@ big-integer@^1.6.7:
   version "1.6.26"
   resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.26.tgz#3af1672fa62daf2d5ecafacf6e5aa0d25e02c1c8"
 
-"bikelock-api@git+ssh://git@github.com/ritstudentgovernment/bikelock-api.git":
+"bikelock-api@git+ssh://git@github.com:ritstudentgovernment/bikelock-api.git":
   version "1.0.0"
   resolved "git+ssh://git@github.com/ritstudentgovernment/bikelock-api.git#9b4a5253717d0013b3c3b28d899c770048c941b8"
 
