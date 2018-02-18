@@ -18,7 +18,9 @@
     "prettier:verify": "sh bin/prettier-verify.sh",
     "prettier:write": "npm run prettier -- --write \"static/**/*.js\"",
     "watch": "npm-watch",
-    "ci": "npm run lint:all && npm run test"
+    "ci": "npm run lint:all && npm run test",
+    "detach": "exp detach && react-native link",
+    "login": "exp login"
   },
   "lint-staged": {
     "*.js": [

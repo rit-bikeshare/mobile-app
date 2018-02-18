@@ -29,7 +29,7 @@ jobs:
     #     - react-native link
 
     - stage: build
-      if: branch = master
+      if: branch=master
       language: android
       before_cache:
         - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -44,12 +44,13 @@ jobs:
         - nvm install node
         - npm install -g yarn
         - yarn install
-        - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        - exp detach
-        - react-native link
+        - yarn run login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        - yarn run detach
         - mv keystore.tar.gz android/keystone.tar.gz
         - cd android
         - tar -xzvf keystore.tar.gz
+      before_script:
+
       script: "./gradlew clean build"
       android:
         components:
@@ -58,7 +59,7 @@ jobs:
           - tools
 
     - stage: build
-      if: branch IS master AND tag = Rebuild ios
+      if: branch=master AND tag=Rebuild ios
       language: objective-c
       before_install: cd $HOME/.cache/ios
       xcode_project: MyNewProject.xcodeproj # path to your xcodeproj folder
