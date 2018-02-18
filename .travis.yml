@@ -22,6 +22,7 @@ jobs:
       node_js: node
       install: yarn install
       after_failure: cat $HOME/yarn-error.log
+      before_script: exp login -u $EXPO_USER -p $EXPO_PASS
       script:
         - exp detach
         - react-native link
