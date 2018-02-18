@@ -11,9 +11,6 @@ jobs:
 
     - stage: detach and link deps
       if: master AND (env(rebuild-android) = true OR tag = Rebuild android) OR (env(rebuild-ios) = true OR tag = Rebuild ios)
-      before_cache:
-        - rm -fr  $HOME/android
-        - rm -fr $HOME/ios
       cache:
         directories:
           - $HOME/android
@@ -22,8 +19,11 @@ jobs:
       node_js: node
       install: yarn install
       after_failure: cat $HOME/yarn-error.log
-      before_script: exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+      before_script:
+        - rm -fr  $HOME/android
+        - rm -fr $HOME/ios
       script:
+        - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
         - exp detach
         - react-native link
 
