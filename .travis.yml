@@ -12,6 +12,7 @@ jobs:
     - stage: detach and link deps
       if: master AND (env(rebuild-android) = true OR tag = Rebuild android) OR (env(rebuild-ios) = true OR tag = Rebuild ios)
       cache:
+        yarn: true
         directories:
           - $HOME/android
           - $HOME/ios
@@ -38,7 +39,7 @@ jobs:
           - $HOME/.gradle/caches/
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
-      before_install: cd $HOME/.cache/android
+      before_install: ls -l && cd $HOME/.cache/android
       android:
         components:
           - tools
