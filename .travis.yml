@@ -5,7 +5,9 @@ jobs:
       language: node_js
       node_js: node
       cache: yarn
-      before_install: ssh-add $GITHUB_DEPLOY_KEY
+      before_install: 
+        - ssh-add $GITHUB_DEPLOY_KEY
+        - eval $(ssh-agent -s)
       install: yarn install
       after_failure: cat ./yarn-error.log
       script: yarn run ci
@@ -41,6 +43,7 @@ jobs:
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
       before_install:
+        - eval $(ssh-agent -s)
         - ssh-add $GITHUB_DEPLOY_KEY
         - openssl aes-256-cbc -K $encrypted_3ad684c6ba06_key -iv $encrypted_3ad684c6ba06_iv -in keystore.tar.gz.enc -out keystore.tar.gz -d
         - tar -xzvf keystore.tar.gz
@@ -75,7 +78,9 @@ jobs:
       if: branch = master
       language: node_js
       node_js: node
-      before_install: ssh-add $GITHUB_DEPLOY_KEY
+      before_install:
+        - eval $(ssh-agent -s)
+        - ssh-add $GITHUB_DEPLOY_KEY
       install: yarn install
       after_failure: cat $HOME/yarn-error.log
       before_script: exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
