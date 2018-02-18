@@ -58,9 +58,9 @@ jobs:
           - tools
           - build-tools-26.0.1
           - android-26
-          - extra-android-support
-          - extra-android-m2repository
-          - extra-google-m2repository
+          - extra-android-support-27.0.2
+          - extra-android-m2repository-27.0.2
+          - extra-google-m2repository-27.0.2
 
     - stage: build
       if: branch=master AND tag=Rebuild ios
