@@ -9,24 +9,24 @@ jobs:
       after_failure: cat ./yarn-error.log
       script: yarn run ci
 
-    - stage: detach and link deps
-      if: master AND (env(rebuild-android) = true OR tag = Rebuild android) OR (env(rebuild-ios) = true OR tag = Rebuild ios)
-      cache:
-        yarn: true
-        directories:
-          - $HOME/android
-          - $HOME/ios
-      before_cache:
-        - rm -fr  $HOME/.cache/android
-        - rm -fr $HOME/.cache/ios
-      language: node_js
-      node_js: node
-      install: yarn install
-      after_failure: cat $HOME/yarn-error.log
-      script:
-        - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        - exp detach
-        - react-native link
+    # - stage: detach and link deps
+    #   if: master AND (env(rebuild-android) = true OR tag = Rebuild android) OR (env(rebuild-ios) = true OR tag = Rebuild ios)
+    #   cache:
+    #     yarn: true
+    #     directories:
+    #       - $HOME/android
+    #       - $HOME/ios
+    #   before_cache:
+    #     - rm -fr  $HOME/.cache/android
+    #     - rm -fr $HOME/.cache/ios
+    #   language: node_js
+    #   node_js: node
+    #   install: yarn install
+    #   after_failure: cat $HOME/yarn-error.log
+    #   script:
+    #     - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+    #     - exp detach
+    #     - react-native link
 
     - stage: build
       if: branch = master AND (env(rebuild-android) = true OR tag = Rebuild android)
@@ -39,7 +39,13 @@ jobs:
           - $HOME/.gradle/caches/
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
-      before_script: ls -al && cd $HOME/.cache/android
+      before_install:
+        - npm install -g yarn
+        - yarn install
+        - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        - exp detach
+        - react-native link
+        - cd android
       android:
         components:
           - tools
