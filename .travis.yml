@@ -22,7 +22,7 @@ jobs:
       node_js: node
       install: yarn install
       after_failure: cat $HOME/yarn-error.log
-      before_script: exp login -u $EXPO_USER -p $EXPO_PASS
+      before_script: exp login -u "$EXPO_USER" -p "$EXPO_PASS"
       script:
         - exp detach
         - react-native link
@@ -35,6 +35,8 @@ jobs:
         - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
       cache:
         directories:
+          - $HOME/android
+          - $HOME/ios
           - $HOME/.gradle/caches/
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
@@ -48,6 +50,10 @@ jobs:
     - stage: build
       if: branch IS master AND (env(rebuild-ios) = true OR tag = Rebuild ios)
       language: objective-c
+      cache:
+        directories:
+          - $HOME/android
+          - $HOME/ios
       before_install: cd ios
       xcode_project: MyNewProject.xcodeproj # path to your xcodeproj folder
       xcode_scheme: MyNewProjectTests
@@ -58,6 +64,6 @@ jobs:
       node_js: node
       install: yarn install
       after_failure: cat $HOME/yarn-error.log
-      before_script: exp login -u $EXPO_USER -p $EXPO_PASS
+      before_script: exp login -u "$EXPO_USER" -p "$EXPO_PASS"
       script: exp publish
       
