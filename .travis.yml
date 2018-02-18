@@ -50,15 +50,13 @@ jobs:
         - mv test-keystore.jks android/test-keystore.jks
         - mv keystore.properties android/keystore.properties
         - cd android
-      before_script:
-
       script: "./gradlew clean build"
       android:
         components:
           - tools
           - platform-tools
           - tools
-          - build-tools-26.0.2
+          - build-tools-26.0.1
           - android-26
 
     - stage: build
