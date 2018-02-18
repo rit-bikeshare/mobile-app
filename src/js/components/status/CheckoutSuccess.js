@@ -3,21 +3,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image } from 'react-native';
-import { Text, View, Button, H2, H1 } from 'native-base';
+import { Text, View, Button, H2, H1, Icon } from 'native-base';
 import styles from 'BikeShare/styles/checkoutSuccess';
-import Icon from 'BikeShare/components/lib/Icon';
 import helmets from 'img/helmets.png';
 
 const CheckoutSuccess = ({ onClose }) => {
   return (
     <View style={styles.container}>
-      <Button
-        transparent={true}
-        dark={true}
-        onPress={onClose}
-        style={styles.backButton}
-      >
-        <Icon name="close" iconFamily="MaterialCommunityIcons" style={{ fontSize: 30 }} />
+      <Button transparent={true} dark={true} onPress={onClose} style={styles.backButton}>
+        <Icon name="close" type="MaterialCommunityIcons" style={{ fontSize: 30 }} />
       </Button>
       <View style={styles.paddedView}>
         <View style={styles.icon}>
@@ -30,8 +24,8 @@ const CheckoutSuccess = ({ onClose }) => {
         </Text>
         <H2 style={styles.header}>Safety Tips</H2>
         <Text style={{ textAlign: 'center', paddingBottom: 24 }}>
-          Follow the illustrations below on how to properly wear a bike helmet.
-          If you have a helmet, wear it!
+          Follow the illustrations below on how to properly wear a bike helmet. If you have a
+          helmet, wear it!
         </Text>
       </View>
       <View style={styles.helmetsWrapper}>

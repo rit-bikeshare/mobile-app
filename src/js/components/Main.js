@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleProvider, Tabs, Tab, TabHeading } from 'native-base';
+import { StyleProvider, Tabs, Tab, TabHeading, Icon } from 'native-base';
 import { ScrollView, RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
 
 import { getBikeRackFetchStatus } from 'BikeShare/selectors/bikeRackSelectors';
 import { fetchBikeRacks as fetchBikeRacksAction } from 'BikeShare/redux/actions/bikeRackActions';
-import Icon from 'BikeShare/components/lib/Icon';
 import MapContainer from 'BikeShare/containers/MapContainer';
 import Settings from 'BikeShare/components/Settings';
 import getTheme from 'theme/components';
@@ -14,17 +13,14 @@ import materialIcons from 'theme/variables/materialIcons';
 
 import RequestStatus from 'BikeShare/constants/RequestStatus';
 
-const {
-  SUCCESS,
-  FAILED
-} = RequestStatus;
+const { SUCCESS, FAILED } = RequestStatus;
 
 class Main extends React.Component {
   static propTypes = {
     bikeRackFetchStatus: PropTypes.oneOf(Object.keys(RequestStatus)),
     fetchBikeRacks: PropTypes.func,
     pullToRefresh: PropTypes.bool
-  }
+  };
   constructor(props) {
     super(props);
 
@@ -38,8 +34,10 @@ class Main extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { bikeRackFetchStatus } = nextProps;
     const { bikeRackFetchStatus: prevFetchStatus } = this.props;
-    if (bikeRackFetchStatus !== prevFetchStatus
-      && (bikeRackFetchStatus === SUCCESS || bikeRackFetchStatus === FAILED)) {
+    if (
+      bikeRackFetchStatus !== prevFetchStatus &&
+      (bikeRackFetchStatus === SUCCESS || bikeRackFetchStatus === FAILED)
+    ) {
       this.setState({
         refreshing: false
       });
@@ -57,7 +55,7 @@ class Main extends React.Component {
   renderTabHeading(icon, iconFamily) {
     return (
       <TabHeading>
-        <Icon name={icon} iconFamily={iconFamily} />
+        <Icon name={icon} type={iconFamily} />
       </TabHeading>
     );
   }
@@ -85,25 +83,16 @@ class Main extends React.Component {
 
     return (
       <ScrollView
-        refreshControl={
-          <RefreshControl
-            onRefresh={this.handleRefreash}
-            refreshing={refreshing}
-          />
-        }
+        refreshControl={<RefreshControl onRefresh={this.handleRefreash} refreshing={refreshing} />}
         contentContainerStyle={{ flexGrow: 1 }}
-       >
+      >
         {this.renderTabs()}
       </ScrollView>
     );
   }
 
   render() {
-    return (
-      <StyleProvider style={getTheme(materialIcons)}>
-        {this.renderContent()}
-      </StyleProvider>
-    );
+    return <StyleProvider style={getTheme(materialIcons)}>{this.renderContent()}</StyleProvider>;
   }
 }
 

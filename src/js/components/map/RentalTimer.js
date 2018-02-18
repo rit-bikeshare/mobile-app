@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ToastAndroid, TouchableWithoutFeedback } from 'react-native';
+import { ToastAndroid, TouchableWithoutFeedback, Icon } from 'react-native';
 import { Text, View } from 'native-base';
 import moment from 'moment';
 
 import BikeRental, { isCurrentlyRented } from 'BikeShare/data/records/BikeRental';
 import Bike from 'BikeShare/components/svg/Bike';
-import Icon from 'BikeShare/components/lib/Icon';
 import styles from 'BikeShare/styles/rentalTimer';
 
 import 'moment-duration-format';
@@ -16,7 +15,7 @@ class RentalTimer extends React.Component {
   static propTypes = {
     currentBike: PropTypes.instanceOf(BikeRental),
     style: PropTypes.object
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -89,7 +88,10 @@ class RentalTimer extends React.Component {
   }
 
   showOver24HourToast() {
-    ToastAndroid.show('You\'ve have your bike checked-out for longer than 24 hours. Please return it as soon as possible to avoid penalties.', ToastAndroid.LONG);
+    ToastAndroid.show(
+      "You've have your bike checked-out for longer than 24 hours. Please return it as soon as possible to avoid penalties.",
+      ToastAndroid.LONG
+    );
   }
 
   render24HourAlert() {
@@ -104,7 +106,15 @@ class RentalTimer extends React.Component {
 
     return (
       <TouchableWithoutFeedback onPress={this.showOver24HourToast}>
-        <View style={{ flexDirection: 'row', position: 'absolute', right: 8, alignItems: 'center', padding: 8 }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            position: 'absolute',
+            right: 8,
+            alignItems: 'center',
+            padding: 8
+          }}
+        >
           <Icon style={[styles.icon, textStyle]} name="md-warning" />
         </View>
       </TouchableWithoutFeedback>
@@ -121,7 +131,9 @@ class RentalTimer extends React.Component {
 
     return (
       <View style={[style, styles.timerContainer]}>
-        <View style={{ flexDirection: 'row', position: 'absolute', left: 16, alignItems: 'center' }}>
+        <View
+          style={{ flexDirection: 'row', position: 'absolute', left: 16, alignItems: 'center' }}
+        >
           <Bike width={35} />
           <Text style={[styles.text, { paddingLeft: 8, alignSelf: 'flex-start' }]}>#</Text>
           <Text style={styles.timer}>{currentBike.bike}</Text>

@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import { BarCodeScanner } from 'Expo';
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
-import { View, Button, Text, Container } from 'native-base';
+import { View, Button, Text, Container, Icon } from 'native-base';
 
 import { askForCameraPermission as askForCameraPermissionAction } from 'BikeShare/redux/actions/permissionActions';
 import permissionSelectors from 'BikeShare/selectors/permissionSelectors';
-import Icon from 'BikeShare/components/lib/Icon';
 import styles from 'BikeShare/styles/qrScanner';
 
 const {
@@ -59,7 +58,7 @@ class QRScanner extends React.Component {
   renderTorchButton() {
     return (
       <Button bordered={true} light={true} onPress={this.toggleTorch} style={styles.torchButton}>
-        <Icon name="md-flash" iconFamily="Ionicons" />
+        <Icon name="md-flash" type="Ionicons" />
         <Text>Torch</Text>
       </Button>
     );
@@ -102,7 +101,7 @@ class QRScanner extends React.Component {
     const { onClose } = this.props;
     return (
       <Button transparent={true} light={true} onPress={onClose} style={styles.closeButton}>
-        <Icon name="close" iconFamily="MaterialCommunityIcons" style={{ fontSize: 30 }} />
+        <Icon name="close" type="MaterialCommunityIcons" style={{ fontSize: 30 }} />
       </Button>
     );
   }

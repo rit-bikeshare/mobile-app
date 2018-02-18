@@ -1,22 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, H1, View, Text } from 'native-base';
+import { Button, H1, View, Text, Icon } from 'native-base';
 
 import styles from 'BikeShare/styles/error';
-import Icon from 'BikeShare/components/lib/Icon';
 
 const ErrorView = ({ title, subText, onClose }) => {
   return (
     <View style={styles.container}>
-      <Button
-        transparent={true}
-        dark={true}
-        onPress={onClose}
-        style={styles.backButton}
-      >
-        <Icon name="close" iconFamily="MaterialCommunityIcons" style={{ fontSize: 30 }} />
+      <Button transparent={true} dark={true} onPress={onClose} style={styles.backButton}>
+        <Icon name="close" type="MaterialCommunityIcons" style={{ fontSize: 30 }} />
       </Button>
-      <Icon style={styles.errorIcon} name="error-outline" iconFamily="MaterialIcons" />
+      <Icon style={styles.errorIcon} name="error-outline" type="MaterialIcons" />
       <H1>{title}</H1>
       <Text style={styles.subtext}>{subText}</Text>
     </View>

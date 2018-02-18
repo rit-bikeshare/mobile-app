@@ -2,20 +2,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, Button, H2, H1 } from 'native-base';
+import { Text, View, Button, H2, H1, Icon } from 'native-base';
 import styles from 'BikeShare/styles/checkoutSuccess';
-import Icon from 'BikeShare/components/lib/Icon';
 
 const CheckinSuccess = ({ onClose, reportDamage }) => {
   return (
     <View style={styles.container}>
-      <Button
-        transparent={true}
-        dark={true}
-        onPress={onClose}
-        style={styles.backButton}
-      >
-        <Icon name="close" iconFamily="MaterialCommunityIcons" style={{ fontSize: 30 }} />
+      <Button transparent={true} dark={true} onPress={onClose} style={styles.backButton}>
+        <Icon name="close" type="MaterialCommunityIcons" style={{ fontSize: 30 }} />
       </Button>
       <View style={styles.paddedView}>
         <View style={styles.icon}>
@@ -28,8 +22,8 @@ const CheckinSuccess = ({ onClose, reportDamage }) => {
         </Text>
         <H2 style={styles.header}>Bike Damage</H2>
         <Text style={{ textAlign: 'center', paddingBottom: 24 }}>
-          Inspect the bike for any damage that may have occured during your trip.
-          If there is any, please report it with the "Report Damage" button below.
+          Inspect the bike for any damage that may have occured during your trip. If there is any,
+          please report it with the "Report Damage" button below.
         </Text>
       </View>
       <View style={styles.actions}>
