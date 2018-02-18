@@ -39,7 +39,7 @@ jobs:
           - $HOME/.gradle/caches/
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
-      before_install: ls -l && cd $HOME/.cache/android
+      before_install: ls -al && cd $HOME/.cache/android
       android:
         components:
           - tools
