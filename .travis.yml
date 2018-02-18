@@ -41,6 +41,7 @@ jobs:
           - $HOME/.android/build-cache
       before_install:
         - openssl aes-256-cbc -K $encrypted_3ad684c6ba06_key -iv $encrypted_3ad684c6ba06_iv -in keystore.tar.gz.enc -out keystore.tar.gz -d
+        - tar -xzvf keystore.tar.gz
         - nvm install node
         - npm install -g yarn
         - yarn install
@@ -48,7 +49,8 @@ jobs:
         - yarn run detach
         - mv keystore.tar.gz android/keystone.tar.gz
         - cd android
-        - tar -xzvf keystore.tar.gz
+        - mv test-keystore.jks android/test-keystore.jks
+        - mv keystore.properties android/keystore.properties
       before_script:
 
       script: "./gradlew clean build"
