@@ -15,13 +15,13 @@ jobs:
         directories:
           - $HOME/android
           - $HOME/ios
+      before_cache:
+        - rm -fr  $HOME/.cache/android
+        - rm -fr $HOME/.cache/ios
       language: node_js
       node_js: node
       install: yarn install
       after_failure: cat $HOME/yarn-error.log
-      before_script:
-        - rm -fr  $HOME/android
-        - rm -fr $HOME/ios
       script:
         - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
         - exp detach
@@ -35,12 +35,10 @@ jobs:
         - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
       cache:
         directories:
-          - $HOME/android
-          - $HOME/ios
           - $HOME/.gradle/caches/
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
-      before_install: cd android
+      before_install: cd $HOME/.cache/android
       android:
         components:
           - tools
@@ -50,11 +48,7 @@ jobs:
     - stage: build
       if: branch IS master AND (env(rebuild-ios) = true OR tag = Rebuild ios)
       language: objective-c
-      cache:
-        directories:
-          - $HOME/android
-          - $HOME/ios
-      before_install: cd ios
+      before_install: cd $HOME/.cache/ios
       xcode_project: MyNewProject.xcodeproj # path to your xcodeproj folder
       xcode_scheme: MyNewProjectTests
 
