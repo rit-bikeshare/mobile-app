@@ -75,6 +75,7 @@
     "eslint-config-hubspot": "^7.3.1",
     "eslint-plugin-react": "^6.10.1",
     "eslint-plugin-react-native": "^3.1.0",
+    "exp": "^49.2.2",
     "husky": "^0.14.3",
     "jest": "^22.3.0",
     "jest-expo": "^25.1.0",
