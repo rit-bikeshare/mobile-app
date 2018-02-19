@@ -4,7 +4,7 @@ notifications:
 jobs:
   include:
     - stage: test
-      if: type IN (pull_request)
+      if: branch = master OR type IN (pull_request)
       language: node_js
       node_js: node
       cache: yarn
@@ -15,70 +15,63 @@ jobs:
       after_failure: cat ./yarn-error.log
       script: yarn run ci
 
-    # - stage: detach and link deps
-    #   if: master AND (env(rebuild-android) = true OR tag = Rebuild android) OR (env(rebuild-ios) = true OR tag = Rebuild ios)
-    #   cache:
-    #     yarn: true
-    #     directories:
-    #       - $HOME/android
-    #       - $HOME/ios
-    #   before_cache:
-    #     - rm -fr  $HOME/.cache/android
-    #     - rm -fr $HOME/.cache/ios
-    #   language: node_js
-    #   node_js: node
-    #   install: yarn install
-    #   after_failure: cat $HOME/yarn-error.log
-    #   script:
-    #     - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-    #     - exp detach
-    #     - react-native link
+    - stage: build
+      if: branch = master AND tag IS present AND env(REBUILD_ANDROID) IS true
+      language: android
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
+          - $HOME/.android/build-cache
+      before_install:
+        - eval $(ssh-agent -s)
+        - ssh-add - <<< $GITHUB_DEPLOY_KEY
+        - openssl aes-256-cbc -K $encrypted_3ad684c6ba06_key -iv $encrypted_3ad684c6ba06_iv -in keystore.tar.gz.enc -out keystore.tar.gz -d
+        - tar -xzvf keystore.tar.gz
+        - nvm install node
+        - npm install -g yarn
+        - yarn install
+        - yarn run login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        - yarn run detach
+        - react-native link
+        - mv test-keystore.jks android/test-keystore.jks
+        - mv keystore.properties android/keystore.properties
+        - cd android
+      script: "./gradlew clean build"
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+          - android-27
+          - build-tools-27.0.1
+          - extra-android-support
+          - extra-android-m2repository
+          - extra-google-m2repository
 
-    # - stage: build
-    #   if: branch=master
-    #   language: android
-    #   before_cache:
-    #     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-    #     - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-    #   cache:
-    #     directories:
-    #       - $HOME/.gradle/caches/
-    #       - $HOME/.gradle/wrapper/
-    #       - $HOME/.android/build-cache
-    #   before_install:
-    #     - eval $(ssh-agent -s)
-    #     - ssh-add - <<< $GITHUB_DEPLOY_KEY
-    #     - openssl aes-256-cbc -K $encrypted_3ad684c6ba06_key -iv $encrypted_3ad684c6ba06_iv -in keystore.tar.gz.enc -out keystore.tar.gz -d
-    #     - tar -xzvf keystore.tar.gz
-    #     - nvm install node
-    #     - npm install -g yarn
-    #     - yarn install
-    #     - yarn run login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-    #     - yarn run detach
-    #     - mv test-keystore.jks android/test-keystore.jks
-    #     - mv keystore.properties android/keystore.properties
-    #     - cd android
-    #   script: "./gradlew clean build"
-    #   android:
-    #     components:
-    #       - tools
-    #       - platform-tools
-    #       - tools
-    #       - android-27
-    #       - build-tools-27.0.1
-    #       - extra-android-support
-    #       - extra-android-m2repository
-    #       - extra-google-m2repository
-
-    # - stage: build
-    #   if: branch=master AND tag=Rebuild ios
-    #   language: objective-c
-    #   before_install: cd $HOME/.cache/ios
-    #   xcode_project: MyNewProject.xcodeproj # path to your xcodeproj folder
-    #   xcode_scheme: MyNewProjectTests
+    - stage: build
+      if: branch = master AND tag IS present AND env(REBUILD_IOS) IS true
+      language: objective-c
+      before_install:
+        - eval $(ssh-agent -s)
+        - ssh-add - <<< $GITHUB_DEPLOY_KEY
+        - openssl aes-256-cbc -K $encrypted_3ad684c6ba06_key -iv $encrypted_3ad684c6ba06_iv -in keystore.tar.gz.enc -out keystore.tar.gz -d
+        - tar -xzvf keystore.tar.gz
+        - nvm install node
+        - npm install -g yarn
+        - yarn install
+        - yarn run login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        - yarn run detach
+        - react-native link
+        - cd ios
+      xcode_project: MyNewProject.xcodeproj # path to your xcodeproj folder
+      xcode_scheme: MyNewProjectTests
 
     - stage: publish javascript
-      if: branch = master
+      if: branch = master AND tag IS present
       language: node_js
       node_js: node
       before_install:
