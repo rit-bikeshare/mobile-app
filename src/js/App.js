@@ -1,5 +1,5 @@
 import React from 'react';
-import Expo from 'Expo';
+import Expo from 'expo';
 import { StatusBar } from 'react-native';
 import { StyleProvider, Container, View } from 'native-base';
 
@@ -24,7 +24,9 @@ export default class App extends React.Component {
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
       Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf'),
       MaterialCommunityIcons: require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf'),
-      'Material Design Icons': require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf')
+      'Material Design Icons': require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf'),
+      MaterialIcons: require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
+      'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf')
     });
 
     this.setState({ isReady: true });

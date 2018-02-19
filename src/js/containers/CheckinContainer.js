@@ -23,10 +23,7 @@ import RequestStatus from 'BikeShare/constants/RequestStatus';
 import parseDeepLink from 'BikeShare/utils/parseDeepLink';
 import style from 'BikeShare/styles/checkout';
 
-const {
-  PENDING,
-  FAILED
-} = RequestStatus;
+const { PENDING, FAILED } = RequestStatus;
 
 class CheckinContainer extends React.Component {
   static propTypes = {
@@ -36,7 +33,7 @@ class CheckinContainer extends React.Component {
     checkinCurrentBikeByLocation: PropTypes.func,
     checkinCurrentBikeByBikeRack: PropTypes.func,
     reportDamage: PropTypes.func
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -75,12 +72,18 @@ class CheckinContainer extends React.Component {
   }
 
   renderStatusMessage() {
-    const { bikeCheckinError, bikeCheckinStatus, onClose, reportDamage } = this.props;
+    const {
+      checkinCurrentBikeByLocation,
+      bikeCheckinError,
+      bikeCheckinStatus,
+      onClose,
+      reportDamage
+    } = this.props;
 
     if (bikeCheckinStatus === PENDING) {
       return (
         <View style={style.statusWrapper}>
-          <ActivityIndicator size={(Platform.OS === 'ios') ? 'large' : 100} />
+          <ActivityIndicator size={Platform.OS === 'ios' ? 'large' : 100} />
           <Text style={style.statusText}>Checking Bike In...</Text>
         </View>
       );
@@ -90,16 +93,19 @@ class CheckinContainer extends React.Component {
       return (
         <View style={style.statusWrapper}>
           <ErrorView title="Error Checking In Bike" subText={bikeCheckinError} onClose={onClose} />
-          <Button style={style.rescanButton} onPress={this.openQRScanner}>
-            <Text uppercase={false}>Check in with QR code</Text>
-          </Button>
+          <View style={style.actions}>
+            <Button onPress={checkinCurrentBikeByLocation} transparent={true}>
+              <Text uppercase={false}>Retry</Text>
+            </Button>
+            <Button style={style.rescanButton} onPress={this.openQRScanner}>
+              <Text uppercase={false}>Check in with QR code</Text>
+            </Button>
+          </View>
         </View>
       );
     }
 
-    return (
-      <CheckinSuccess onClose={onClose} reportDamage={reportDamage} />
-    );
+    return <CheckinSuccess onClose={onClose} reportDamage={reportDamage} />;
   }
   renderContent() {
     const { onClose } = this.props;
@@ -113,11 +119,7 @@ class CheckinContainer extends React.Component {
   }
 
   render() {
-    return (
-      <View style={style.container}>
-        {this.renderContent()}
-      </View>
-    );
+    return <View style={style.container}>{this.renderContent()}</View>;
   }
 }
 

@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { Permissions, Location } from 'Expo';
+import { Permissions, Location } from 'expo';
 import * as turf from '@turf/turf';
 
 import { hasNotFetchedCurrentRental } from 'BikeShare/selectors/bikeSelectors';

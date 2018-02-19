@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BarCodeScanner } from 'Expo';
+import { BarCodeScanner } from 'expo';
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
 import { View, Button, Text, Container, Icon } from 'native-base';

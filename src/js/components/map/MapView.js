@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { MapView as ExpoMapView } from 'Expo';
+import { MapView as ExpoMapView } from 'expo';
 import { connect } from 'react-redux';
 
 import { getMapMarkers } from 'BikeShare/selectors/mapSelectors';

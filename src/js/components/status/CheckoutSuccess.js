@@ -15,7 +15,7 @@ const CheckoutSuccess = ({ onClose }) => {
       </Button>
       <View style={styles.paddedView}>
         <View style={styles.icon}>
-          <Icon name="md-checkmark-circle-outline" style={styles.checkmark} />
+          <Icon type="Ionicons" name="md-checkmark-circle-outline" style={styles.checkmark} />
           <H1 style={styles.iconHeader}>Success</H1>
         </View>
         <H2 style={styles.header}>Before you go</H2>
