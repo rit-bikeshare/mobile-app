@@ -1,6 +1,5 @@
 #!/bin/sh
 set -ev
-eval $(ssh-agent -s)
 nvm install node
 npm install -g yarn
 yarn install
