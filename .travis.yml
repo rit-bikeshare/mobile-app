@@ -8,14 +8,12 @@ jobs:
       language: node_js
       node_js: node
       cache: yarn
-      before_install:
-        - eval $(ssh-agent -s)
-        - ./.travis/add-ssh-key.sh
+      before_install: ./.travis/add-ssh-key.sh
       install: yarn install
       script: yarn run ci
 
     - stage: build
-      if: sender IS rit-bikeshare-travis AND tag IS present 
+      if: sender = rit-bikeshare-travis AND tag IS present 
       language: android
       before_cache:
         - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -46,7 +44,7 @@ jobs:
           - extra-google-m2repository
 
     - stage: build
-      if: sender IS rit-bikeshare-travis AND tag IS present 
+      if: sender = rit-bikeshare-travis AND tag IS present 
       language: objective-c
       before_install:
         - ./.travis/add-ssh-key.sh
