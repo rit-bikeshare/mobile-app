@@ -1,7 +1,8 @@
 #!/bin/bash
 set -ev
 eval $(ssh-agent -s)
-eval spawn ssh-add - <<< "${GITHUB_DEPLOY_KEY}"
+set cmd [ssh-add - <<< "${GITHUB_DEPLOY_KEY}"]
+eval spawn $cmd
 expect "Enter passphrase for (stdin):"
 send "\r"
 interact
