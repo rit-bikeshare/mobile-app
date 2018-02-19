@@ -26,8 +26,8 @@ jobs:
       before_install:
         - ./.travis/add-ssh-key.sh
         - ./.travis/exp-detach.sh
-        - mv test-keystore.jks android/test-keystore.jks
-        - mv keystore.properties android/keystore.properties
+        - mv secret_files/test-keystore.jks android/test-keystore.jks
+        - mv secret_files/keystore.properties android/keystore.properties
         - cd android
       script: "./gradlew clean build"
       android:
