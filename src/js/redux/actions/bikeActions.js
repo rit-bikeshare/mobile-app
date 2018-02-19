@@ -14,6 +14,8 @@ const checkoutSuccessAction = createAction(ActionTypes.BIKE_CHECKOUT_SUCCESS);
 
 const checkoutFailed = createAction(ActionTypes.BIKE_CHECKOUT_FAILED);
 
+export const clearCheckoutStatus = createAction(ActionTypes.CLEAR_BIKE_CHECKOUT_STATUS);
+
 const rentalFetch = createAction(ActionTypes.FETCH_CURRENT_RENTAL);
 
 const fetchRentalSuccess = createAction(ActionTypes.FETCH_CURRENT_RENTAL_SUCCESS);
@@ -71,6 +73,8 @@ function checkinSuccess(data) {
 }
 
 const checkinFailed = createAction(ActionTypes.BIKE_CHECKIN_FAILED);
+
+export const clearCheckinStatus = createAction(ActionTypes.CLEAR_BIKE_CHECKIN_STATUS);
 
 function getLocationAsync(dispatch) {
   dispatch(updateLocationPermission(PENDING));

@@ -16,7 +16,6 @@ export default StyleSheet.create({
     paddingTop: 8
   },
   rescanButton: {
-    marginLeft: 12,
     alignSelf: 'center'
   },
   container: {
