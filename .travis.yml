@@ -8,15 +8,12 @@ jobs:
       language: node_js
       node_js: node
       cache: yarn
-      before_install: 
-        - ssh-add - <<< $GITHUB_DEPLOY_KEY
-        - eval $(ssh-agent -s)
+      before_install: ./.travis/add-ssh-key.sh
       install: yarn install
-      after_failure: cat ./yarn-error.log
       script: yarn run ci
 
     - stage: build
-      if: branch = master AND tag IS present AND env(REBUILD_ANDROID) IS true
+      if: branch = master AND type IN (push) AND tag IS present AND sender IS rit-bikeshare-travis
       language: android
       before_cache:
         - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -27,16 +24,10 @@ jobs:
           - $HOME/.gradle/wrapper/
           - $HOME/.android/build-cache
       before_install:
-        - eval $(ssh-agent -s)
-        - ssh-add - <<< $GITHUB_DEPLOY_KEY
+        - ./.travis/add-ssh-key.sh
         - openssl aes-256-cbc -K $encrypted_3ad684c6ba06_key -iv $encrypted_3ad684c6ba06_iv -in keystore.tar.gz.enc -out keystore.tar.gz -d
         - tar -xzvf keystore.tar.gz
-        - nvm install node
-        - npm install -g yarn
-        - yarn install
-        - yarn run login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        - yarn run detach
-        - react-native link
+        - ./.travis/exp-detach.sh
         - mv test-keystore.jks android/test-keystore.jks
         - mv keystore.properties android/keystore.properties
         - cd android
@@ -53,19 +44,11 @@ jobs:
           - extra-google-m2repository
 
     - stage: build
-      if: branch = master AND tag IS present AND env(REBUILD_IOS) IS true
+      if: branch = master AND type IN (push) AND tag IS present AND sender IS rit-bikeshare-travis
       language: objective-c
       before_install:
-        - eval $(ssh-agent -s)
-        - ssh-add - <<< $GITHUB_DEPLOY_KEY
-        - openssl aes-256-cbc -K $encrypted_3ad684c6ba06_key -iv $encrypted_3ad684c6ba06_iv -in keystore.tar.gz.enc -out keystore.tar.gz -d
-        - tar -xzvf keystore.tar.gz
-        - nvm install node
-        - npm install -g yarn
-        - yarn install
-        - yarn run login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        - yarn run detach
-        - react-native link
+        - ./.travis/add-ssh-key.sh
+        - ./.travis/exp-detach.sh
         - cd ios
       xcode_project: MyNewProject.xcodeproj # path to your xcodeproj folder
       xcode_scheme: MyNewProjectTests
@@ -74,9 +57,7 @@ jobs:
       if: branch = master AND tag IS present
       language: node_js
       node_js: node
-      before_install:
-        - eval $(ssh-agent -s)
-        - ssh-add - <<< $GITHUB_DEPLOY_KEY
+      before_install: ./.travis/add-ssh-key.sh
       install: yarn install
       after_failure: cat $HOME/yarn-error.log
       before_script: exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
