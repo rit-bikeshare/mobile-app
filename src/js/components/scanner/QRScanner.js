@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BarCodeScanner } from 'Expo';
+import { BarCodeScanner } from 'expo';
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
 import { View, Button, Text, Container, Icon } from 'native-base';
@@ -21,7 +21,8 @@ class QRScanner extends React.Component {
     cameraPermissionGranted: PropTypes.bool,
     cameraPermissionPending: PropTypes.bool,
     onQRCodeScan: PropTypes.func,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
+    onClickManualSubmit: PropTypes.func
   };
 
   static defaultProps = {
@@ -57,9 +58,25 @@ class QRScanner extends React.Component {
 
   renderTorchButton() {
     return (
-      <Button bordered={true} light={true} onPress={this.toggleTorch} style={styles.torchButton}>
+      <Button bordered={true} light={true} onPress={this.toggleTorch}>
         <Icon name="md-flash" type="Ionicons" />
-        <Text>Torch</Text>
+      </Button>
+    );
+  }
+
+  renderManualCheckoutButton() {
+    const { onClickManualSubmit } = this.props;
+
+    if (typeof onClickManualSubmit !== 'function') return null;
+
+    return (
+      <Button
+        bordered={true}
+        light={true}
+        onPress={onClickManualSubmit}
+        style={{ marginRight: 12 }}
+      >
+        <Icon name="keyboard" type="MaterialIcons" />
       </Button>
     );
   }
@@ -74,7 +91,10 @@ class QRScanner extends React.Component {
           style={StyleSheet.absoluteFill}
           torchMode={torchActive ? 'on' : 'off'}
         />
-        {this.renderTorchButton()}
+        <View style={styles.actions}>
+          {this.renderManualCheckoutButton()}
+          {this.renderTorchButton()}
+        </View>
       </View>
     );
   }

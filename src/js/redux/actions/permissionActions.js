@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { Permissions } from 'Expo';
+import { Permissions } from 'expo';
 
 import permissionSelectors from 'BikeShare/selectors/permissionSelectors';
 import ActionTypes from 'BikeShare/redux/ActionTypes';

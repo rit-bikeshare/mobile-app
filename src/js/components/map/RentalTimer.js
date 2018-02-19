@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ToastAndroid, TouchableWithoutFeedback, Icon } from 'react-native';
-import { Text, View } from 'native-base';
+import { ToastAndroid, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, Icon } from 'native-base';
 import moment from 'moment';
 
 import BikeRental, { isCurrentlyRented } from 'BikeShare/data/records/BikeRental';
@@ -115,7 +115,7 @@ class RentalTimer extends React.Component {
             padding: 8
           }}
         >
-          <Icon style={[styles.icon, textStyle]} name="md-warning" />
+          <Icon type="Ionicons" style={[styles.icon, textStyle]} name="md-warning" />
         </View>
       </TouchableWithoutFeedback>
     );
@@ -138,7 +138,7 @@ class RentalTimer extends React.Component {
           <Text style={[styles.text, { paddingLeft: 8, alignSelf: 'flex-start' }]}>#</Text>
           <Text style={styles.timer}>{currentBike.bike}</Text>
         </View>
-        <Icon style={styles.icon} name="md-stopwatch" />
+        <Icon type="Ionicons" style={styles.icon} name="md-stopwatch" />
         <Text style={styles.timer}>{timerValue.format('d:h:mm:ss')}</Text>
         {this.render24HourAlert()}
       </View>

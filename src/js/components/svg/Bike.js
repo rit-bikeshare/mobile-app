@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Svg } from 'Expo';
+import { Svg } from 'expo';
 
 const { Path } = Svg;
 

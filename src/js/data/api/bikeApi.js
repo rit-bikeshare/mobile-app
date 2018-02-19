@@ -13,7 +13,7 @@ function trimUndefinedKeys(obj) {
 
 export default {
   fetchRentals() {
-    return get('rentals');
+    return get('user/rentals');
   },
 
   canCheckout(bikeId) {

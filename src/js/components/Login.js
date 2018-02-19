@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image } from 'react-native';
-import { MapView as ExpoMapView } from 'Expo';
+import { MapView as ExpoMapView } from 'expo';
 import { Button, View, Text, Content } from 'native-base';
 
 import logo from 'img/logo.png';

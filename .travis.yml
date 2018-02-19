@@ -34,48 +34,48 @@ jobs:
     #     - exp detach
     #     - react-native link
 
-    - stage: build
-      if: branch=master
-      language: android
-      before_cache:
-        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-      cache:
-        directories:
-          - $HOME/.gradle/caches/
-          - $HOME/.gradle/wrapper/
-          - $HOME/.android/build-cache
-      before_install:
-        - eval $(ssh-agent -s)
-        - ssh-add - <<< $GITHUB_DEPLOY_KEY
-        - openssl aes-256-cbc -K $encrypted_3ad684c6ba06_key -iv $encrypted_3ad684c6ba06_iv -in keystore.tar.gz.enc -out keystore.tar.gz -d
-        - tar -xzvf keystore.tar.gz
-        - nvm install node
-        - npm install -g yarn
-        - yarn install
-        - yarn run login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        - yarn run detach
-        - mv test-keystore.jks android/test-keystore.jks
-        - mv keystore.properties android/keystore.properties
-        - cd android
-      script: "./gradlew clean build"
-      android:
-        components:
-          - tools
-          - platform-tools
-          - tools
-          - android-27
-          - build-tools-27.0.1
-          - extra-android-support
-          - extra-android-m2repository
-          - extra-google-m2repository
+    # - stage: build
+    #   if: branch=master
+    #   language: android
+    #   before_cache:
+    #     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+    #     - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+    #   cache:
+    #     directories:
+    #       - $HOME/.gradle/caches/
+    #       - $HOME/.gradle/wrapper/
+    #       - $HOME/.android/build-cache
+    #   before_install:
+    #     - eval $(ssh-agent -s)
+    #     - ssh-add - <<< $GITHUB_DEPLOY_KEY
+    #     - openssl aes-256-cbc -K $encrypted_3ad684c6ba06_key -iv $encrypted_3ad684c6ba06_iv -in keystore.tar.gz.enc -out keystore.tar.gz -d
+    #     - tar -xzvf keystore.tar.gz
+    #     - nvm install node
+    #     - npm install -g yarn
+    #     - yarn install
+    #     - yarn run login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+    #     - yarn run detach
+    #     - mv test-keystore.jks android/test-keystore.jks
+    #     - mv keystore.properties android/keystore.properties
+    #     - cd android
+    #   script: "./gradlew clean build"
+    #   android:
+    #     components:
+    #       - tools
+    #       - platform-tools
+    #       - tools
+    #       - android-27
+    #       - build-tools-27.0.1
+    #       - extra-android-support
+    #       - extra-android-m2repository
+    #       - extra-google-m2repository
 
-    - stage: build
-      if: branch=master AND tag=Rebuild ios
-      language: objective-c
-      before_install: cd $HOME/.cache/ios
-      xcode_project: MyNewProject.xcodeproj # path to your xcodeproj folder
-      xcode_scheme: MyNewProjectTests
+    # - stage: build
+    #   if: branch=master AND tag=Rebuild ios
+    #   language: objective-c
+    #   before_install: cd $HOME/.cache/ios
+    #   xcode_project: MyNewProject.xcodeproj # path to your xcodeproj folder
+    #   xcode_scheme: MyNewProjectTests
 
     - stage: publish javascript
       if: branch = master

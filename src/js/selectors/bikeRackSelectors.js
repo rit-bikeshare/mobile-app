@@ -14,12 +14,18 @@ export const hasNotFetchedBikeRacks = createSelector(
   bikeRackFetchStatus => bikeRackFetchStatus.status === UNINITIALIZED
 );
 
-export const getBikeRackCoords = createSelector(
-  getBikeRacks,
-  bikeRacks => bikeRacks.map(({ lat, lon, id, bikeCount }) => new MapMarker({
-    latitude: lat,
-    longitude: lon,
-    id,
-    data: bikeCount
-  }))
+export const getBikeRackCoords = createSelector(getBikeRacks, bikeRacks =>
+  bikeRacks.map(
+    ({ lat, lon, id, bikeCount }) =>
+      new MapMarker({
+        latitude: lat,
+        longitude: lon,
+        id,
+        data: bikeCount
+      })
+  )
+);
+
+export const getBikeRackNameMap = createSelector(getBikeRacks, bikeRacks =>
+  bikeRacks.map(({ name }) => name)
 );
