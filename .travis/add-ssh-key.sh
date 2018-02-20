@@ -5,3 +5,4 @@ openssl aes-256-cbc -K $encrypted_797871a259bb_key -iv $encrypted_797871a259bb_i
 tar -zxvf secret_files.tar.gz
 chmod 600 secret_files/github_deploy_key
 ssh-add secret_files/github_deploy_key
+echo -e "machine github.com\n  login $CI_USER_TOKEN" >> ~/.netrc
