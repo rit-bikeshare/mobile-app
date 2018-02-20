@@ -4,13 +4,20 @@ notifications:
 jobs:
   include:
     - stage: test
-      if: branch = master OR type IN (pull_request) AND env(TRAVIS_SECURE_ENV_VARS) = true
+      if: (tag IS present OR branch = master OR type IN (pull_request)) AND env(TRAVIS_SECURE_ENV_VARS) = true
       language: node_js
       node_js: node
       cache: yarn
       before_install: ./.travis/add-ssh-key.sh
       install: yarn install
       script: yarn run ci
+      deploy:
+        provider: script
+        skip_cleanup: true
+        before_script: exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+        script: exp publish
+        on:
+          tags: true
 
     - stage: build
       if: sender = rit-bikeshare-travis AND tag IS present AND env(TRAVIS_SECURE_ENV_VARS) = true
@@ -51,13 +58,4 @@ jobs:
       xcode_project: MyNewProject.xcodeproj # path to your xcodeproj folder
       xcode_scheme: MyNewProjectTests
 
-    - stage: publish javascript
-      if: tag IS present AND env(TRAVIS_SECURE_ENV_VARS) = true
-      language: node_js
-      node_js: node
-      before_install: ./.travis/add-ssh-key.sh
-      install: yarn install
-      after_failure: cat $HOME/yarn-error.log
-      before_script: exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-      script: exp publish
       
