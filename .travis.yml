@@ -4,7 +4,7 @@ notifications:
 jobs:
   include:
     - stage: test
-      if: env(TRAVIS_SECURE_ENV_VARS) = true 
+      if: tag IS present OR branch = master OR type IN (pull_request) 
       language: node_js
       node_js: node
       cache: yarn
