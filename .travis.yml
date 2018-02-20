@@ -14,13 +14,14 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        before_script: exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-        script: exp publish
+        script: 
+          - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
+          - exp publish
         on:
           tags: true
 
     - stage: build
-      if: sender = rit-bikeshare-travis AND tag IS present AND env(TRAVIS_SECURE_ENV_VARS) = true
+      if: sender = rit-bikeshare-travis AND tag IS present
       language: android
       before_cache:
         - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -49,7 +50,7 @@ jobs:
           - extra-google-m2repository
 
     - stage: build
-      if: sender = rit-bikeshare-travis AND tag IS present AND env(TRAVIS_SECURE_ENV_VARS) = true
+      if: sender = rit-bikeshare-travis AND tag IS present
       language: objective-c
       before_install:
         - ./.travis/add-ssh-key.sh
