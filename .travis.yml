@@ -14,9 +14,7 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        script: 
-          - exp login -u $EXPO_USERNAME -p $EXPO_PASSWORD
-          - exp publish
+        script: ./.travis/exp-publish.sh
         on:
           tags: true
 
