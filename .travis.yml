@@ -4,7 +4,7 @@ notifications:
 jobs:
   include:
     - stage: test
-      if: branch = master OR type IN (pull_request)
+      if: branch = master OR type IN (pull_request) AND env(TRAVIS_SECURE_ENV_VARS) = true
       language: node_js
       node_js: node
       cache: yarn
@@ -13,7 +13,7 @@ jobs:
       script: yarn run ci
 
     - stage: build
-      if: sender = rit-bikeshare-travis AND tag IS present 
+      if: sender = rit-bikeshare-travis AND tag IS present AND env(TRAVIS_SECURE_ENV_VARS) = true
       language: android
       before_cache:
         - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -42,7 +42,7 @@ jobs:
           - extra-google-m2repository
 
     - stage: build
-      if: sender = rit-bikeshare-travis AND tag IS present 
+      if: sender = rit-bikeshare-travis AND tag IS present AND env(TRAVIS_SECURE_ENV_VARS) = true
       language: objective-c
       before_install:
         - ./.travis/add-ssh-key.sh
@@ -52,7 +52,7 @@ jobs:
       xcode_scheme: MyNewProjectTests
 
     - stage: publish javascript
-      if: branch = master AND tag IS present
+      if: branch = master AND tag IS present AND env(TRAVIS_SECURE_ENV_VARS) = true
       language: node_js
       node_js: node
       before_install: ./.travis/add-ssh-key.sh
