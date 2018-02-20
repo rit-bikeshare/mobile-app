@@ -52,7 +52,7 @@ jobs:
       xcode_scheme: MyNewProjectTests
 
     - stage: publish javascript
-      if: branch = master AND tag IS present AND env(TRAVIS_SECURE_ENV_VARS) = true
+      if: tag IS present AND env(TRAVIS_SECURE_ENV_VARS) = true
       language: node_js
       node_js: node
       before_install: ./.travis/add-ssh-key.sh
