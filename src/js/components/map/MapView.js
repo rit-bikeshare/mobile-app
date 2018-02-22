@@ -78,6 +78,8 @@ class MapView extends React.Component {
           longitude: -77.67920080572367,
           longitudeDelta: 0.007426701486110687
         }}
+        minZoomLevel={10}
+        maxZoomLevel={20}
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
         showsMyLocationButton={true}

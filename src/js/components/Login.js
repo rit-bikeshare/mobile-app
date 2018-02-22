@@ -27,7 +27,6 @@ const Login = ({ handleLogin }) => {
           longitude: -77.67920080572367,
           longitudeDelta: 0.007426701486110687
         }}
-        minZoomLevel={20}
         provider={PROVIDER_GOOGLE}
         customMapStyle={mapStyle}
         cacheEnabled={true}
