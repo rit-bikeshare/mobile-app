@@ -70,7 +70,7 @@ export function checkincurrentRentalByLocation() {
         );
       } else {
         api.bike
-          .checkin(currentRental.bike, bikeRack.id)
+          .checkIn(currentRental.bike, bikeRack.id)
           .then(
             data => dispatch(checkinSuccess(data)),
             error => dispatch(checkinFailed(error))
@@ -86,7 +86,7 @@ export function checkincurrentRentalByBikeRack(bikeRack) {
     const { currentRental } = getState();
     dispatch(bikeCheckin());
     api.bike
-      .checkin(currentRental.bike, bikeRack)
+      .checkIn(currentRental.bike, bikeRack)
       .then(
         data => dispatch(checkinSuccess(data)),
         error => dispatch(checkinFailed(error))

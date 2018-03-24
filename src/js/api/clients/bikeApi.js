@@ -22,13 +22,13 @@ export default {
     });
   },
 
-  checkout(bikeId) {
+  checkOut(bikeId) {
     return post('checkout', {
       bike: bikeId,
     });
   },
 
-  checkin(bike, bikerack) {
+  checkIn(bike, bikerack) {
     const data = trimUndefinedKeys({
       bike,
       bikerack,
