@@ -15,8 +15,6 @@ const {
   cameraPermissionPending: cameraPermissionPendingSelector,
 } = permissionSelectors;
 
-const QR_BARCODE_TYPE = BarCodeScanner.Constants.BarCodeType.qr;
-
 class QRScanner extends React.Component {
   static propTypes = {
     askForCameraPermission: PropTypes.func,
@@ -88,7 +86,7 @@ class QRScanner extends React.Component {
     return (
       <View style={StyleSheet.absoluteFill}>
         <BarCodeScanner
-          barCodeTypes={[QR_BARCODE_TYPE]}
+          barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
           onBarCodeRead={this.handleBarCodeRead}
           style={StyleSheet.absoluteFill}
           torchMode={torchActive ? 'on' : 'off'}

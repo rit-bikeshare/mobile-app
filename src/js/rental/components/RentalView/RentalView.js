@@ -83,8 +83,8 @@ class MapContainer extends React.Component {
         <MapView tigerMode={true} />
         <BikeRentalActions
           style={style.actionsWrapper}
-          checkoutBike={this.handleClickCheckout}
-          checkinBike={this.handleClickCheckin}
+          checkOutBike={this.handleClickCheckout}
+          checkInBike={this.handleClickCheckin}
         />
       </View>
     );

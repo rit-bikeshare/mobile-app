@@ -9,29 +9,29 @@ import {
   CLEAR_BIKE_CHECKOUT_STATUS,
 } from '../constants/CheckOutActionTypes';
 
-const bikeCheckout = createAction(BIKE_CHECKOUT);
+const bikeCheckOut = createAction(BIKE_CHECKOUT);
 
-const checkoutSuccessAction = createAction(BIKE_CHECKOUT_SUCCESS);
+const checkOutSuccessAction = createAction(BIKE_CHECKOUT_SUCCESS);
 
-const checkoutFailed = createAction(BIKE_CHECKOUT_FAILED);
+const checkOutFailed = createAction(BIKE_CHECKOUT_FAILED);
 
 export const clearCheckoutStatus = createAction(CLEAR_BIKE_CHECKOUT_STATUS);
 
-function checkoutSuccess(data) {
+function checkOutSuccess(data) {
   return dispatch => {
-    dispatch(checkoutSuccessAction(data));
+    dispatch(checkOutSuccessAction(data));
     dispatch(fetchBikeRacks());
   };
 }
 
-export function checkoutBike(bikeId) {
+export function checkOutBike(bikeId) {
   return (dispatch, getState, api) => {
-    dispatch(bikeCheckout());
+    dispatch(bikeCheckOut());
     api.bike
-      .checkout(bikeId)
+      .checkOut(bikeId)
       .then(
-        data => dispatch(checkoutSuccess(data)),
-        error => dispatch(checkoutFailed(error))
+        data => dispatch(checkOutSuccess(data)),
+        error => dispatch(checkOutFailed(error))
       )
       .done();
   };

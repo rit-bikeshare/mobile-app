@@ -11,8 +11,8 @@ import RequestStatus from 'BikeShare/api/constants/RequestStatus';
 import parseDeepLink from 'BikeShare/utils/parseDeepLink';
 
 import {
-  getBikeCheckOutStatus as getBikeCheckOutStatusSelector,
-  getBikeCheckOutError as getBikeCheckOutErrorSelector,
+  getCheckOutStatus as getCheckOutStatusSelector,
+  getCheckOutError as getCheckOutErrorSelector,
 } from '../../selectors/checkOutStatusSelectors';
 import {
   checkOutBike as checkOutBikeAction,
@@ -184,8 +184,8 @@ class CheckoutContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  bikeCheckOutStatus: getBikeCheckOutStatusSelector(state),
-  bikeCheckOutError: getBikeCheckOutErrorSelector(state),
+  bikeCheckOutStatus: getCheckOutStatusSelector(state),
+  bikeCheckOutError: getCheckOutErrorSelector(state),
 });
 
 const actions = {
