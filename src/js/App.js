@@ -14,7 +14,7 @@ export default class App extends React.Component {
   constructor(args) {
     super(args);
     this.state = {
-      isReady: false
+      isReady: false,
     };
   }
 
@@ -26,7 +26,7 @@ export default class App extends React.Component {
       MaterialCommunityIcons: require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf'),
       'Material Design Icons': require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf'),
       MaterialIcons: require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
-      'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf')
+      'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
     });
 
     this.setState({ isReady: true });
@@ -40,7 +40,7 @@ export default class App extends React.Component {
         style={{
           backgroundColor: brandPrimary,
           height: Expo.Constants.statusBarHeight,
-          width: '100%'
+          width: '100%',
         }}
       />
     );
