@@ -10,9 +10,9 @@ import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import immutableTransform from 'redux-persist-transform-immutable';
 
-import SettingsData from 'BikeShare/data/records/SettingsData';
-import reducer from 'BikeShare/redux/reducers/rootReducer';
-import api from 'BikeShare/data/api';
+import SettingsData from 'BikeShare/settings/records/SettingsData';
+import reducer from 'BikeShare/rootReducer';
+import api from 'BikeShare/api';
 
 /**
  * creates a redux store from the root reducer given the initialState.
@@ -22,23 +22,20 @@ import api from 'BikeShare/data/api';
  * @return {store}              the created store.
  */
 export default function createStore(initialState, history) {
-  const composeEnhancers
-    = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
   const config = {
     key: 'root',
     storage,
     whitelist: ['authReducer', 'settings'],
-    transforms: [immutableTransform({ records: [SettingsData] })]
+    transforms: [immutableTransform({ records: [SettingsData] })],
   };
 
   const reducers = persistReducer(config, reducer);
 
   const createStoreWithMiddleware = composeEnhancers(
-    applyMiddleware(
-      thunk.withExtraArgument(api),
-      routerMiddleware(history)
-    )
+    applyMiddleware(thunk.withExtraArgument(api), routerMiddleware(history))
   )(createReduxStore);
 
   const store = createStoreWithMiddleware(reducers, initialState);
