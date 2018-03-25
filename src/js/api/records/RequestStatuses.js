@@ -7,4 +7,5 @@ export default new Record({
   bikeCheckoutStatus: new RequestStatus(),
   currentRentalFetchStatus: new RequestStatus(),
   bikeCheckinStatus: new RequestStatus(),
+  userFetchStatus: new RequestStatus(),
 });

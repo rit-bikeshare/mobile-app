@@ -1,14 +1,20 @@
 import React from 'react';
 import Expo from 'expo';
 import { StatusBar } from 'react-native';
+import { Provider } from 'react-redux';
 import { StyleProvider, Container, View } from 'native-base';
+import createHistory from 'history/createMemoryHistory';
 
+import createStore from 'BikeShare/utils/createStore';
 import Router from 'BikeShare/Router';
 import getTheme from 'theme/components';
 import commonColor from 'theme/variables/commonColor';
 import { isIOS } from 'BikeShare/utils/platform';
 
 const { brandPrimary } = commonColor;
+
+const history = createHistory();
+const store = createStore({}, history);
 
 export default class App extends React.Component {
   constructor(args) {
@@ -56,7 +62,9 @@ export default class App extends React.Component {
         <Container>
           {this.renderStatusBarPadding()}
           <StatusBar backgroundColor={brandPrimary} barStyle="light-content" />
-          <Router />
+          <Provider store={store}>
+            <Router history={history} />
+          </Provider>
         </Container>
       </StyleProvider>
     );
