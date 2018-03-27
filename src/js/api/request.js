@@ -49,7 +49,7 @@ function buildPost(url, body) {
   return () => {
     // always add a trailing slash
     url = url.replace(/\/?$/, '/');
-    fetch(`${baseApiUrl}/${url}`, {
+    return fetch(`${baseApiUrl}/${url}`, {
       method: 'POST',
       credentials: 'same-origin',
       mode: 'same-origin',
