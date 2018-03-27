@@ -2,9 +2,8 @@
   "name": "BikeShare",
   "version": "0.7.0",
   "private": true,
-  "main": "index.js",
   "scripts": {
-    "start": "exp start --lan",
+    "start": "sh bin/verify-githooks.sh && exp start --lan",
     "test": "node_modules/.bin/jest",
     "clearCache": "node_modules/.bin/jest --clearCache",
     "changed": "git diff-tree --no-commit-id --name-only -r --diff-filter=a HEAD $(git merge-base HEAD origin/master)",
@@ -25,13 +24,14 @@
   },
   "lint-staged": {
     "*.js": [
+      "prettier:verify",
       "prettier -l",
       "eslint ."
     ]
   },
   "prepush": {
     "tasks": [
-      "npm run lint-all"
+      "yarn lint-all"
     ]
   },
   "jest": {
@@ -84,7 +84,7 @@
     "lint-staged": "^4.3.0",
     "npm-watch": "^0.3.0",
     "prepush": "^3.1.11",
-    "prettier": "^1.7.4",
+    "prettier": "1.10.2",
     "react-addons-test-utils": "^15.6.2",
     "react-devtools": "^2.5.2",
     "react-dom": "^16.0.0-0"
