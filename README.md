@@ -6,6 +6,6 @@ We also use travis to automatically build and publish new javascript versions as
 
 ### Docs
 - [Getting Started](.docs/getting-started.md)
-- [Detailed Setup](.docs/setup)
-- [Travis](.docs/travis)
-- [Javascript Tooling](.docs/tooling)
+- [Detailed Setup](.docs/setup.md)
+- [Travis](.docs/travis.md)
+- [Javascript Tooling](.docs/tooling.md)

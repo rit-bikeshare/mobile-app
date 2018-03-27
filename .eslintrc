@@ -1,22 +1,36 @@
 {
-    "parser": "babel-eslint",
-    "extends": "hubspot",
-    "plugins": [
-      "react",
-      "react-native"
-    ],
-    "rules": {
-      "react/jsx-handler-names": "off",
-      "no-param-reassign": "off",
-      "no-unused-vars": [2, {
-        varsIgnorePattern: "^__"
-      }]
-    },
-    "settings": {
-      "import/resolver": {
-        "node": {
-            "extensions": [".js", ".android.js", ".ios.js"]
-        }
-      }
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
     }
+  },
+  "env": {
+    "browser": true,
+    "jasmine": true
+  },
+  "globals": {
+    "Symbol": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/react"
+  ],
+  "plugins": ["react"],
+  "rules": {
+    "react/display-name": "off",
+    "react/jsx-handler-names": "off",
+    "no-param-reassign": "off",
+    "no-unused-vars": [2, {
+      "varsIgnorePattern": "^__"
+    }]
+  },
+  "settings": {
+    "react": {
+      "version": "16.2.0"
+    }
+  }
 }

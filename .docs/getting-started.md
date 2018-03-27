@@ -21,19 +21,6 @@ $ cd mobile-app
 $ yarn install
 ```
 
-Stuck resolving deps? 
-You need access to the [bikelock-api repository](https://github.com/ritstudentgovernment/bikelock-api) in order to properly install deps. 
-
-If you are part of RIT SG, you can ask the technology officer how to get access.
-
-If none of that last part applies to you, there's a mock api you can replace the real one with. In package.json:
-```diff
-"dependencies": {
--  "bikelock-api": "git+ssh://git@github.com/ritstudentgovernment/bikelock-api.git"
-+  "bikelock-api": "git+ssh://git@github.com/rit-bikeshare/bikelock-api-mock.git"
-}
-```
-
 ### Running
 
 It's simple:
