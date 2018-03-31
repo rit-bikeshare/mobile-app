@@ -18,6 +18,7 @@
     "name": "BikeShare",
     "slug": "bikeshare",
     "version": "0.1.0",
-    "icon": "./img/icon.png"
+    "icon": "./img/icon.png",
+    "scheme": "bikeshare"
   }
 }

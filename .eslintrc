@@ -11,7 +11,9 @@
     "jasmine": true
   },
   "globals": {
-    "Symbol": true
+    "Symbol": true,
+    "Promise": true,
+    "require": true
   },
   "extends": [
     "eslint:recommended",

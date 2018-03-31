@@ -1,17 +1,18 @@
+import Expo from 'expo';
 import React from 'react';
-import { Provider } from 'react-redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Route, Switch, BackButton } from 'react-router-native';
 import { NetInfo } from 'react-native';
-import createHistory from 'history/createMemoryHistory';
 import { ConnectedRouter } from 'react-router-redux';
 
-import createStore from 'BikeShare/utils/createStore';
+import RequestStatus from 'BikeShare/api/constants/RequestStatus';
+
 import AppContainer from 'BikeShare/app/AppContainer';
 import LoginContainer from 'BikeShare/login/components/Login';
-import { networkConnectionChange } from 'BikeShare/api/actions/networkActions';
-
-const history = createHistory();
-const store = createStore({}, history);
+import { networkConnectionChange as networkConnectionChangeAction } from 'BikeShare/api/actions/networkActions';
+import { getUserFetchStatus } from 'BikeShare/auth/selectors/userFetchStatusSelectors';
+import { fetchUserData as fetchUserDataAction } from 'BikeShare/auth/actions/userDataActions';
 
 /*
  * So react router v4 is kinda dumb and doesn't allow nested routes.
@@ -20,38 +21,74 @@ const store = createStore({}, history);
  * So because of this, most of the routing for the app is in AppContainer.
  */
 
-const handleConnectivityChange = isConnected =>
-  store.dispatch(networkConnectionChange(isConnected));
+const { PENDING, UNITIALIZED } = RequestStatus;
 
 class Router extends React.Component {
+  static propTypes = {
+    fetchUserData: PropTypes.func,
+    doLogin: PropTypes.func,
+    userDataFetchStatus: PropTypes.oneOf(Object.keys(RequestStatus)),
+    networkConnectionChange: PropTypes.func,
+    history: PropTypes.object,
+  };
+
+  constructor(props) {
+    super(props);
+    this.handleConnectivityChange = this.handleConnectivityChange.bind(this);
+  }
+
   componentWillMount() {
+    const { fetchUserData } = this.props;
+    fetchUserData();
     NetInfo.isConnected.addEventListener(
       'connectionChange',
-      handleConnectivityChange
+      this.handleConnectivityChange
     );
   }
 
   componentWillUnmount() {
     NetInfo.isConnected.removeEventListener(
       'connectionChange',
-      handleConnectivityChange
+      this.handleConnectivityChange
     );
   }
 
+  handleConnectivityChange(isConnected) {
+    const { networkConnectionChange } = this.props;
+    networkConnectionChange(isConnected);
+  }
+
   render() {
+    const { doLogin, userDataFetchStatus, history } = this.props;
+
+    if (
+      userDataFetchStatus === PENDING ||
+      userDataFetchStatus === UNITIALIZED
+    ) {
+      return <Expo.AppLoading />;
+    }
+
     return (
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <BackButton>
-            <Switch>
-              <Route path="/login" component={LoginContainer} />
-              <Route component={AppContainer} />
-            </Switch>
-          </BackButton>
-        </ConnectedRouter>
-      </Provider>
+      <ConnectedRouter history={history}>
+        <BackButton>
+          <Switch>
+            <Route
+              path="/login"
+              render={props => <LoginContainer doLogin={doLogin} {...props} />}
+            />
+            <Route component={AppContainer} />
+          </Switch>
+        </BackButton>
+      </ConnectedRouter>
     );
   }
 }
 
-export default Router;
+const mapStateToProps = state => ({
+  userDataFetchStatus: getUserFetchStatus(state),
+});
+
+export default connect(mapStateToProps, {
+  fetchUserData: fetchUserDataAction,
+  networkConnectionChange: networkConnectionChangeAction,
+})(Router);

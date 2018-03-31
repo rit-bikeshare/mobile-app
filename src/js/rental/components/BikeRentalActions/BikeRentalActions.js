@@ -5,7 +5,7 @@ import { Button, Text, View, Icon } from 'native-base';
 
 import BikeRental, { isCurrentlyRented } from '../../records/BikeRental';
 
-import styles from './BikeRentalActions';
+import styles from './BikeRentalActionsStyles';
 
 import 'moment-duration-format';
 
@@ -51,7 +51,9 @@ class BikeRentalActions extends React.Component {
 
   render() {
     const { style } = this.props;
-    return <View style={style}>{this.renderContent()}</View>;
+    return (
+      <View style={[style, styles.buttonWrapper]}>{this.renderContent()}</View>
+    );
   }
 }
 

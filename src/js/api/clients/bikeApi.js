@@ -1,5 +1,3 @@
-import { post, get } from '../request';
-
 function trimUndefinedKeys(obj) {
   const propNames = Object.getOwnPropertyNames(obj);
   for (let i = 0; i < propNames.length; i++) {
@@ -11,19 +9,19 @@ function trimUndefinedKeys(obj) {
   return obj;
 }
 
-export default {
+export default request => ({
   fetchRentals() {
-    return get('user/rentals');
+    return request.get('user/rentals');
   },
 
   canCheckout(bikeId) {
-    return post('can-checkout', {
+    return request.post('can-checkout', {
       bike: bikeId,
     });
   },
 
   checkOut(bikeId) {
-    return post('checkout', {
+    return request.post('checkout', {
       bike: bikeId,
     });
   },
@@ -33,6 +31,6 @@ export default {
       bike,
       bikerack,
     });
-    return post('checkin', data);
+    return request.post('checkin', data);
   },
-};
+});

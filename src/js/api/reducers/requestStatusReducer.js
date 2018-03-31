@@ -5,6 +5,12 @@ import RequestStatus from '../records/RequestStatus';
 import RequestStatuses from '../records/RequestStatuses';
 import RequestStatusTypes from '../constants/RequestStatus';
 
+import {
+  USER_FETCH,
+  USER_FETCH_SUCCESS,
+  USER_FETCH_FAILED,
+} from 'BikeShare/auth/constants/AuthActionTypes';
+
 const { PENDING, SUCCESS, FAILED, UNINITIALIZED } = RequestStatusTypes;
 
 export default handleActions(
@@ -95,6 +101,25 @@ export default handleActions(
     [ActionTypes.FETCH_CURRENT_RENTAL_FAILED](state, action) {
       return state.set(
         'currentRentalFetchStatus',
+        new RequestStatus({ status: FAILED, ...action.payload })
+      );
+    },
+
+    [USER_FETCH](state) {
+      return state.set(
+        'userFetchStatus',
+        new RequestStatus({ status: PENDING })
+      );
+    },
+    [USER_FETCH_SUCCESS](state) {
+      return state.set(
+        'userFetchStatus',
+        new RequestStatus({ status: SUCCESS })
+      );
+    },
+    [USER_FETCH_FAILED](state, action) {
+      return state.set(
+        'userFetchStatus',
         new RequestStatus({ status: FAILED, ...action.payload })
       );
     },

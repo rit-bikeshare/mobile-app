@@ -12,7 +12,7 @@ import { getMapMarkers } from '../selectors/mapSelectors';
 class MapView extends React.Component {
   static propTypes = {
     markers: PropTypes.instanceOf(Map),
-    debug: PropTypes.bool,
+    showCheckInAreas: PropTypes.bool,
     bikeRacks: PropTypes.instanceOf(Map),
   };
 
@@ -35,8 +35,8 @@ class MapView extends React.Component {
   }
 
   renderBikeRackCheckinAreas() {
-    const { bikeRacks, debug } = this.props;
-    if (!debug) {
+    const { bikeRacks, showCheckInAreas } = this.props;
+    if (!showCheckInAreas) {
       return null;
     }
     const bikeRacksMap = Map(bikeRacks);
@@ -92,7 +92,7 @@ const mapStateToProps = state => ({
   markers: getMapMarkers(state),
   bikeRacks: state.bikeRacks,
   tigerMode: state.settings.tigerMode,
-  debug: state.settings.debug,
+  showCheckInAreas: state.settings.showCheckInAreas,
 });
 
 export default connect(mapStateToProps)(MapView);
