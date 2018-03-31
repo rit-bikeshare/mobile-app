@@ -1,16 +1,15 @@
 {
   "name": "BikeShare",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
-  "main": "index.js",
   "scripts": {
-    "start": "exp start --lan",
+    "start": "sh bin/verify-githooks.sh && exp start --lan",
     "test": "node_modules/.bin/jest",
     "clearCache": "node_modules/.bin/jest --clearCache",
     "changed": "git diff-tree --no-commit-id --name-only -r --diff-filter=a HEAD $(git merge-base HEAD origin/master)",
     "changed:js": "npm run changed --silent | grep --color=never '.*\\.js$'",
     "clean": "rm -rf node_modules",
-    "fix-githooks": "prepush -c package.json remove && node node_modules/husky/bin/install",
+    "fix-githooks": "sh bin/fix-githooks.sh",
     "lint:all": "eslint .",
     "lint:changed:js": "npm run changed:js --silent | xargs eslint",
     "precommit": "lint-staged",
@@ -25,13 +24,14 @@
   },
   "lint-staged": {
     "*.js": [
+      "prettier:verify",
       "prettier -l",
       "eslint ."
     ]
   },
   "prepush": {
     "tasks": [
-      "npm run lint-all"
+      "yarn lint-all"
     ]
   },
   "jest": {
@@ -63,6 +63,7 @@
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-persist": "^5.4.0",
+    "redux-persist-expo-securestore": "^1.0.0",
     "redux-persist-transform-immutable": "^4.3.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1"
@@ -73,8 +74,8 @@
     "enzyme-adapter-react-16": "^1.0.2",
     "enzyme-to-json": "^3.0.0",
     "eslint": "^3.17.1",
-    "eslint-config-hubspot": "^7.3.1",
-    "eslint-plugin-react": "^6.10.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-react-native": "^3.1.0",
     "exp": "^50.0.4",
     "husky": "^0.14.3",
@@ -84,7 +85,7 @@
     "lint-staged": "^4.3.0",
     "npm-watch": "^0.3.0",
     "prepush": "^3.1.11",
-    "prettier": "^1.7.4",
+    "prettier": "1.10.2",
     "react-addons-test-utils": "^15.6.2",
     "react-devtools": "^2.5.2",
     "react-dom": "^16.0.0-0"

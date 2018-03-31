@@ -8,7 +8,7 @@ import { setSetting as setSettingAction } from '../actions/settingsActions';
 class Settings extends React.Component {
   static propTypes = {
     setSetting: PropTypes.func,
-    debug: PropTypes.bool,
+    showCheckInAreas: PropTypes.bool,
     tigerMode: PropTypes.bool,
     pullToRefresh: PropTypes.bool,
   };
@@ -28,7 +28,7 @@ class Settings extends React.Component {
 
   setDebugMode(value) {
     const { setSetting } = this.props;
-    setSetting('debug', value);
+    setSetting('showCheckInAreas', value);
   }
 
   setPullToRefresh(value) {
@@ -37,7 +37,7 @@ class Settings extends React.Component {
   }
 
   render() {
-    const { tigerMode, debug, pullToRefresh } = this.props;
+    const { showCheckInAreas } = this.props;
     return (
       <View style={{ flexGrow: 1 }}>
         <List>
@@ -46,28 +46,12 @@ class Settings extends React.Component {
           </ListItem>
           <ListItem>
             <Body>
-              <Text>Tiger Mode</Text>
-            </Body>
-            <Right>
-              <Switch value={tigerMode} onValueChange={this.setTigerMode} />
-            </Right>
-          </ListItem>
-          <ListItem>
-            <Body>
-              <Text>Debug Mode</Text>
-            </Body>
-            <Right>
-              <Switch value={debug} onValueChange={this.setDebugMode} />
-            </Right>
-          </ListItem>
-          <ListItem>
-            <Body>
-              <Text>Pull to refresh on main view</Text>
+              <Text>Show Check In Areas</Text>
             </Body>
             <Right>
               <Switch
-                value={pullToRefresh}
-                onValueChange={this.setPullToRefresh}
+                value={showCheckInAreas}
+                onValueChange={this.setDebugMode}
               />
             </Right>
           </ListItem>
@@ -78,7 +62,7 @@ class Settings extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  debug: state.settings.debug,
+  showCheckInAreas: state.settings.showCheckInAreas,
   tigerMode: state.settings.tigerMode,
   pullToRefresh: state.settings.pullToRefresh,
 });

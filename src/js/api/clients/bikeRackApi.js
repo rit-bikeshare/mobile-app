@@ -1,7 +1,5 @@
-import { get } from '../request';
-
-export default {
+export default request => ({
   fetch() {
-    return get('bike-racks/');
+    return request.get('bike-racks/');
   },
-};
+});

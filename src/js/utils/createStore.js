@@ -3,16 +3,19 @@ import {
   createStore as createReduxStore,
   compose,
 } from 'redux';
-
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
+import createSecureStore from 'redux-persist-expo-securestore';
+
 import immutableTransform from 'redux-persist-transform-immutable';
 
-import SettingsData from 'BikeShare/settings/records/SettingsData';
 import reducer from 'BikeShare/rootReducer';
 import api from 'BikeShare/api';
+import SettingsData from 'BikeShare/settings/records/SettingsData';
+import UserData from 'BikeShare/auth/records/UserData';
+import { setUserToken as setUserTokenAction } from 'BikeShare/auth/actions/userDataActions';
+import getUserTokenSelector from 'BikeShare/auth/selectors/getUserToken';
 
 /**
  * creates a redux store from the root reducer given the initialState.
@@ -25,20 +28,30 @@ export default function createStore(initialState, history) {
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+  let store;
+  const getUserToken = () => getUserTokenSelector(store.getState());
+  const setUserToken = userToken =>
+    store.dispatch(setUserTokenAction(userToken));
+
+  const apiInstance = api(getUserToken, setUserToken);
+  const createStoreWithMiddleware = composeEnhancers(
+    applyMiddleware(
+      thunk.withExtraArgument(apiInstance),
+      routerMiddleware(history)
+    )
+  )(createReduxStore);
+
+  const storage = createSecureStore();
   const config = {
     key: 'root',
     storage,
-    whitelist: ['authReducer', 'settings'],
-    transforms: [immutableTransform({ records: [SettingsData] })],
+    whitelist: ['userData', 'settings'],
+    transforms: [immutableTransform({ records: [SettingsData, UserData] })],
   };
 
   const reducers = persistReducer(config, reducer);
 
-  const createStoreWithMiddleware = composeEnhancers(
-    applyMiddleware(thunk.withExtraArgument(api), routerMiddleware(history))
-  )(createReduxStore);
-
-  const store = createStoreWithMiddleware(reducers, initialState);
+  store = createStoreWithMiddleware(reducers, initialState);
 
   persistStore(store);
 

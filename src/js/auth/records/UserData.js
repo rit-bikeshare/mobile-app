@@ -1,11 +1,14 @@
 import { Record } from 'immutable';
 
-export default new Record({
-  username: null,
-  authToken: null,
-  firstName: null,
-  lastName: null,
-});
+export default new Record(
+  {
+    username: null,
+    authToken: null,
+    firstName: null,
+    lastName: null,
+  },
+  'UserData'
+);
 
 /**
  * If the given user data record is empty
