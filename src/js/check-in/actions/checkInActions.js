@@ -1,6 +1,9 @@
 import { createAction } from 'redux-actions';
 import { Permissions, Location } from 'expo';
-import * as turf from '@turf/turf';
+import { lengthToRadians, point } from '@turf/helpers';
+import circle from '@turf/circle';
+import booleanOverlap from '@turf/boolean-overlap';
+import booleanContains from '@turf/boolean-contains';
 
 import { fetchBikeRacks } from 'BikeShare/bike-rack/actions/bikeRackActions';
 import { updateLocationPermission } from 'BikeShare/permissions/actions/permissionActions';
@@ -40,18 +43,14 @@ function getLocationAsync(dispatch) {
 }
 
 function getBikeRackByLocation(bikeRacks, { latitude, longitude, accuracy }) {
-  const radiusInRadians = turf.lengthToRadians(accuracy, 'meters');
-  const locationArea = turf.circle(
-    turf.point([longitude, latitude]),
-    radiusInRadians,
-    {
-      units: 'radians',
-    }
-  );
+  const radiusInRadians = lengthToRadians(accuracy, 'meters');
+  const locationArea = circle(point([longitude, latitude]), radiusInRadians, {
+    units: 'radians',
+  });
   return bikeRacks.find(({ checkInArea }) => {
     return (
-      turf.booleanOverlap(checkInArea, locationArea) ||
-      turf.booleanContains(checkInArea, locationArea)
+      booleanOverlap(checkInArea, locationArea) ||
+      booleanContains(checkInArea, locationArea)
     );
   });
 }

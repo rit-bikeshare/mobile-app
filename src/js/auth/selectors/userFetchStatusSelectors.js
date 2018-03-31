@@ -1,17 +1,14 @@
 import { createSelector } from 'reselect';
 import { getIn } from '@hs/transmute';
 
-const getBikeCheckInRequestStatus = getIn([
-  'requestStatuses',
-  'userFetchStatus',
-]);
+const getUserFetchRequestStatus = getIn(['requestStatuses', 'userFetchStatus']);
 
 export const getUserFetchStatus = createSelector(
-  getBikeCheckInRequestStatus,
-  bikeCheckInStatus => bikeCheckInStatus.status
+  getUserFetchRequestStatus,
+  userFetchStatus => userFetchStatus.status
 );
 
 export const getUserFetchError = createSelector(
-  getBikeCheckInRequestStatus,
-  bikeCheckInStatus => bikeCheckInStatus.message
+  getUserFetchRequestStatus,
+  userFetchStatus => userFetchStatus.message
 );

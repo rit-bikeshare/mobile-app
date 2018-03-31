@@ -12,11 +12,11 @@ const fetchDataSuccess = createAction(USER_FETCH_SUCCESS);
 const fetchDataFailed = createAction(USER_FETCH_FAILED);
 const fetchData = createAction(USER_FETCH);
 
-export function fetchUserData() {
+export function fetchUserData(token) {
   return (dispatch, getState, api) => {
     dispatch(fetchData());
     api.user
-      .fetchUserData()
+      .fetchUserData(token)
       .then(
         userData => dispatch(fetchDataSuccess(userData)),
         error => dispatch(fetchDataFailed(error))

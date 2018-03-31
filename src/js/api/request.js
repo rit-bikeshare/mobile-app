@@ -1,20 +1,22 @@
 /* eslint-disable no-throw-literal */
 
+import Expo from 'expo';
 import { AuthSession } from 'expo';
 
 let doLoginPromise;
-const baseApiUrl = 'http://spin.se.rit.edu';
+const baseApiUrl = 'http:/spin.se.rit.edu';
 
-function handleDoLogin() {
+export async function doLogin() {
+  const returnUrl = `${Expo.Constants.linkingUrl}expo-auth-session`;
   return AuthSession.startAsync({
-    authUrl: `${baseApiUrl}/login/`,
-    returnUrl: '',
+    authUrl: `${baseApiUrl}/login/?expo=true`,
+    returnUrl,
   });
 }
 
-export function doLogin() {
+function doAuthLogin() {
   if (!doLoginPromise) {
-    doLoginPromise = handleDoLogin();
+    doLoginPromise = doLogin();
   }
   return doLoginPromise;
 }
@@ -22,42 +24,56 @@ export function doLogin() {
 function checkAuth(retryFetch) {
   return response => {
     if (!response.ok && response.status === 403) {
-      return doLogin().then(retryFetch());
+      return doAuthLogin().then(retryFetch());
     }
     return response;
   };
 }
 
 function buildGet(url) {
-  return () => {
+  return token => {
     // always add a trailing slash
     url = url.replace(/\/?$/, '/');
+
+    const headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Origin: baseApiUrl,
+    };
+
+    if (token) {
+      headers.Authorization = `JWT ${token}`;
+    }
+
     return fetch(`${baseApiUrl}/${url}`, {
       method: 'GET',
       credentials: 'same-origin',
       mode: 'same-origin',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Origin: baseApiUrl,
-      },
+      headers: headers,
     });
   };
 }
 
 function buildPost(url, body) {
-  return () => {
+  return token => {
     // always add a trailing slash
     url = url.replace(/\/?$/, '/');
+
+    const headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Origin: baseApiUrl,
+    };
+
+    if (token) {
+      headers.Authorization = `JWT ${token}`;
+    }
+
     return fetch(`${baseApiUrl}/${url}`, {
       method: 'POST',
       credentials: 'same-origin',
       mode: 'same-origin',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Origin: baseApiUrl,
-      },
+      headers: headers,
       body: JSON.stringify(body),
     });
   };
@@ -96,8 +112,8 @@ export function post(url, body) {
     });
 }
 
-export function unAuthedGet(url) {
-  return buildGet(url)().then(async response => {
+export function unAuthedGet(url, token = null) {
+  return buildGet(url)(token).then(async response => {
     if (response.ok) return response.json();
 
     const error = await response.json();

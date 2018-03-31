@@ -7,13 +7,17 @@ import userApi from 'BikeShare/api/clients/userApi';
 import { fetchUserData as fetchUserDataAction } from 'BikeShare/auth/actions/userDataActions';
 import { getUserFetchStatus } from 'BikeShare/auth/selectors/userFetchStatusSelectors';
 import { index } from 'BikeShare/constants/urls';
+import RequestStatus from 'BikeShare/api/constants/RequestStatus';
 
 import LoginView from './LoginView';
+
+const { SUCCESS } = RequestStatus;
 
 class LoginContainer extends React.Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
     fetchUserData: PropTypes.func,
+    userDataFetchStatus: PropTypes.oneOf(Object.keys(RequestStatus)),
   };
 
   constructor(props) {
@@ -24,13 +28,21 @@ class LoginContainer extends React.Component {
     };
   }
 
+  componentWillMount() {
+    const { history, userDataFetchStatus } = this.props;
+
+    if (userDataFetchStatus === SUCCESS) {
+      history.replace(index);
+    }
+  }
+
   clickLogin() {
-    const { history, fetchUserData } = this.props;
+    const { fetchUserData } = this.props;
 
     userApi.doLogin().then(result => {
       if (result.type === 'success') {
-        history.replace(index);
-        fetchUserData();
+        const { token } = result.params;
+        fetchUserData(token);
       } else {
         this.setState({
           loginError: true,
