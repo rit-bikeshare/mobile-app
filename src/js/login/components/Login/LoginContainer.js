@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import userApi from 'BikeShare/api/clients/userApi';
-
 import { fetchUserData as fetchUserDataAction } from 'BikeShare/auth/actions/userDataActions';
+import { doLogin as doLoginAction } from 'BikeShare/auth/actions/loginActions';
 import { getUserFetchStatus } from 'BikeShare/auth/selectors/userFetchStatusSelectors';
 import { index } from 'BikeShare/constants/urls';
 import RequestStatus from 'BikeShare/api/constants/RequestStatus';
@@ -18,6 +17,7 @@ class LoginContainer extends React.Component {
     history: PropTypes.object.isRequired,
     fetchUserData: PropTypes.func,
     userDataFetchStatus: PropTypes.oneOf(Object.keys(RequestStatus)),
+    doLogin: PropTypes.func,
   };
 
   constructor(props) {
@@ -37,9 +37,9 @@ class LoginContainer extends React.Component {
   }
 
   clickLogin() {
-    const { fetchUserData } = this.props;
+    const { fetchUserData, doLogin } = this.props;
 
-    userApi.doLogin().then(result => {
+    doLogin().then(result => {
       if (result.type === 'success') {
         const { token } = result.params;
         fetchUserData(token);
@@ -62,4 +62,5 @@ const mapStateToProps = state => ({
 });
 export default connect(mapStateToProps, {
   fetchUserData: fetchUserDataAction,
+  doLogin: doLoginAction,
 })(LoginContainer);

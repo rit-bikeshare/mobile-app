@@ -18,18 +18,18 @@ import {
 
 const bikeCheckin = createAction(BIKE_CHECKIN);
 
-const checkinSuccessAction = createAction(BIKE_CHECKIN_SUCCESS);
+const checkInSuccessAction = createAction(BIKE_CHECKIN_SUCCESS);
 
-function checkinSuccess(data) {
+function checkInSuccess(data) {
   return dispatch => {
-    dispatch(checkinSuccessAction(data));
+    dispatch(checkInSuccessAction(data));
     dispatch(fetchBikeRacks());
   };
 }
 
-const checkinFailed = createAction(BIKE_CHECKIN_FAILED);
+const checkInFailed = createAction(BIKE_CHECKIN_FAILED);
 
-export const clearCheckinStatus = createAction(CLEAR_BIKE_CHECKIN_STATUS);
+export const clearCheckInStatus = createAction(CLEAR_BIKE_CHECKIN_STATUS);
 
 function getLocationAsync(dispatch) {
   dispatch(updateLocationPermission(PENDING));
@@ -55,7 +55,7 @@ function getBikeRackByLocation(bikeRacks, { latitude, longitude, accuracy }) {
   });
 }
 
-export function checkincurrentRentalByLocation() {
+export function checkInCurrentRentalByLocation() {
   return (dispatch, getState, api) => {
     const { currentRental, bikeRacks } = getState();
     dispatch(bikeCheckin());
@@ -63,7 +63,7 @@ export function checkincurrentRentalByLocation() {
       const bikeRack = getBikeRackByLocation(bikeRacks, coords);
       if (!bikeRack) {
         dispatch(
-          checkinFailed({
+          checkInFailed({
             message: 'No bike rack at current location.',
           })
         );
@@ -71,8 +71,8 @@ export function checkincurrentRentalByLocation() {
         api.bike
           .checkIn(currentRental.bike, bikeRack.id)
           .then(
-            data => dispatch(checkinSuccess(data)),
-            error => dispatch(checkinFailed(error))
+            data => dispatch(checkInSuccess(data)),
+            error => dispatch(checkInFailed(error))
           )
           .done();
       }
@@ -80,15 +80,15 @@ export function checkincurrentRentalByLocation() {
   };
 }
 
-export function checkincurrentRentalByBikeRack(bikeRack) {
+export function checkInCurrentRentalByBikeRack(bikeRack) {
   return (dispatch, getState, api) => {
     const { currentRental } = getState();
     dispatch(bikeCheckin());
     api.bike
       .checkIn(currentRental.bike, bikeRack)
       .then(
-        data => dispatch(checkinSuccess(data)),
-        error => dispatch(checkinFailed(error))
+        data => dispatch(checkInSuccess(data)),
+        error => dispatch(checkInFailed(error))
       )
       .done();
   };

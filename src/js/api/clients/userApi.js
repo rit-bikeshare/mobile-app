@@ -1,10 +1,8 @@
-import { unAuthedGet, doLogin } from '../request';
-
-export default {
+export default request => ({
   fetchUserData(token) {
-    return unAuthedGet('user/info/', token);
+    return request.unAuthedGet('user/info/', token);
   },
   doLogin() {
-    return doLogin();
+    return request.doLogin();
   },
-};
+});

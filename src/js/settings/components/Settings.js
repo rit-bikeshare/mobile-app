@@ -37,20 +37,12 @@ class Settings extends React.Component {
   }
 
   render() {
-    const { tigerMode, debug, pullToRefresh } = this.props;
+    const { debug, pullToRefresh } = this.props;
     return (
       <View style={{ flexGrow: 1 }}>
         <List>
           <ListItem itemDivider={true}>
             <Text>Settings</Text>
-          </ListItem>
-          <ListItem>
-            <Body>
-              <Text>Tiger Mode</Text>
-            </Body>
-            <Right>
-              <Switch value={tigerMode} onValueChange={this.setTigerMode} />
-            </Right>
           </ListItem>
           <ListItem>
             <Body>
