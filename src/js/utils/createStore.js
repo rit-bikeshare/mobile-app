@@ -3,13 +3,17 @@ import {
   createStore as createReduxStore,
   compose,
 } from 'redux';
-
+import { persistStore, persistReducer } from 'redux-persist';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
+import createSecureStore from 'redux-persist-expo-securestore';
+
+import immutableTransform from 'redux-persist-transform-immutable';
 
 import reducer from 'BikeShare/rootReducer';
 import api from 'BikeShare/api';
-
+import SettingsData from 'BikeShare/settings/records/SettingsData';
+import UserData from 'BikeShare/auth/records/UserData';
 import { setUserToken as setUserTokenAction } from 'BikeShare/auth/actions/userDataActions';
 import getUserTokenSelector from 'BikeShare/auth/selectors/getUserToken';
 
@@ -37,7 +41,19 @@ export default function createStore(initialState, history) {
     )
   )(createReduxStore);
 
-  store = createStoreWithMiddleware(reducer, initialState);
+  const storage = createSecureStore();
+  const config = {
+    key: 'root',
+    storage,
+    whitelist: ['userData', 'settings'],
+    transforms: [immutableTransform({ records: [SettingsData, UserData] })],
+  };
+
+  const reducers = persistReducer(config, reducer);
+
+  store = createStoreWithMiddleware(reducers, initialState);
+
+  persistStore(store);
 
   return store;
 }
