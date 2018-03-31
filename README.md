@@ -1,4 +1,5 @@
-<p><img width="350px" src ="https://raw.githubusercontent.com/rit-bikeshare/mobile-app/master/img/logo.png" /></p>
+<p align="center"><img width="350px" src ="https://raw.githubusercontent.com/rit-bikeshare/mobile-app/master/img/logo.png" /></p>
+
 
 [![Build Status](https://travis-ci.org/rit-bikeshare/mobile-app.svg?branch=master)](https://travis-ci.org/rit-bikeshare/mobile-app)
 
