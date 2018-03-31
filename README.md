@@ -1,4 +1,8 @@
-## RIT BikeShare mobile app
+<p align="center"><img width="350px" src ="https://raw.githubusercontent.com/rit-bikeshare/mobile-app/master/img/logo.png" /></p>
+
+
+[![Build Status](https://travis-ci.org/rit-bikeshare/mobile-app.svg?branch=master)](https://travis-ci.org/rit-bikeshare/mobile-app)
+
 This is the react native BikeShare mobile app.
 It uses Expo for the build system which allows for surprisingly easy testing.
 
