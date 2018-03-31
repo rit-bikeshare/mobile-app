@@ -5,7 +5,12 @@
       "bundleIdentifier": "BikeShare"
     },
     "android": {
-      "package": "com.rit.bikeshare"
+      "package": "com.rit.bikeshare",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyASdI6Em3yRW0kWc4rSSpmfw3ukgvPl4G8"
+        }
+      }
     },
     "androidStatusBar": {
       "backgroundColor": "#F36E1F"
