@@ -15,6 +15,6 @@ export default new Record(
  * @param  {UserData}  UserData  an immutable UserData record.
  * @return {Boolean}           if the given UserData is empty.
  */
-export function isEmpty({ username, authToken }) {
-  return username === null && authToken === null;
+export function isEmpty({ authToken }) {
+  return authToken === null;
 }

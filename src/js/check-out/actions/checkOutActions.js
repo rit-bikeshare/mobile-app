@@ -15,7 +15,7 @@ const checkOutSuccessAction = createAction(BIKE_CHECKOUT_SUCCESS);
 
 const checkOutFailed = createAction(BIKE_CHECKOUT_FAILED);
 
-export const clearCheckoutStatus = createAction(CLEAR_BIKE_CHECKOUT_STATUS);
+export const clearCheckOutStatus = createAction(CLEAR_BIKE_CHECKOUT_STATUS);
 
 function checkOutSuccess(data) {
   return dispatch => {

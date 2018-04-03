@@ -9,13 +9,20 @@ import {
 
 const initialState = new UserData();
 
+function mergeUserData(oldVal, newVal) {
+  if (newVal === null && oldVal !== null) return oldVal;
+  return newVal;
+}
+
 export default handleActions(
   {
     [SET_USER_DATA](state, action) {
-      return state.merge(action.payload);
+      const newUserData = new UserData(action.payload);
+      return state.mergeWith(mergeUserData, newUserData);
     },
     [USER_FETCH_SUCCESS](state, action) {
-      return state.merge(action.payload);
+      const newUserData = new UserData(action.payload);
+      return state.mergeWith(mergeUserData, newUserData);
     },
     [SET_USER_TOKEN](state, action) {
       return state.set('authToken', action.payload);

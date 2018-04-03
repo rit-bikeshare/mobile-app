@@ -21,7 +21,7 @@ const Login = ({ handleLogin }) => {
           height: '100%',
           opacity: 0.5,
         }}
-        initialRegion={{
+        region={{
           latitude: 43.08447438334887,
           latitudeDelta: 0.00900991980918775,
           longitude: -77.67920080572367,
