@@ -10,13 +10,14 @@
         "googleMaps": {
           "apiKey": "AIzaSyASdI6Em3yRW0kWc4rSSpmfw3ukgvPl4G8"
         }
-      }
+      },
+      "icon": "./img/icon_android.png"
     },
     "androidStatusBar": {
       "backgroundColor": "#F36E1F"
     },
-    "loading": {
-      "icon": "./img/icon.png",
+    "splash": {
+      "image": "./img/splash.png",
       "backgroundColor": "#F36E1F"
     },
     "primaryColor": "#F36E1F",
