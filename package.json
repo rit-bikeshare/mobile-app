@@ -1,6 +1,6 @@
 {
   "name": "BikeShare",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "private": true,
   "scripts": {
     "start": "sh bin/verify-githooks.sh && exp start --lan",
