@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Modal } from 'react-native';
-import { Button, Text, Item, Input, Form, Picker, H1, View } from 'native-base';
+import { Button, Text, Item, Input, Form, H1, View } from 'native-base';
+
+import PickerWithPlaceholder from 'BikeShare/lib/components/PickerWithPlaceholder';
 
 import styles from './ManualInputModalStyles';
 
@@ -21,11 +23,8 @@ export default class ManualInputModal extends React.Component {
   constructor(props) {
     super(props);
 
-    const { values } = props;
-    const initialValue = Map.isMap(values) ? values.keySeq().first() : '';
-
     this.state = {
-      inputValue: initialValue,
+      inputValue: null,
     };
 
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -60,15 +59,14 @@ export default class ManualInputModal extends React.Component {
       .toJS();
 
     return (
-      <Picker
-        iosHeader={placeholder}
-        prompt={placeholder}
+      <PickerWithPlaceholder
+        placeholder={placeholder}
         mode="dropdown"
         selectedValue={inputValue}
         onValueChange={this.handleTextChange}
       >
         {items}
-      </Picker>
+      </PickerWithPlaceholder>
     );
   }
 

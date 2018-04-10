@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { Platform, ActivityIndicator } from 'react-native';
 import { View, Button, Text } from 'native-base';
 import { connect } from 'react-redux';
 
@@ -24,6 +23,7 @@ import parseDeepLink from 'BikeShare/utils/parseDeepLink';
 
 import CheckInSuccess from '../CheckInSuccess';
 import style from './CheckInStyles';
+import { LoadingView } from 'BikeShare/status';
 
 const { PENDING, FAILED, SUCCESS } = RequestStatus;
 
@@ -119,12 +119,7 @@ class CheckinContainer extends React.Component {
     } = this.props;
 
     if (bikeCheckInStatus === PENDING) {
-      return (
-        <View style={style.statusWrapper}>
-          <ActivityIndicator size={Platform.OS === 'ios' ? 'large' : 100} />
-          <Text style={style.statusText}>Checking Bike In...</Text>
-        </View>
-      );
+      return <LoadingView text="Checking Bike In..." />;
     }
 
     if (bikeCheckInStatus === FAILED) {

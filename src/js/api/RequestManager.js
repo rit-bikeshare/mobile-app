@@ -3,6 +3,13 @@ import { AuthSession } from 'expo';
 
 const baseApiUrl = 'http://spin.se.rit.edu';
 
+function getQueryString(params) {
+  var esc = encodeURIComponent;
+  return Object.keys(params)
+    .map(k => esc(k) + '=' + esc(params[k]))
+    .join('&');
+}
+
 export default class RequestManager {
   constructor(getToken, setToken) {
     this.getToken = getToken;
@@ -39,7 +46,7 @@ export default class RequestManager {
     };
   }
 
-  buildGet(url) {
+  buildGet(url, query) {
     return () => {
       // always add a trailing slash
       url = url.replace(/\/?$/, '/');
@@ -53,6 +60,10 @@ export default class RequestManager {
       const token = this.getToken();
       if (token) {
         headers.Authorization = `JWT ${token}`;
+      }
+
+      if (query) {
+        url += `?${getQueryString(query)}`;
       }
 
       return fetch(`${baseApiUrl}/${url}`, {
@@ -90,8 +101,8 @@ export default class RequestManager {
     };
   }
 
-  get(url) {
-    const fetchFunction = this.buildGet(url);
+  get(url, queryData) {
+    const fetchFunction = this.buildGet(url, queryData);
 
     return fetchFunction()
       .then(this.checkAuth(fetchFunction))

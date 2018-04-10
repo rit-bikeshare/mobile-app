@@ -28,8 +28,6 @@ export function isCurrentlyRented(data) {
   if (!data) return true;
   if (!(data instanceof BikeRental)) return true;
 
-  const { bike, id, rentedAt, returnedAt } = data;
-  return (
-    bike !== null && id !== null && rentedAt !== null && returnedAt === null
-  );
+  const { bike, rentedAt, returnedAt } = data;
+  return bike !== null && rentedAt !== null && returnedAt === null;
 }

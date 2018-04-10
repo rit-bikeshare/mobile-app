@@ -1,5 +1,5 @@
-import React from 'react';
 import Expo from 'expo';
+import React from 'react';
 import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { StyleProvider, Container, View } from 'native-base';

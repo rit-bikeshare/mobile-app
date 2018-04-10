@@ -130,11 +130,7 @@ class QRScanner extends React.Component {
         onPress={onClose}
         style={styles.closeButton}
       >
-        <Icon
-          name="close"
-          type="MaterialCommunityIcons"
-          style={{ fontSize: 30 }}
-        />
+        <Icon name="close" style={{ fontSize: 30 }} />
       </Button>
     );
   }
