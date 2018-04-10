@@ -1,6 +1,7 @@
 import React from 'react';
 import { Map } from 'immutable';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import {
   Container,
@@ -39,15 +40,19 @@ class ReportDamageView extends React.Component {
     damageTypes: PropTypes.instanceOf(Map),
     damageReportStatus: PropTypes.oneOf(Object.keys(RequestStatus)),
     resetDamageReportStatus: PropTypes.func,
+    location: PropTypes.object,
   };
 
   constructor(props) {
     super(props);
+    const { location: { search } } = props;
+    const { bikeId } = queryString.parse(search);
+
     this.state = {
       damageTypeId: null,
       comments: '',
       critical: false,
-      bikeId: null,
+      bikeId,
       showScanner: false,
       loading: false,
     };

@@ -9,6 +9,7 @@ import {
   getCheckInError as getCheckInErrorSelector,
 } from 'BikeShare/check-in/selectors/checkInStatusSelectors';
 import { getBikeRackNameMap as getBikeRackNameMapSelector } from 'BikeShare/bike-rack/selectors/bikeRackSelectors';
+import getRentalBikeId from 'BikeShare/rental/selectors/getRentalBikeId';
 import {
   checkInCurrentRentalByLocation as checkInCurrentRentalByLocationAction,
   checkInCurrentRentalByBikeRack as checkInCurrentRentalByBikeRackAction,
@@ -20,6 +21,7 @@ import { ErrorView } from 'BikeShare/status';
 
 import RequestStatus from 'BikeShare/api/constants/RequestStatus';
 import parseDeepLink from 'BikeShare/utils/parseDeepLink';
+import { reportDamage } from 'BikeShare/constants/urls';
 
 import CheckInSuccess from '../CheckInSuccess';
 import style from './CheckInStyles';
@@ -36,6 +38,8 @@ class CheckinContainer extends React.Component {
     checkInCurrentRentalByLocation: PropTypes.func,
     checkInCurrentRentalByBikeRack: PropTypes.func,
     bikeRacks: PropTypes.instanceOf(Map),
+    currentRentalId: PropTypes.number,
+    history: PropTypes.object,
   };
 
   constructor(props) {
@@ -43,6 +47,7 @@ class CheckinContainer extends React.Component {
     this.state = {
       qrScannerVisible: false,
       manualInputOpen: false,
+      checkedInBikeId: null,
     };
 
     this.handleQRCodeScan = this.handleQRCodeScan.bind(this);
@@ -53,6 +58,7 @@ class CheckinContainer extends React.Component {
     this.openManualCheckout = this.openManualCheckout.bind(this);
     this.closeManualCheckout = this.closeManualCheckout.bind(this);
     this.retryScan = this.retryScan.bind(this);
+    this.reportDamage = this.reportDamage.bind(this);
   }
 
   componentWillMount() {
@@ -80,20 +86,25 @@ class CheckinContainer extends React.Component {
     });
   }
 
-  handleManualCheckoutSubmit(bikerackId) {
-    const { checkInCurrentRentalByBikeRack } = this.props;
-
+  checkBikeIn(bikerackId) {
+    const { checkInCurrentRentalByBikeRack, currentRentalId } = this.props;
     this.setState({
-      manualInputOpen: false,
+      checkedInBikeId: currentRentalId,
     });
     checkInCurrentRentalByBikeRack(bikerackId);
   }
 
+  handleManualCheckoutSubmit(bikerackId) {
+    this.checkBikeIn(bikerackId);
+    this.setState({
+      manualInputOpen: false,
+    });
+  }
+
   handleQRCodeScan(data) {
-    const { checkInCurrentRentalByBikeRack } = this.props;
-    const [action, bikeRackId] = parseDeepLink(data);
+    const [action, bikerackId] = parseDeepLink(data);
     if (action === 'check-in') {
-      checkInCurrentRentalByBikeRack(bikeRackId);
+      this.checkBikeIn(bikerackId);
       this.closeQRScanner();
     }
   }
@@ -108,6 +119,12 @@ class CheckinContainer extends React.Component {
     this.setState({
       qrScannerVisible: true,
     });
+  }
+
+  reportDamage() {
+    const { checkedInBikeId } = this.state;
+    const { history } = this.props;
+    history.push(`${reportDamage}?bikeId=${checkedInBikeId}`);
   }
 
   renderStatusMessage() {
@@ -147,7 +164,9 @@ class CheckinContainer extends React.Component {
     }
 
     if (bikeCheckInStatus === SUCCESS) {
-      return <CheckInSuccess onClose={onClose} reportDamage={() => null} />;
+      return (
+        <CheckInSuccess onClose={onClose} reportDamage={this.reportDamage} />
+      );
     }
 
     return null;
@@ -201,6 +220,7 @@ const mapStateToProps = state => ({
   bikeCheckInStatus: getCheckInStatusSelector(state),
   bikeCheckInError: getCheckInErrorSelector(state),
   bikeRacks: getBikeRackNameMapSelector(state),
+  currentRentalId: getRentalBikeId(state),
 });
 
 const actions = {

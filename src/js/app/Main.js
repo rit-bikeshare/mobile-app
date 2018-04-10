@@ -66,7 +66,7 @@ class Main extends React.Component {
     return (
       <Tabs initialPage={0}>
         <Tab heading={this.renderTabHeading('bike', 'MaterialCommunityIcons')}>
-          <RentalView />
+          <RentalView history={history} />
         </Tab>
         <Tab heading={this.renderTabHeading('more-horiz', 'MaterialIcons')}>
           <SettingsView history={history} />

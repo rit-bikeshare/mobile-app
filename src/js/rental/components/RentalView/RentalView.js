@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Modal, ActivityIndicator } from 'react-native';
 import { View } from 'native-base';
 
@@ -11,6 +12,10 @@ import MapView from '../MapView';
 import style from './RentalViewStyles';
 
 class MapContainer extends React.Component {
+  static propTypes = {
+    history: PropTypes.object,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -48,6 +53,7 @@ class MapContainer extends React.Component {
   }
 
   renderModalContent() {
+    const { history } = this.props;
     const { showCheckout, showCheckin } = this.state;
 
     if (showCheckout) {
@@ -55,7 +61,7 @@ class MapContainer extends React.Component {
     }
 
     if (showCheckin) {
-      return <CheckInContainer onClose={this.closeModal} />;
+      return <CheckInContainer history={history} onClose={this.closeModal} />;
     }
 
     return <View />;
