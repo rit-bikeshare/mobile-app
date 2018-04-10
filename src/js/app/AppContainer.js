@@ -10,6 +10,7 @@ import { getUserFetchStatus } from 'BikeShare/auth/selectors/userFetchStatusSele
 
 import Main from './Main';
 import { CheckoutView } from 'BikeShare/check-out';
+import ReportDamageView from 'BikeShare/report-damage/components/ReportDamageView';
 
 import UserData, { isEmpty } from 'BikeShare/auth/records/UserData';
 import { login } from 'BikeShare/constants/urls';
@@ -49,6 +50,7 @@ class AppContainer extends React.Component {
       <Switch>
         <Route exact={true} path="/" component={Main} />
         <Route path="/checkout" component={CheckoutView} />
+        <Route path="/report-damage" component={ReportDamageView} />
       </Switch>
     );
   }

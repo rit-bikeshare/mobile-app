@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Platform, ActivityIndicator } from 'react-native';
 import { View, Button, Text } from 'native-base';
 import { connect } from 'react-redux';
 
-import { QRScanner, ManualInputModal } from 'BikeShare/scanner';
+import { BikeScanner } from 'BikeShare/scanner';
 import { ErrorView } from 'BikeShare/status';
 
 import RequestStatus from 'BikeShare/api/constants/RequestStatus';
-import parseDeepLink from 'BikeShare/utils/parseDeepLink';
-
+import { LoadingView } from 'BikeShare/status';
 import {
   getCheckOutStatus as getCheckOutStatusSelector,
   getCheckOutError as getCheckOutErrorSelector,
@@ -35,73 +33,35 @@ class CheckoutContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      qrScannerVisible: false,
-      manualInputOpen: false,
+      scannerVisible: false,
     };
 
-    this.handleQRCodeScan = this.handleQRCodeScan.bind(this);
-    this.openQRScanner = this.openQRScanner.bind(this);
-    this.handleManualCheckoutSubmit = this.handleManualCheckoutSubmit.bind(
-      this
-    );
-    this.openManualCheckout = this.openManualCheckout.bind(this);
-    this.closeManualCheckout = this.closeManualCheckout.bind(this);
+    this.openScanner = this.openScanner.bind(this);
+    this.closeScanner = this.closeScanner.bind(this);
     this.retryScan = this.retryScan.bind(this);
   }
 
   componentWillMount() {
     this.setState({
-      qrScannerVisible: true,
+      scannerVisible: true,
     });
   }
 
   retryScan() {
     const { clearCheckOutStatus } = this.props;
     clearCheckOutStatus();
-    this.openQRScanner();
+    this.openScanner();
   }
 
-  closeManualCheckout() {
-    this.openQRScanner();
+  closeScanner() {
     this.setState({
-      manualInputOpen: false,
+      scannerVisible: false,
     });
   }
 
-  openManualCheckout() {
-    this.closeQRScanner();
+  openScanner() {
     this.setState({
-      manualInputOpen: true,
-    });
-  }
-
-  handleManualCheckoutSubmit(bikeId) {
-    const { checkOutBike } = this.props;
-
-    this.setState({
-      manualInputOpen: false,
-    });
-    checkOutBike(bikeId);
-  }
-
-  handleQRCodeScan(data) {
-    const { checkOutBike } = this.props;
-    const [action, bikeId] = parseDeepLink(data);
-    if (action === 'check-out') {
-      checkOutBike(bikeId);
-      this.closeQRScanner();
-    }
-  }
-
-  closeQRScanner() {
-    this.setState({
-      qrScannerVisible: false,
-    });
-  }
-
-  openQRScanner() {
-    this.setState({
-      qrScannerVisible: true,
+      scannerVisible: true,
     });
   }
 
@@ -109,12 +69,7 @@ class CheckoutContainer extends React.Component {
     const { bikeCheckOutError, bikeCheckOutStatus, onClose } = this.props;
 
     if (bikeCheckOutStatus === PENDING) {
-      return (
-        <View style={style.statusWrapper}>
-          <ActivityIndicator size={Platform.OS === 'ios' ? 'large' : 100} />
-          <Text style={style.statusText}>Checking Bike Out...</Text>
-        </View>
-      );
+      return <LoadingView text="Checking Bike Out..." />;
     }
 
     if (bikeCheckOutStatus === FAILED) {
@@ -138,48 +93,20 @@ class CheckoutContainer extends React.Component {
       return <CheckoutSuccess onClose={onClose} />;
     }
 
-    return null;
+    return this.renderBikeScanner();
   }
 
-  renderManualModal() {
-    const { manualInputOpen } = this.state;
+  renderBikeScanner() {
+    const { checkOutBike, onClose } = this.props;
+    const { scannerVisible } = this.state;
 
-    return (
-      <ManualInputModal
-        open={manualInputOpen}
-        onClose={this.closeManualCheckout}
-        text="The bike id is listed under the QR code on the bike"
-        placeholder="Bike Id"
-        buttonText="Check-out"
-        headerText="Manual Check-Out"
-        onSubmit={this.handleManualCheckoutSubmit}
-      />
-    );
-  }
+    if (!scannerVisible) return null;
 
-  renderQRScanner() {
-    const { onClose } = this.props;
-    const { qrScannerVisible } = this.state;
-
-    if (!qrScannerVisible) return null;
-
-    return (
-      <QRScanner
-        onQRCodeScan={this.handleQRCodeScan}
-        onClickManualSubmit={this.openManualCheckout}
-        onClose={onClose}
-      />
-    );
+    return <BikeScanner onSubmit={checkOutBike} onClose={onClose} />;
   }
 
   render() {
-    return (
-      <View style={style.container}>
-        {this.renderStatusMessage()}
-        {this.renderQRScanner()}
-        {this.renderManualModal()}
-      </View>
-    );
+    return <View style={style.container}>{this.renderStatusMessage()}</View>;
   }
 }
 

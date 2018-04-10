@@ -20,6 +20,7 @@ class Main extends React.Component {
     bikeRackFetchStatus: PropTypes.oneOf(Object.keys(RequestStatus)),
     fetchBikeRacks: PropTypes.func,
     pullToRefresh: PropTypes.bool,
+    history: PropTypes.object,
   };
   constructor(props) {
     super(props);
@@ -61,13 +62,14 @@ class Main extends React.Component {
   }
 
   renderTabs() {
+    const { history } = this.props;
     return (
       <Tabs initialPage={0}>
         <Tab heading={this.renderTabHeading('bike', 'MaterialCommunityIcons')}>
           <RentalView />
         </Tab>
         <Tab heading={this.renderTabHeading('more-horiz', 'MaterialIcons')}>
-          <SettingsView />
+          <SettingsView history={history} />
         </Tab>
       </Tabs>
     );

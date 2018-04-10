@@ -8,6 +8,7 @@ import networkConnectionReducer from 'BikeShare/api/reducers/networkConnectionRe
 import bikeRackReducer from 'BikeShare/bike-rack/reducers/bikeRackReducer';
 import rentalReducer from 'BikeShare/rental/reducers/rentalReducer';
 import settingsReducer from 'BikeShare/settings/reducers/settingsReducer';
+import damageTypesReducer from 'BikeShare/report-damage/reducers';
 
 export default combineReducers({
   permissions: permissionReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   bikeRacks: bikeRackReducer,
   currentRental: rentalReducer,
   settings: settingsReducer,
+  damageTypes: damageTypesReducer,
 });

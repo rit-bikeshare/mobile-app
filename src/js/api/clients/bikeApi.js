@@ -33,4 +33,19 @@ export default request => ({
     });
     return request.post('checkin', data);
   },
+
+  reportDamage({ bikeId, damageType, comments, critical }) {
+    const data = trimUndefinedKeys({
+      bike: bikeId,
+      damageType,
+      comments,
+      critical,
+    });
+
+    return request.post('report-damage', data);
+  },
+
+  fetchDamageTypes() {
+    return request.get('damage-types');
+  },
 });

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { ListItem, List, Body, Switch, Right, Text, View } from 'native-base';
 import { connect } from 'react-redux';
 
+import { reportDamage } from 'BikeShare/constants/urls';
+
 import { setSetting as setSettingAction } from '../actions/settingsActions';
 
 class Settings extends React.Component {
@@ -11,6 +13,7 @@ class Settings extends React.Component {
     showCheckInAreas: PropTypes.bool,
     tigerMode: PropTypes.bool,
     pullToRefresh: PropTypes.bool,
+    history: PropTypes.object,
   };
 
   constructor(props) {
@@ -19,6 +22,12 @@ class Settings extends React.Component {
     this.setTigerMode = this.setTigerMode.bind(this);
     this.setDebugMode = this.setDebugMode.bind(this);
     this.setPullToRefresh = this.setPullToRefresh.bind(this);
+    this.routeToDamageReport = this.routeToDamageReport.bind(this);
+  }
+
+  routeToDamageReport() {
+    const { history } = this.props;
+    history.push(reportDamage);
   }
 
   setTigerMode(value) {
@@ -41,6 +50,11 @@ class Settings extends React.Component {
     return (
       <View style={{ flexGrow: 1 }}>
         <List>
+          <ListItem onPress={this.routeToDamageReport}>
+            <Body>
+              <Text>Report Damage</Text>
+            </Body>
+          </ListItem>
           <ListItem itemDivider={true}>
             <Text>Settings</Text>
           </ListItem>
