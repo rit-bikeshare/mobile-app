@@ -8044,14 +8044,6 @@ react-native-gesture-handler@1.0.0-alpha.39:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
-react-native-infinite-scroll-view@^0.4.3:
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/react-native-infinite-scroll-view/-/react-native-infinite-scroll-view-0.4.3.tgz#bc5dfb1645b8966bb6686d4cba899acb229ca003"
-  dependencies:
-    prop-types "^15.5.10"
-    react-clone-referenced-element "^1.0.1"
-    react-native-scrollable-mixin "^1.0.0"
-
 react-native-iphone-x-helper@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.0.2.tgz#7dbca530930f7c1ce8633cc8fd13ba94102992e1"
@@ -8092,10 +8084,6 @@ react-native-scripts@^1.5.0:
     qrcode-terminal "^0.11.0"
     rimraf "^2.6.1"
     xdl "48.0.2"
-
-react-native-scrollable-mixin@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-scrollable-mixin/-/react-native-scrollable-mixin-1.0.1.tgz#34a32167b64248594154fd0d6a8b03f22740548e"
 
 "react-native-svg@https://github.com/expo/react-native-svg/archive/5.5.1-exp.1.tar.gz":
   version "5.5.1"
