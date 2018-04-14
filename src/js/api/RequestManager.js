@@ -1,7 +1,7 @@
 import Expo from 'expo';
 import { AuthSession } from 'expo';
 
-const baseApiUrl = 'http://bikesharedev.rit.edu/api';
+const baseApiUrl = 'https://bikesharedev.rit.edu/api';
 
 function getQueryString(params) {
   var esc = encodeURIComponent;
@@ -16,18 +16,19 @@ export default class RequestManager {
     this.setToken = setToken;
   }
 
-  doLogin() {
+  async doLogin() {
     const returnUrl = `${Expo.Constants.linkingUrl}expo-auth-session`;
-    return AuthSession.startAsync({
+    const result = await AuthSession.startAsync({
       authUrl: `${baseApiUrl}/login/?expo=true`,
       returnUrl,
-    }).then(result => {
-      if (result.type === 'success') {
-        const { token } = result.params;
-        this.setToken(token);
-      }
-      return result;
     });
+
+    if (result.type === 'success') {
+      const { token } = result.params;
+      this.setToken(token);
+    }
+
+    return Promise.resolve(result);
   }
 
   doAuthLogin() {
@@ -47,7 +48,7 @@ export default class RequestManager {
   }
 
   buildGet(url, query) {
-    return () => {
+    return async token => {
       // always add a trailing slash
       url = url.replace(/\/?$/, '/');
 
@@ -57,7 +58,7 @@ export default class RequestManager {
         Origin: baseApiUrl,
       };
 
-      const token = this.getToken();
+      token = token || this.getToken();
       if (token) {
         headers.Authorization = `JWT ${token}`;
       }
@@ -66,17 +67,18 @@ export default class RequestManager {
         url += `?${getQueryString(query)}`;
       }
 
-      return fetch(`${baseApiUrl}/${url}`, {
+      const result = await fetch(`${baseApiUrl}/${url}`, {
         method: 'GET',
         credentials: 'same-origin',
         mode: 'same-origin',
         headers: headers,
       });
+      return Promise.resolve(result);
     };
   }
 
   buildPost(url, body) {
-    return () => {
+    return async () => {
       // always add a trailing slash
       url = url.replace(/\/?$/, '/');
 
@@ -91,13 +93,14 @@ export default class RequestManager {
         headers.Authorization = `JWT ${token}`;
       }
 
-      return fetch(`${baseApiUrl}/${url}`, {
+      const result = await fetch(`${baseApiUrl}/${url}`, {
         method: 'POST',
         credentials: 'same-origin',
         mode: 'same-origin',
         headers: headers,
         body: JSON.stringify(body),
       });
+      return Promise.resolve(result);
     };
   }
 
