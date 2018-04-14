@@ -10,6 +10,9 @@ export default handleActions(
     [FETCH_BIKE_RACKS_SUCCESS](state, action) {
       return action.payload.reduce((accumulator, bikeRack) => {
         const { checkInArea, ...rest } = bikeRack;
+        if (!checkInArea) {
+          return accumulator;
+        }
         const polygonArea = polygon(checkInArea.coordinates);
         return accumulator.set(
           bikeRack.id,
