@@ -6,6 +6,7 @@ import {
   USER_FETCH_FAILED,
   USER_FETCH,
   SET_USER_TOKEN,
+  CLEAR_USER_DATA,
 } from '../constants/AuthActionTypes';
 
 export const setUserData = createAction(SET_USER_DATA);
@@ -26,3 +27,5 @@ export function fetchUserData(token) {
 }
 
 export const setUserToken = createAction(SET_USER_TOKEN);
+
+export const clearUserData = createAction(CLEAR_USER_DATA);

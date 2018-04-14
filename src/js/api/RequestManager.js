@@ -1,7 +1,7 @@
 import Expo from 'expo';
 import { AuthSession } from 'expo';
 
-const baseApiUrl = 'http://spin.se.rit.edu';
+const baseApiUrl = 'http://bikesharedev.rit.edu/api';
 
 function getQueryString(params) {
   var esc = encodeURIComponent;

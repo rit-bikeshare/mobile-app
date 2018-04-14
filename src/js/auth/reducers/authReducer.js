@@ -5,6 +5,7 @@ import {
   SET_USER_DATA,
   USER_FETCH_SUCCESS,
   SET_USER_TOKEN,
+  CLEAR_USER_DATA,
 } from '../constants/AuthActionTypes';
 
 const initialState = new UserData();
@@ -26,6 +27,9 @@ export default handleActions(
     },
     [SET_USER_TOKEN](state, action) {
       return state.set('authToken', action.payload);
+    },
+    [CLEAR_USER_DATA]() {
+      return new UserData();
     },
   },
   initialState

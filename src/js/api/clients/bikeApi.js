@@ -11,7 +11,7 @@ function trimUndefinedKeys(obj) {
 
 export default request => ({
   fetchRentals() {
-    return request.get('user/rentals');
+    return request.get('rentals');
   },
 
   canCheckout(bikeId) {
