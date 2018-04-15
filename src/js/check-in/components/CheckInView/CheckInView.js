@@ -20,7 +20,7 @@ import { QRScanner, ManualInputModal } from 'BikeShare/scanner';
 import { ErrorView } from 'BikeShare/status';
 
 import RequestStatus from 'BikeShare/api/constants/RequestStatus';
-import parseDeepLink from 'BikeShare/utils/parseDeepLink';
+import parseQRData from 'BikeShare/utils/parseQRData';
 import { reportDamage } from 'BikeShare/constants/urls';
 
 import CheckInSuccess from '../CheckInSuccess';
@@ -102,7 +102,7 @@ class CheckinContainer extends React.Component {
   }
 
   handleQRCodeScan(data) {
-    const [action, bikerackId] = parseDeepLink(data);
+    const [action, bikerackId] = parseQRData(data);
     if (action === 'check-in') {
       this.checkBikeIn(bikerackId);
       this.closeQRScanner();

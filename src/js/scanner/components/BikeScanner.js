@@ -4,7 +4,7 @@ import { View } from 'native-base';
 
 import { QRScanner, ManualInputModal } from 'BikeShare/scanner';
 
-import parseDeepLink from 'BikeShare/utils/parseDeepLink';
+import parseQRData from 'BikeShare/utils/parseQRData';
 
 const containerStyles = {
   position: 'relative',
@@ -59,7 +59,7 @@ class BikeScanner extends React.Component {
 
   handleQRCodeScan(data) {
     const { onSubmit } = this.props;
-    const [action, bikeId] = parseDeepLink(data);
+    const [action, bikeId] = parseQRData(data);
     if (action === 'check-out') {
       onSubmit(bikeId);
     }

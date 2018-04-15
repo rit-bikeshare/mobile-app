@@ -9,7 +9,6 @@ import { fetchCurrentRentalIfNotAlready as fetchCurrentRentalIfNotAlreadyAction 
 import { getUserFetchStatus } from 'BikeShare/auth/selectors/userFetchStatusSelectors';
 
 import Main from './Main';
-import { CheckoutView } from 'BikeShare/check-out';
 import ReportDamageView from 'BikeShare/report-damage/components/ReportDamageView';
 
 import UserData, { isEmpty } from 'BikeShare/auth/records/UserData';
@@ -49,7 +48,6 @@ class AppContainer extends React.Component {
     return (
       <Switch>
         <Route exact={true} path="/" component={Main} />
-        <Route path="/checkout" component={CheckoutView} />
         <Route path="/report-damage" component={ReportDamageView} />
       </Switch>
     );
