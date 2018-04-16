@@ -9,6 +9,7 @@ import bikeRackReducer from 'BikeShare/bike-rack/reducers/bikeRackReducer';
 import rentalReducer from 'BikeShare/rental/reducers/rentalReducer';
 import settingsReducer from 'BikeShare/settings/reducers/settingsReducer';
 import damageTypesReducer from 'BikeShare/report-damage/reducers';
+import notificationsReducer from 'BikeShare/notifications/reducers/notificationsReducer';
 
 export default combineReducers({
   permissions: permissionReducer,
@@ -20,4 +21,5 @@ export default combineReducers({
   currentRental: rentalReducer,
   settings: settingsReducer,
   damageTypes: damageTypesReducer,
+  notifications: notificationsReducer,
 });

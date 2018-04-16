@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "sh bin/verify-githooks.sh && exp start --lan",
+    "start:ios": "yarn start && exp ios",
     "test": "node_modules/.bin/jest",
     "clearCache": "node_modules/.bin/jest --clearCache",
     "changed": "git diff-tree --no-commit-id --name-only -r --diff-filter=a HEAD $(git merge-base HEAD origin/master)",

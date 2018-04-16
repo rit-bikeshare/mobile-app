@@ -8,7 +8,8 @@ import booleanContains from '@turf/boolean-contains';
 import { fetchBikeRacks } from 'BikeShare/bike-rack/actions/bikeRackActions';
 import { updateLocationPermission } from 'BikeShare/permissions/actions/permissionActions';
 import { PENDING } from 'BikeShare/permissions/constants/PermissionValues';
-
+import { RENTAL_EXPIRATION_NOTIFICATION } from 'BikeShare/notifications/constants/notificationTypes';
+import clearNotification from 'BikeShare/notifications/actions/clearNotification';
 import {
   BIKE_CHECKIN,
   BIKE_CHECKIN_SUCCESS,
@@ -22,6 +23,7 @@ const checkInSuccessAction = createAction(BIKE_CHECKIN_SUCCESS);
 
 function checkInSuccess(data) {
   return dispatch => {
+    dispatch(clearNotification(RENTAL_EXPIRATION_NOTIFICATION));
     dispatch(checkInSuccessAction(data));
     dispatch(fetchBikeRacks());
   };
