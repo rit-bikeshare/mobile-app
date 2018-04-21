@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ToastAndroid, TouchableWithoutFeedback } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native';
 import { Text, View, Icon } from 'native-base';
 import moment from 'moment';
 
+import Toast from 'BikeShare/lib/Toast';
 import Bike from 'BikeShare/svg/Bike';
 
 import BikeRental, { isCurrentlyRented } from '../../records/BikeRental';
@@ -89,9 +90,9 @@ class RentalTimer extends React.Component {
   }
 
   showOver24HourToast() {
-    ToastAndroid.show(
+    Toast.show(
       "You've have your bike checked-out for longer than 24 hours. Please return it as soon as possible to avoid penalties.",
-      ToastAndroid.LONG
+      Toast.LONG
     );
   }
 
