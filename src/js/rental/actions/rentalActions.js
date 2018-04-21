@@ -22,8 +22,11 @@ function fetchCurrentRental() {
       .fetchRentals()
       .then(
         data => {
-          dispatch(fetchRentalSuccess(data[0]));
-          dispatch(connectToSocket(data[0].id));
+          const rental = data[0];
+          dispatch(fetchRentalSuccess(rental));
+          if (rental && rental.id) {
+            dispatch(connectToSocket(rental.id));
+          }
         },
         error => dispatch(fetchRentalFailed(error))
       )
