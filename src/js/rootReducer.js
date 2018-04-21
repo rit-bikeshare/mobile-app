@@ -10,6 +10,7 @@ import rentalReducer from 'BikeShare/rental/reducers/rentalReducer';
 import settingsReducer from 'BikeShare/settings/reducers/settingsReducer';
 import damageTypesReducer from 'BikeShare/report-damage/reducers';
 import notificationsReducer from 'BikeShare/notifications/reducers/notificationsReducer';
+import lockReducer from 'BikeShare/lock/reducers/lockReducer';
 
 export default combineReducers({
   permissions: permissionReducer,
@@ -22,4 +23,5 @@ export default combineReducers({
   settings: settingsReducer,
   damageTypes: damageTypesReducer,
   notifications: notificationsReducer,
+  lock: lockReducer,
 });

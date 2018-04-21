@@ -16,7 +16,7 @@ import styles from './CheckOutSuccessStyles';
 
 class CheckoutSuccess extends React.Component {
   static propTypes = {
-    rentalExpirationTime: PropTypes.instanceOf(Date),
+    rentalExpirationTime: PropTypes.number,
     scheduleNotification: PropTypes.func,
     onClose: PropTypes.func,
   };
@@ -32,17 +32,19 @@ class CheckoutSuccess extends React.Component {
 
   handleClose() {
     const { onClose, scheduleNotification, rentalExpirationTime } = this.props;
-    const localNotification = {
-      id: 'return-notification',
-      title: 'Bike Overdue',
-      body:
-        "You've had your bike checked out for more than 24 hours. Please return it.",
-    };
-    scheduleNotification(
-      RENTAL_EXPIRATION_NOTIFICATION,
-      localNotification,
-      rentalExpirationTime
-    );
+    if (rentalExpirationTime) {
+      const localNotification = {
+        id: 'return-notification',
+        title: 'Bike Overdue',
+        body:
+          "You've had your bike checked out for more than 24 hours. Please return it.",
+      };
+      scheduleNotification(
+        RENTAL_EXPIRATION_NOTIFICATION,
+        localNotification,
+        rentalExpirationTime
+      );
+    }
     onClose();
   }
 

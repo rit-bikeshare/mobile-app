@@ -8,6 +8,7 @@ import BikeRental, { isCurrentlyRented } from '../../records/BikeRental';
 import styles from './BikeRentalActionsStyles';
 
 import 'moment-duration-format';
+import BikeLockButton from './BikeLockButton';
 
 class BikeRentalActions extends React.Component {
   static propTypes = {
@@ -32,12 +33,15 @@ class BikeRentalActions extends React.Component {
   renderCheckedOutView() {
     const { checkInBike } = this.props;
     return (
-      <Button style={styles.checkoutButton} onPress={checkInBike}>
-        <Icon name="map-marker" type="MaterialCommunityIcons" />
-        <Text style={styles.checkoutText} uppercase={false}>
-          Return
-        </Text>
-      </Button>
+      <View style={{ flexDirection: 'row' }}>
+        <BikeLockButton style={{ marginRight: 8 }} />
+        <Button style={styles.checkoutButton} onPress={checkInBike}>
+          <Icon name="map-marker" type="MaterialCommunityIcons" />
+          <Text style={styles.checkoutText} uppercase={false}>
+            Return
+          </Text>
+        </Button>
+      </View>
     );
   }
 
