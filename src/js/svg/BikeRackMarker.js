@@ -15,7 +15,7 @@ export default class BikeRackMarker extends React.Component {
     if (availableBikes === null) return null;
 
     return (
-      <SvgText textAnchor="middle" fill="#FFFFFF" fontSize="18" x="28" y="30">
+      <SvgText textAnchor="middle" fill="#FFFFFF" fontSize="18" x="28" y="45">
         {availableBikes}
       </SvgText>
     );

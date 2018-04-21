@@ -9,12 +9,39 @@ import { PROVIDER_GOOGLE } from 'BikeShare/constants/MapProviders';
 
 import { getMapMarkers } from '../selectors/mapSelectors';
 
+const initialRegion = {
+  latitude: 43.07965672891953,
+  latitudeDelta: 0.021126917078568397,
+  longitude: -77.67793480306864,
+  longitudeDelta: 0.01609325408935547,
+};
+
 class MapView extends React.Component {
   static propTypes = {
     markers: PropTypes.instanceOf(Map),
     showCheckInAreas: PropTypes.bool,
     bikeRacks: PropTypes.instanceOf(Map),
   };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      region: initialRegion,
+    };
+
+    this.moveToInitial = this.moveToInitial.bind(this);
+    this.registerMapRef = this.registerMapRef.bind(this);
+  }
+
+  registerMapRef(ref) {
+    this.mapRef = ref;
+  }
+
+  moveToInitial() {
+    if (this.mapRef) {
+      this.mapRef.animateToRegion(initialRegion, 1);
+    }
+  }
 
   renderMarkers() {
     const { markers } = this.props;
@@ -65,15 +92,12 @@ class MapView extends React.Component {
   render() {
     return (
       <ExpoMapView
+        ref={this.registerMapRef}
         key="default"
         style={{ flexGrow: 1 }}
         customMapStyle={null}
-        initialRegion={{
-          latitude: 43.08447438334887,
-          latitudeDelta: 0.00900991980918775,
-          longitude: -77.67920080572367,
-          longitudeDelta: 0.007426701486110687,
-        }}
+        onMapReady={this.moveToInitial}
+        initialRegion={initialRegion}
         minZoomLevel={10}
         maxZoomLevel={20}
         provider={PROVIDER_GOOGLE}
