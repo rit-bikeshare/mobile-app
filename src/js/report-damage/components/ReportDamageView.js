@@ -301,7 +301,7 @@ class ReportDamageView extends React.Component {
     }
 
     return (
-      <Container style={{ backgroundColor: '#fffff' }}>
+      <Container style={{ backgroundColor: '#ffffff' }}>
         <View
           style={{
             backgroundColor: '#F36E1F',
