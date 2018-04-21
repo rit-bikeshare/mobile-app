@@ -6,6 +6,7 @@ import booleanOverlap from '@turf/boolean-overlap';
 import booleanContains from '@turf/boolean-contains';
 
 import { fetchBikeRacks } from 'BikeShare/bike-rack/actions/bikeRackActions';
+import disconnectFromSocket from 'BikeShare/lock/actions/disconnectFromSocket';
 import { updateLocationPermission } from 'BikeShare/permissions/actions/permissionActions';
 import { PENDING } from 'BikeShare/permissions/constants/PermissionValues';
 import { RENTAL_EXPIRATION_NOTIFICATION } from 'BikeShare/notifications/constants/notificationTypes';
@@ -25,6 +26,7 @@ function checkInSuccess(data) {
   return dispatch => {
     dispatch(clearNotification(RENTAL_EXPIRATION_NOTIFICATION));
     dispatch(checkInSuccessAction(data));
+    dispatch(disconnectFromSocket());
     dispatch(fetchBikeRacks());
   };
 }

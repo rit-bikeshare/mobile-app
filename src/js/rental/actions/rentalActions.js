@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 
 import { hasNotFetchedCurrentRental } from 'BikeShare/rental/selectors/rentalStatusSelectors';
+import connectToSocket from 'BikeShare/lock/actions/connectToSocket';
 
 import {
   FETCH_CURRENT_RENTAL,
@@ -20,7 +21,10 @@ function fetchCurrentRental() {
     api.bike
       .fetchRentals()
       .then(
-        data => dispatch(fetchRentalSuccess(data[0])),
+        data => {
+          dispatch(fetchRentalSuccess(data[0]));
+          dispatch(connectToSocket(data[0].id));
+        },
         error => dispatch(fetchRentalFailed(error))
       )
       .done();

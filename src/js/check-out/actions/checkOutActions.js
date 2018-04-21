@@ -8,6 +8,7 @@ import {
   BIKE_CHECKOUT_FAILED,
   CLEAR_BIKE_CHECKOUT_STATUS,
 } from '../constants/CheckOutActionTypes';
+import connectToSocket from 'BikeShare/lock/actions/connectToSocket';
 
 const bikeCheckOut = createAction(BIKE_CHECKOUT);
 
@@ -20,6 +21,7 @@ export const clearCheckOutStatus = createAction(CLEAR_BIKE_CHECKOUT_STATUS);
 function checkOutSuccess(data) {
   return dispatch => {
     dispatch(checkOutSuccessAction(data));
+    dispatch(connectToSocket(data.id));
     dispatch(fetchBikeRacks());
   };
 }
