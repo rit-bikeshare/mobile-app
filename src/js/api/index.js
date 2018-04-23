@@ -2,6 +2,7 @@ import bikeRackApi from './clients/bikeRackApi';
 import bikeApi from './clients/bikeApi';
 import userApi from './clients/userApi';
 import lockApi from './clients/lockApi';
+import maintenanceApi from './clients/maintenanceApi';
 import RequestManager from './RequestManager';
 
 export default (getToken, setToken) => {
@@ -11,5 +12,6 @@ export default (getToken, setToken) => {
     bike: bikeApi(requestManager),
     user: userApi(requestManager),
     lock: lockApi(requestManager),
+    maintenance: maintenanceApi(requestManager),
   };
 };

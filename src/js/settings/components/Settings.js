@@ -12,20 +12,19 @@ class Settings extends React.Component {
   static propTypes = {
     setSetting: PropTypes.func,
     showCheckInAreas: PropTypes.bool,
-    tigerMode: PropTypes.bool,
-    pullToRefresh: PropTypes.bool,
     history: PropTypes.object,
     clearUserData: PropTypes.func,
+    maintenanceMode: PropTypes.bool,
+    hasMaintenanceAccess: PropTypes.bool,
   };
 
   constructor(props) {
     super(props);
 
-    this.setTigerMode = this.setTigerMode.bind(this);
     this.setDebugMode = this.setDebugMode.bind(this);
-    this.setPullToRefresh = this.setPullToRefresh.bind(this);
     this.routeToDamageReport = this.routeToDamageReport.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.toggleMaintenanceMode = this.toggleMaintenanceMode.bind(this);
   }
 
   routeToDamageReport() {
@@ -39,19 +38,32 @@ class Settings extends React.Component {
     history.push(login);
   }
 
-  setTigerMode(value) {
-    const { setSetting } = this.props;
-    setSetting('tigerMode', value);
-  }
-
   setDebugMode(value) {
     const { setSetting } = this.props;
     setSetting('showCheckInAreas', value);
   }
 
-  setPullToRefresh(value) {
+  toggleMaintenanceMode(value) {
     const { setSetting } = this.props;
-    setSetting('pullToRefresh', value);
+    setSetting('maintenanceMode', value);
+  }
+
+  renderMaintenanceModeToggle() {
+    const { maintenanceMode, hasMaintenanceAccess } = this.props;
+    if (!hasMaintenanceAccess) return null;
+    return (
+      <ListItem>
+        <Body>
+          <Text>Enable Maintenance Mode</Text>
+        </Body>
+        <Right>
+          <Switch
+            value={maintenanceMode}
+            onValueChange={this.toggleMaintenanceMode}
+          />
+        </Right>
+      </ListItem>
+    );
   }
 
   render() {
@@ -83,6 +95,7 @@ class Settings extends React.Component {
               />
             </Right>
           </ListItem>
+          {this.renderMaintenanceModeToggle()}
         </List>
       </View>
     );
@@ -90,9 +103,9 @@ class Settings extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  maintenanceMode: state.settings.maintenanceMode,
   showCheckInAreas: state.settings.showCheckInAreas,
-  tigerMode: state.settings.tigerMode,
-  pullToRefresh: state.settings.pullToRefresh,
+  hasMaintenanceAccess: state.userData.isStaff,
 });
 
 export default connect(mapStateToProps, {

@@ -4,7 +4,6 @@ import { Map } from 'immutable';
 import { MapView as ExpoMapView } from 'expo';
 import { connect } from 'react-redux';
 
-import BikeRackMarker from 'BikeShare/svg/BikeRackMarker';
 import { PROVIDER_GOOGLE } from 'BikeShare/constants/MapProviders';
 import initialRegion from 'BikeShare/constants/initialMapRegion';
 
@@ -47,38 +46,8 @@ class MapView extends React.Component {
             latitude: marker.get('latitude'),
             longitude: marker.get('longitude'),
           }}
-        >
-          <BikeRackMarker availableBikes={marker.get('data')} />
-        </ExpoMapView.Marker>
+        />
       ))
-      .toList()
-      .toJS();
-  }
-
-  renderBikeRackCheckinAreas() {
-    const { bikeRacks, showCheckInAreas } = this.props;
-    if (!showCheckInAreas) {
-      return null;
-    }
-    const bikeRacksMap = Map(bikeRacks);
-    return bikeRacksMap
-      .map(bikeRack => {
-        const coords = bikeRack.checkInArea.geometry.coordinates[0];
-        const formattedCoords = coords.map(coord => {
-          return {
-            latitude: coord[1],
-            longitude: coord[0],
-          };
-        });
-        return (
-          <ExpoMapView.Polygon
-            fillColor="rgba(243,110,31,0.25)"
-            strokeColor="rgba(243,110,31,0.5)"
-            key={bikeRack.get('id')}
-            coordinates={formattedCoords}
-          />
-        );
-      })
       .toList()
       .toJS();
   }
@@ -100,7 +69,6 @@ class MapView extends React.Component {
         showsIndoors={false}
       >
         {this.renderMarkers()}
-        {this.renderBikeRackCheckinAreas()}
       </ExpoMapView>
     );
   }
