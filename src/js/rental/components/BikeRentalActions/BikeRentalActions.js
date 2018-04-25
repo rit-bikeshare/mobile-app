@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, Text, View, Icon } from 'native-base';
 
+import getCheckOutAvailable from 'BikeShare/status/selectors/getCheckOutAvailable';
 import BikeRental, { isCurrentlyRented } from '../../records/BikeRental';
 
 import styles from './BikeRentalActionsStyles';
@@ -16,6 +17,7 @@ class BikeRentalActions extends React.Component {
     checkInBike: PropTypes.func,
     currentRental: PropTypes.instanceOf(BikeRental),
     style: PropTypes.number,
+    allowCheckout: PropTypes.bool,
   };
 
   renderCheckoutButton() {
@@ -54,7 +56,10 @@ class BikeRentalActions extends React.Component {
   }
 
   render() {
-    const { style } = this.props;
+    const { style, allowCheckout } = this.props;
+
+    if (!allowCheckout) return null;
+
     return (
       <View style={[style, styles.buttonWrapper]}>{this.renderContent()}</View>
     );
@@ -62,6 +67,7 @@ class BikeRentalActions extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  allowCheckout: getCheckOutAvailable(state),
   currentRental: state.currentRental,
 });
 

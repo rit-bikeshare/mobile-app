@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import CheckoutContainer from 'BikeShare/check-out/components/CheckOutView';
 import CheckInContainer from 'BikeShare/check-in/components/CheckInView';
 import { StatusBanner } from 'BikeShare/status';
-import getCheckOutAvailable from 'BikeShare/status/selectors/getCheckOutAvailable';
 
 import { fetchBikeRacks as fetchBikeRacksAction } from 'BikeShare/bike-rack/actions/bikeRackActions';
 import { fetchCurrentRentalIfNotAlready as fetchCurrentRentalIfNotAlreadyAction } from 'BikeShare/rental/actions/rentalActions';
@@ -175,7 +174,6 @@ class MapContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  allowCheckout: getCheckOutAvailable(state),
   markers: getMapMarkers(state),
   bikeRacks: state.bikeRacks,
   showCheckInAreas: state.settings.showCheckInAreas,

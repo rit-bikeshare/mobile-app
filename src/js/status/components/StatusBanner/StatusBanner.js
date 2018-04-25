@@ -26,7 +26,7 @@ class StatusBanner extends React.Component {
 
     const statusText = systemStatus.CHECKOUT_DISALLOWED_MESSAGE;
     return (
-      <View style={[styles.banner, { backgroundColor: 'red' }]}>
+      <View style={[styles.banner, { backgroundColor: '#ff4e00' }]}>
         <Text style={styles.bannerText}>{statusText}</Text>
       </View>
     );
@@ -40,7 +40,7 @@ class StatusBanner extends React.Component {
 
     const statusText = systemStatus.MAINTENANCE_MESSAGE;
     return (
-      <View style={[styles.banner, { backgroundColor: 'yellow' }]}>
+      <View style={[styles.banner, { backgroundColor: '#f5bd00' }]}>
         <Text style={styles.bannerText}>{statusText}</Text>
       </View>
     );
