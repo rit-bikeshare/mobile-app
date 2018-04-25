@@ -9,10 +9,11 @@ import {
 export const bikeUnlocked = createAction(BIKE_UNLOCKED);
 const bikeUnlockFailedAction = createAction(BIKE_UNLOCK_FAILED);
 
-function bikeUnlockFailed() {
+function bikeUnlockFailed(error) {
   return dispatch => {
     dispatch(bikeUnlockFailedAction());
-    Toast.show('Could not connect to bike lock', Toast.LONG);
+    const message = error.message || 'Could not connect to bike lock';
+    Toast.show(message, Toast.LONG);
   };
 }
 
@@ -21,7 +22,10 @@ export default function unlockLock() {
     const currentBikeId = getRentalBikeId(getState());
     api.lock
       .unlock(currentBikeId)
-      .then(() => dispatch(bikeUnlocked()), () => dispatch(bikeUnlockFailed()))
+      .then(
+        () => dispatch(bikeUnlocked()),
+        error => dispatch(bikeUnlockFailed(error))
+      )
       .done();
   };
 }

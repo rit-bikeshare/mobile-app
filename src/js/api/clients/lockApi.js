@@ -16,4 +16,18 @@ export default request => ({
       command: 'unlock',
     });
   },
+
+  adminLock(bikeId) {
+    return request.post(`admin/lock`, {
+      bike: bikeId,
+      command: 'lock',
+    });
+  },
+
+  adminUnlock(bikeId) {
+    return request.post(`admin/lock`, {
+      bike: bikeId,
+      command: 'unlock',
+    });
+  },
 });

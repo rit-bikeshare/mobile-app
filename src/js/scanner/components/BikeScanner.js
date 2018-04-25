@@ -36,7 +36,6 @@ class BikeScanner extends React.Component {
   }
 
   closeManualCheckout() {
-    this.openQRScanner();
     this.setState({
       manualInputOpen: false,
     });

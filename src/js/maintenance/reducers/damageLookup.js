@@ -1,4 +1,4 @@
-import { Map, List } from 'immutable';
+import { Map } from 'immutable';
 import { handleActions } from 'redux-actions';
 import RequestStatusTypes from 'BikeShare/api/constants/RequestStatus';
 
@@ -7,12 +7,14 @@ import {
   DAMAGE_LOOKUP_SUCCESS,
   DAMAGE_LOOKUP_ERROR,
   CLEAR_DAMAGE_LOOKUP_STATUS,
+  DAMAGE_REPORT_UPDATED,
 } from '../constants/MaintenanceActionTypes';
+import DamageReport from '../records/DamageReport';
 
 const initialState = Map({
   error: null,
   status: null,
-  reports: List([]),
+  reports: Map(),
 });
 
 const { PENDING, SUCCESS, FAILED, UNINITIALIZED } = RequestStatusTypes;
@@ -22,11 +24,21 @@ export default handleActions(
     [CLEAR_DAMAGE_LOOKUP_STATUS](state) {
       return state.set('status', UNINITIALIZED);
     },
+
     [DAMAGE_LOOKUP](state) {
       return state.set('status', PENDING);
     },
+
     [DAMAGE_LOOKUP_SUCCESS](state, action) {
-      return state.set('status', SUCCESS).set('reports', action.payload);
+      const data = Map(
+        action.payload.map(report => [report.id, new DamageReport(report)])
+      );
+      return state.set('status', SUCCESS).set('reports', data);
+    },
+
+    [DAMAGE_REPORT_UPDATED](state, action) {
+      const report = action.payload;
+      return state.set(report.id, new DamageReport(report));
     },
 
     [DAMAGE_LOOKUP_ERROR](state, action) {

@@ -1,44 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { List } from 'immutable';
+import { getIn } from '@hs/transmute';
+import { connect } from 'react-redux';
+import { MapView as ExpoMapView } from 'expo';
 import { Modal, ActivityIndicator } from 'react-native';
-import { View } from 'native-base';
+import { View, Button, Text, Icon } from 'native-base';
 
-import CheckOutView from '../CheckOut';
-import CheckInContainer from '../CheckIn';
+import MapView from 'BikeShare/lib/components/MapView';
 
-import MaintenanceActions from '../MaintenanceActions';
-import MapView from '../MapView';
-import style from './MaintenanceViewStyles';
+import fetchDamagedBikesAction from '../../actions/fetchDamagedBikes';
+import BikeLookupView from '../BikeLookupView';
+import styles from './MaintenanceViewStyles';
 
 class MaintenanceView extends React.Component {
   static propTypes = {
     history: PropTypes.object,
+    fetchDamagedBikes: PropTypes.func,
+    damagedBikes: PropTypes.instanceOf(List),
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      showCheckout: false,
-      showCheckin: false,
+      showLookup: false,
       loading: false,
     };
-    this.handleClickCheckout = this.handleClickCheckout.bind(this);
-    this.handleClickCheckin = this.handleClickCheckin.bind(this);
+    this.handleClickLookup = this.handleClickLookup.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
-  handleClickCheckout() {
-    this.setState({ showCheckout: true });
+  componentWillMount() {
+    const { fetchDamagedBikes } = this.props;
+    fetchDamagedBikes();
+    this.pollInterval = setInterval(() => fetchDamagedBikes(), 5000);
   }
 
-  handleClickCheckin() {
-    this.setState({ showCheckin: true });
+  componentWillUnmount() {
+    clearInterval(this.pollInterval);
+  }
+
+  handleClickLookup() {
+    this.setState({ showLookup: true });
   }
 
   closeModal() {
     this.setState({
-      showCheckout: false,
-      showCheckin: false,
+      showLookup: false,
     });
   }
 
@@ -53,26 +61,22 @@ class MaintenanceView extends React.Component {
 
   renderModalContent() {
     const { history } = this.props;
-    const { showCheckout, showCheckin } = this.state;
+    const { showLookup } = this.state;
 
-    if (showCheckout) {
-      return <CheckOutView onClose={this.closeModal} />;
-    }
-
-    if (showCheckin) {
-      return <CheckInContainer history={history} onClose={this.closeModal} />;
+    if (showLookup) {
+      return <BikeLookupView history={history} onClose={this.closeModal} />;
     }
 
     return <View />;
   }
 
   renderModal() {
-    const { showCheckout, showCheckin } = this.state;
+    const { showLookup } = this.state;
     return (
       <Modal
         animationType="slide"
         transparent={true}
-        visible={showCheckout || showCheckin}
+        visible={showLookup}
         onRequestClose={this.closeModal}
       >
         {this.renderModalContent()}
@@ -80,19 +84,40 @@ class MaintenanceView extends React.Component {
     );
   }
 
+  renderMarkers() {
+    const { damagedBikes } = this.props;
+    return damagedBikes.map(({ id, lat, lon }) => (
+      <ExpoMapView.Marker
+        key={id}
+        title={`Bike ${id}`}
+        coordinate={{
+          latitude: lat,
+          longitude: lon,
+        }}
+      />
+    ));
+  }
+
   render() {
     return (
       <View style={{ flexGrow: 1 }}>
         {this.renderModal()}
-        <MapView tigerMode={true} />
-        <MaintenanceActions
-          style={style.actionsWrapper}
-          checkOutBike={this.handleClickCheckout}
-          checkInBike={this.handleClickCheckin}
-        />
+        <MapView>{this.renderMarkers()}</MapView>
+        <Button style={styles.lookupButton} onPress={this.handleClickLookup}>
+          <Icon name="qrcode" type="MaterialCommunityIcons" />
+          <Text style={styles.lookupText} uppercase={false}>
+            Bike Info
+          </Text>
+        </Button>
       </View>
     );
   }
 }
 
-export default MaintenanceView;
+const mapStateToProps = state => ({
+  damagedBikes: getIn(['maintenance', 'damagedBikes'])(state),
+});
+
+export default connect(mapStateToProps, {
+  fetchDamagedBikes: fetchDamagedBikesAction,
+})(MaintenanceView);
