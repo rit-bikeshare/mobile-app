@@ -2,24 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, ActivityIndicator } from 'react-native';
 import { View } from 'native-base';
-import { connect } from 'react-redux';
 
-import CheckoutContainer from 'BikeShare/check-out/components/CheckOutView';
-import CheckInContainer from 'BikeShare/check-in/components/CheckInView';
+import CheckOutView from '../CheckOut';
+import CheckInContainer from '../CheckIn';
 
-import { fetchBikeRacksIfEmpty as fetchBikeRacksIfEmptyAction } from 'BikeShare/bike-rack/actions/bikeRackActions';
-import { fetchCurrentRentalIfNotAlready as fetchCurrentRentalIfNotAlreadyAction } from 'BikeShare/rental/actions/rentalActions';
-
-import BikeRentalActions from '../BikeRentalActions';
-import RentalTimer from '../RentalTimer';
+import MaintenanceActions from '../MaintenanceActions';
 import MapView from '../MapView';
-import style from './RentalViewStyles';
+import style from './MaintenanceViewStyles';
 
-class MapContainer extends React.Component {
+class MaintenanceView extends React.Component {
   static propTypes = {
     history: PropTypes.object,
-    fetchBikeRacksIfEmpty: PropTypes.func,
-    fetchCurrentRentalIfNotAlready: PropTypes.func,
   };
 
   constructor(props) {
@@ -32,15 +25,6 @@ class MapContainer extends React.Component {
     this.handleClickCheckout = this.handleClickCheckout.bind(this);
     this.handleClickCheckin = this.handleClickCheckin.bind(this);
     this.closeModal = this.closeModal.bind(this);
-  }
-
-  componentWillMount() {
-    const {
-      fetchBikeRacksIfEmpty,
-      fetchCurrentRentalIfNotAlready,
-    } = this.props;
-    fetchBikeRacksIfEmpty();
-    fetchCurrentRentalIfNotAlready();
   }
 
   handleClickCheckout() {
@@ -72,7 +56,7 @@ class MapContainer extends React.Component {
     const { showCheckout, showCheckin } = this.state;
 
     if (showCheckout) {
-      return <CheckoutContainer onClose={this.closeModal} />;
+      return <CheckOutView onClose={this.closeModal} />;
     }
 
     if (showCheckin) {
@@ -100,9 +84,8 @@ class MapContainer extends React.Component {
     return (
       <View style={{ flexGrow: 1 }}>
         {this.renderModal()}
-        <RentalTimer />
         <MapView tigerMode={true} />
-        <BikeRentalActions
+        <MaintenanceActions
           style={style.actionsWrapper}
           checkOutBike={this.handleClickCheckout}
           checkInBike={this.handleClickCheckin}
@@ -112,7 +95,4 @@ class MapContainer extends React.Component {
   }
 }
 
-export default connect(null, {
-  fetchBikeRacksIfEmpty: fetchBikeRacksIfEmptyAction,
-  fetchCurrentRentalIfNotAlready: fetchCurrentRentalIfNotAlreadyAction,
-})(MapContainer);
+export default MaintenanceView;

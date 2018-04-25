@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-native';
 
 import RequestStatus from 'BikeShare/api/constants/RequestStatus';
-import { fetchBikeRacksIfEmpty as fetchBikeRacksIfEmptyAction } from 'BikeShare/bike-rack/actions/bikeRackActions';
-import { fetchCurrentRentalIfNotAlready as fetchCurrentRentalIfNotAlreadyAction } from 'BikeShare/rental/actions/rentalActions';
 import { getUserFetchStatus } from 'BikeShare/auth/selectors/userFetchStatusSelectors';
 
 import Main from './Main';
@@ -14,7 +12,7 @@ import ReportDamageView from 'BikeShare/report-damage/components/ReportDamageVie
 import UserData, { isEmpty } from 'BikeShare/auth/records/UserData';
 import { login } from 'BikeShare/constants/urls';
 
-const { FAILED, SUCCESS } = RequestStatus;
+const { FAILED } = RequestStatus;
 
 class AppContainer extends React.Component {
   static propTypes = {
@@ -26,21 +24,10 @@ class AppContainer extends React.Component {
   };
 
   componentWillMount() {
-    const {
-      userDataFetchStatus,
-      fetchBikeRacksIfEmpty,
-      fetchCurrentRentalIfNotAlready,
-      userData,
-      history,
-    } = this.props;
+    const { userDataFetchStatus, userData, history } = this.props;
 
     if (isEmpty(userData) && userDataFetchStatus === FAILED) {
       history.replace(login);
-    }
-
-    if (userDataFetchStatus === SUCCESS) {
-      fetchBikeRacksIfEmpty();
-      fetchCurrentRentalIfNotAlready();
     }
   }
 
@@ -61,7 +48,4 @@ const stateSelectors = state => {
   };
 };
 
-export default connect(stateSelectors, {
-  fetchBikeRacksIfEmpty: fetchBikeRacksIfEmptyAction,
-  fetchCurrentRentalIfNotAlready: fetchCurrentRentalIfNotAlreadyAction,
-})(AppContainer);
+export default connect(stateSelectors, {})(AppContainer);
