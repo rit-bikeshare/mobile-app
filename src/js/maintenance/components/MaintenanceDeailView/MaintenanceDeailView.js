@@ -5,7 +5,7 @@ import { List } from 'immutable';
 import { connect } from 'react-redux';
 import { getIn } from '@hs/transmute';
 import { FlatList, ScrollView } from 'react-native';
-import { View, Button, Icon, Title, Text, H2 } from 'native-base';
+import { View, Button, Icon, Title, Text, H2, H1 } from 'native-base';
 
 import ListDivider from 'BikeShare/lib/components/ListDivider';
 import adminLockBikeAction from 'BikeShare/lock/actions/adminLockBike';
@@ -110,7 +110,22 @@ class MaintenanceDeailView extends React.Component {
     );
   }
 
+  renderZeroState() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <H1>All is Good</H1>
+        <Text>There are no damage reports for this bike</Text>
+      </View>
+    );
+  }
+
   renderReports() {
+    const { damageReports } = this.props;
+
+    if (damageReports.size === 0) {
+      return this.renderZeroState();
+    }
+
     return (
       <ScrollView>
         {this.renderOpenDamageReports()}
@@ -119,8 +134,19 @@ class MaintenanceDeailView extends React.Component {
     );
   }
 
+  renderAckButton() {
+    const { damageReports, acknowlegeReports } = this.props;
+    if (damageReports.size === 0) return null;
+
+    return (
+      <Button onPress={acknowlegeReports} style={styles.button}>
+        <Text style={styles.buttonText}>Ack reports</Text>
+      </Button>
+    );
+  }
+
   renderActions(bikeId) {
-    const { unlockBike, lockBike, acknowlegeReports } = this.props;
+    const { unlockBike, lockBike } = this.props;
     const unlock = () => unlockBike(bikeId);
     const lock = () => lockBike(bikeId);
 
@@ -132,9 +158,7 @@ class MaintenanceDeailView extends React.Component {
         <Button onPress={lock} style={styles.button}>
           <Text style={styles.buttonText}>Lock</Text>
         </Button>
-        <Button onPress={acknowlegeReports} style={styles.button}>
-          <Text style={styles.buttonText}>Ack reports</Text>
-        </Button>
+        {this.renderAckButton()}
       </View>
     );
   }
