@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Map } from 'immutable';
 import { Modal, ActivityIndicator } from 'react-native';
+import { MapView as ExpoMapView } from 'expo';
 import { View } from 'native-base';
 import { connect } from 'react-redux';
 
@@ -9,10 +11,12 @@ import CheckInContainer from 'BikeShare/check-in/components/CheckInView';
 
 import { fetchBikeRacks as fetchBikeRacksAction } from 'BikeShare/bike-rack/actions/bikeRackActions';
 import { fetchCurrentRentalIfNotAlready as fetchCurrentRentalIfNotAlreadyAction } from 'BikeShare/rental/actions/rentalActions';
+import BikeRackMarker from 'BikeShare/svg/BikeRackMarker';
+import MapView from 'BikeShare/lib/components/MapView';
 
+import { getMapMarkers } from '../../selectors/mapSelectors';
 import BikeRentalActions from '../BikeRentalActions';
 import RentalTimer from '../RentalTimer';
-import MapView from '../MapView';
 import style from './RentalViewStyles';
 
 class MapContainer extends React.Component {
@@ -20,6 +24,9 @@ class MapContainer extends React.Component {
     history: PropTypes.object,
     fetchBikeRacks: PropTypes.func,
     fetchCurrentRentalIfNotAlready: PropTypes.func,
+    markers: PropTypes.instanceOf(Map),
+    showCheckInAreas: PropTypes.bool,
+    bikeRacks: PropTypes.instanceOf(Map),
   };
 
   constructor(props) {
@@ -98,12 +105,61 @@ class MapContainer extends React.Component {
     );
   }
 
+  renderMarkers() {
+    const { markers } = this.props;
+    return markers
+      .map(marker => (
+        <ExpoMapView.Marker
+          key={marker.get('id')}
+          coordinate={{
+            latitude: marker.get('latitude'),
+            longitude: marker.get('longitude'),
+          }}
+        >
+          <BikeRackMarker availableBikes={marker.get('data')} />
+        </ExpoMapView.Marker>
+      ))
+      .toList()
+      .toJS();
+  }
+
+  renderBikeRackCheckinAreas() {
+    const { bikeRacks, showCheckInAreas } = this.props;
+    if (!showCheckInAreas) {
+      return null;
+    }
+    const bikeRacksMap = Map(bikeRacks);
+    return bikeRacksMap
+      .map(bikeRack => {
+        const coords = bikeRack.checkInArea.geometry.coordinates[0];
+        const formattedCoords = coords.map(coord => {
+          return {
+            latitude: coord[1],
+            longitude: coord[0],
+          };
+        });
+        return (
+          <ExpoMapView.Polygon
+            fillColor="rgba(243,110,31,0.25)"
+            strokeColor="rgba(243,110,31,0.5)"
+            key={bikeRack.get('id')}
+            coordinates={formattedCoords}
+          />
+        );
+      })
+      .toList()
+      .toJS();
+  }
+
   render() {
     return (
       <View style={{ flexGrow: 1 }}>
         {this.renderModal()}
         <RentalTimer />
-        <MapView tigerMode={true} />
+        <MapView>
+          {this.renderBikeRackCheckinAreas()}
+          {this.renderMarkers()}
+        </MapView>
         <BikeRentalActions
           style={style.actionsWrapper}
           checkOutBike={this.handleClickCheckout}
@@ -114,7 +170,13 @@ class MapContainer extends React.Component {
   }
 }
 
-export default connect(null, {
+const mapStateToProps = state => ({
+  markers: getMapMarkers(state),
+  bikeRacks: state.bikeRacks,
+  showCheckInAreas: state.settings.showCheckInAreas,
+});
+
+export default connect(mapStateToProps, {
   fetchBikeRacks: fetchBikeRacksAction,
   fetchCurrentRentalIfNotAlready: fetchCurrentRentalIfNotAlreadyAction,
 })(MapContainer);

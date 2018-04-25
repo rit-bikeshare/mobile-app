@@ -1,19 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
 import { MapView as ExpoMapView } from 'expo';
-import { connect } from 'react-redux';
 
 import { PROVIDER_GOOGLE } from 'BikeShare/constants/MapProviders';
 import initialRegion from 'BikeShare/constants/initialMapRegion';
 
-import { getMapMarkers } from '../selectors/mapSelectors';
-
 class MapView extends React.Component {
   static propTypes = {
-    markers: PropTypes.instanceOf(Map),
-    showCheckInAreas: PropTypes.bool,
-    bikeRacks: PropTypes.instanceOf(Map),
+    children: PropTypes.node,
   };
 
   constructor(props) {
@@ -36,23 +30,8 @@ class MapView extends React.Component {
     }
   }
 
-  renderMarkers() {
-    const { markers } = this.props;
-    return markers
-      .map(marker => (
-        <ExpoMapView.Marker
-          key={marker.get('id')}
-          coordinate={{
-            latitude: marker.get('latitude'),
-            longitude: marker.get('longitude'),
-          }}
-        />
-      ))
-      .toList()
-      .toJS();
-  }
-
   render() {
+    const { children } = this.props;
     return (
       <ExpoMapView
         ref={this.registerMapRef}
@@ -68,17 +47,10 @@ class MapView extends React.Component {
         showsMyLocationButton={true}
         showsIndoors={false}
       >
-        {this.renderMarkers()}
+        {children}
       </ExpoMapView>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  markers: getMapMarkers(state),
-  bikeRacks: state.bikeRacks,
-  tigerMode: state.settings.tigerMode,
-  showCheckInAreas: state.settings.showCheckInAreas,
-});
-
-export default connect(mapStateToProps)(MapView);
+export default MapView;

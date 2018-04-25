@@ -1,18 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { List } from 'immutable';
+import { getIn } from '@hs/transmute';
+import { connect } from 'react-redux';
+import { MapView as ExpoMapView } from 'expo';
 import { Modal, ActivityIndicator } from 'react-native';
 import { View } from 'native-base';
 
+import MapView from 'BikeShare/lib/components/MapView';
+
+import fetchDamagedBikesAction from '../../actions/fetchDamagedBikes';
 import CheckOutView from '../CheckOut';
 import CheckInContainer from '../CheckIn';
-
 import MaintenanceActions from '../MaintenanceActions';
-import MapView from '../MapView';
 import style from './MaintenanceViewStyles';
 
 class MaintenanceView extends React.Component {
   static propTypes = {
     history: PropTypes.object,
+    fetchDamagedBikes: PropTypes.func,
+    damagedBikes: PropTypes.instanceOf(List),
   };
 
   constructor(props) {
@@ -25,6 +32,16 @@ class MaintenanceView extends React.Component {
     this.handleClickCheckout = this.handleClickCheckout.bind(this);
     this.handleClickCheckin = this.handleClickCheckin.bind(this);
     this.closeModal = this.closeModal.bind(this);
+  }
+
+  componentWillMount() {
+    const { fetchDamagedBikes } = this.props;
+    fetchDamagedBikes();
+    this.pollInterval = setInterval(() => fetchDamagedBikes(), 5000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.pollInterval);
   }
 
   handleClickCheckout() {
@@ -80,11 +97,25 @@ class MaintenanceView extends React.Component {
     );
   }
 
+  renderMarkers() {
+    const { damagedBikes } = this.props;
+    return damagedBikes.map(({ id, lat, lon }) => (
+      <ExpoMapView.Marker
+        key={id}
+        title={`Bike ${id}`}
+        coordinate={{
+          latitude: lat,
+          longitude: lon,
+        }}
+      />
+    ));
+  }
+
   render() {
     return (
       <View style={{ flexGrow: 1 }}>
         {this.renderModal()}
-        <MapView tigerMode={true} />
+        <MapView>{this.renderMarkers()}</MapView>
         <MaintenanceActions
           style={style.actionsWrapper}
           checkOutBike={this.handleClickCheckout}
@@ -95,4 +126,10 @@ class MaintenanceView extends React.Component {
   }
 }
 
-export default MaintenanceView;
+const mapStateToProps = state => ({
+  damagedBikes: getIn(['maintenance', 'damagedBikes'])(state),
+});
+
+export default connect(mapStateToProps, {
+  fetchDamagedBikes: fetchDamagedBikesAction,
+})(MaintenanceView);
