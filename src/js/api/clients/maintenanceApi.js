@@ -2,8 +2,7 @@ export default request => ({
   lookupBikeDamage(bikeId) {
     return request.get('admin/damage-reports', {
       bike: bikeId,
-      acknowledged: false,
-      resolved_by: '',
+      is_open: true,
     });
   },
 
@@ -13,5 +12,9 @@ export default request => ({
 
   fetchDamagedBikes() {
     return request.get('admin/damaged-bikes');
+  },
+
+  updateDamageReport(damageReport) {
+    return request.put(`admin/damage-reports/${damageReport.id}`, damageReport);
   },
 });

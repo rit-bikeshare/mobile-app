@@ -13,24 +13,25 @@ import {
   lookUpBikeDamageAction,
   clearDamageLookupStatusAction,
 } from 'BikeShare/maintenance/actions/damageLookupActions';
-import CheckoutSuccess from '../CheckOutSuccess';
-import style from './CheckOutStyles';
+import style from './BikeLookupStyles';
 
 const { PENDING, FAILED, SUCCESS } = RequestStatus;
 
-class CheckoutContainer extends React.Component {
+class BikeLookupView extends React.Component {
   static propTypes = {
     damageLookupStatus: PropTypes.oneOf(Object.keys(RequestStatus)),
     damageLookupError: PropTypes.string,
     clearDamageLookupStatus: PropTypes.func,
     lookUpBikeDamage: PropTypes.func,
     onClose: PropTypes.func,
+    history: PropTypes.object,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       scannerVisible: false,
+      scannedBike: null,
     };
 
     this.openScanner = this.openScanner.bind(this);
@@ -44,6 +45,16 @@ class CheckoutContainer extends React.Component {
     this.setState({
       scannerVisible: true,
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { damageLookupStatus, history } = nextProps;
+    const { scannedBike } = this.state;
+
+    if (damageLookupStatus === SUCCESS) {
+      history.push(`/maintenance/?bike=${scannedBike}`);
+      this.handleClose();
+    }
   }
 
   retryScan() {
@@ -67,6 +78,9 @@ class CheckoutContainer extends React.Component {
   handleScan(bikeId) {
     const { lookUpBikeDamage } = this.props;
     this.closeScanner();
+    this.setState({
+      scannedBike: bikeId,
+    });
     lookUpBikeDamage(bikeId);
   }
 
@@ -87,7 +101,7 @@ class CheckoutContainer extends React.Component {
       return (
         <View style={style.statusWrapper}>
           <ErrorView
-            title="Error Looking Up Bike Damage"
+            title="Error Looking Up Bike"
             subText={damageLookupError}
             onClose={this.handleClose}
           />
@@ -101,7 +115,7 @@ class CheckoutContainer extends React.Component {
     }
 
     if (damageLookupStatus === SUCCESS) {
-      return <CheckoutSuccess onClose={this.handleClose} />;
+      return <View />;
     }
 
     return this.renderBikeScanner();
@@ -113,7 +127,14 @@ class CheckoutContainer extends React.Component {
 
     if (!scannerVisible) return null;
 
-    return <BikeScanner onSubmit={this.handleScan} onClose={onClose} />;
+    return (
+      <BikeScanner
+        manualEntryHeaderText="Bike Lookup"
+        manualEntryButtonText="Lookup bike"
+        onSubmit={this.handleScan}
+        onClose={onClose}
+      />
+    );
   }
 
   render() {
@@ -131,4 +152,4 @@ const actions = {
   clearDamageLookupStatus: clearDamageLookupStatusAction,
 };
 
-export default connect(mapStateToProps, actions)(CheckoutContainer);
+export default connect(mapStateToProps, actions)(BikeLookupView);

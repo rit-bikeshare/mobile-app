@@ -8,16 +8,14 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexWrap: 'wrap',
   },
-  checkoutButton: {
+  button: {
     alignSelf: 'center',
     marginLeft: 4,
     marginRight: 4,
     marginBottom: 4,
     marginTop: 4,
   },
-  checkoutText: {
+  buttonText: {
     fontSize: 16,
-    paddingLeft: 0,
-    paddingRight: 16,
   },
 });

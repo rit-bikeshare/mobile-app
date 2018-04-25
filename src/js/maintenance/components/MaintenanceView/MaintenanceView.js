@@ -5,15 +5,13 @@ import { getIn } from '@hs/transmute';
 import { connect } from 'react-redux';
 import { MapView as ExpoMapView } from 'expo';
 import { Modal, ActivityIndicator } from 'react-native';
-import { View } from 'native-base';
+import { View, Button, Text, Icon } from 'native-base';
 
 import MapView from 'BikeShare/lib/components/MapView';
 
 import fetchDamagedBikesAction from '../../actions/fetchDamagedBikes';
-import CheckOutView from '../CheckOut';
-import CheckInContainer from '../CheckIn';
-import MaintenanceActions from '../MaintenanceActions';
-import style from './MaintenanceViewStyles';
+import BikeLookupView from '../BikeLookupView';
+import styles from './MaintenanceViewStyles';
 
 class MaintenanceView extends React.Component {
   static propTypes = {
@@ -25,12 +23,10 @@ class MaintenanceView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showCheckout: false,
-      showCheckin: false,
+      showLookup: false,
       loading: false,
     };
-    this.handleClickCheckout = this.handleClickCheckout.bind(this);
-    this.handleClickCheckin = this.handleClickCheckin.bind(this);
+    this.handleClickLookup = this.handleClickLookup.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
@@ -44,18 +40,13 @@ class MaintenanceView extends React.Component {
     clearInterval(this.pollInterval);
   }
 
-  handleClickCheckout() {
-    this.setState({ showCheckout: true });
-  }
-
-  handleClickCheckin() {
-    this.setState({ showCheckin: true });
+  handleClickLookup() {
+    this.setState({ showLookup: true });
   }
 
   closeModal() {
     this.setState({
-      showCheckout: false,
-      showCheckin: false,
+      showLookup: false,
     });
   }
 
@@ -70,26 +61,22 @@ class MaintenanceView extends React.Component {
 
   renderModalContent() {
     const { history } = this.props;
-    const { showCheckout, showCheckin } = this.state;
+    const { showLookup } = this.state;
 
-    if (showCheckout) {
-      return <CheckOutView onClose={this.closeModal} />;
-    }
-
-    if (showCheckin) {
-      return <CheckInContainer history={history} onClose={this.closeModal} />;
+    if (showLookup) {
+      return <BikeLookupView history={history} onClose={this.closeModal} />;
     }
 
     return <View />;
   }
 
   renderModal() {
-    const { showCheckout, showCheckin } = this.state;
+    const { showLookup } = this.state;
     return (
       <Modal
         animationType="slide"
         transparent={true}
-        visible={showCheckout || showCheckin}
+        visible={showLookup}
         onRequestClose={this.closeModal}
       >
         {this.renderModalContent()}
@@ -116,11 +103,12 @@ class MaintenanceView extends React.Component {
       <View style={{ flexGrow: 1 }}>
         {this.renderModal()}
         <MapView>{this.renderMarkers()}</MapView>
-        <MaintenanceActions
-          style={style.actionsWrapper}
-          checkOutBike={this.handleClickCheckout}
-          checkInBike={this.handleClickCheckin}
-        />
+        <Button style={styles.lookupButton} onPress={this.handleClickLookup}>
+          <Icon name="qrcode" type="MaterialCommunityIcons" />
+          <Text style={styles.lookupText} uppercase={false}>
+            Bike Info
+          </Text>
+        </Button>
       </View>
     );
   }

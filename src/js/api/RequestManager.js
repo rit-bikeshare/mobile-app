@@ -104,6 +104,33 @@ export default class RequestManager {
     };
   }
 
+  buildPut(url, body) {
+    return async () => {
+      // always add a trailing slash
+      url = url.replace(/\/?$/, '/');
+
+      const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Origin: baseApiUrl,
+      };
+
+      const token = this.getToken();
+      if (token) {
+        headers.Authorization = `JWT ${token}`;
+      }
+
+      const result = await fetch(`${baseApiUrl}/${url}`, {
+        method: 'PUT',
+        credentials: 'same-origin',
+        mode: 'same-origin',
+        headers: headers,
+        body: JSON.stringify(body),
+      });
+      return Promise.resolve(result);
+    };
+  }
+
   get(url, queryData) {
     const fetchFunction = this.buildGet(url, queryData);
 
@@ -122,6 +149,23 @@ export default class RequestManager {
 
   post(url, body) {
     const fetchFunction = this.buildPost(url, body);
+
+    return fetchFunction()
+      .then(this.checkAuth(fetchFunction))
+      .then(async response => {
+        if (response.ok) return response.json();
+
+        const error = await response.json();
+
+        return Promise.reject({
+          code: response.status,
+          message: error.detail,
+        });
+      });
+  }
+
+  put(url, body) {
+    const fetchFunction = this.buildPut(url, body);
 
     return fetchFunction()
       .then(this.checkAuth(fetchFunction))
