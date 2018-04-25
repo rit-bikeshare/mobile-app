@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import CheckoutContainer from 'BikeShare/check-out/components/CheckOutView';
 import CheckInContainer from 'BikeShare/check-in/components/CheckInView';
 
-import { fetchBikeRacksIfEmpty as fetchBikeRacksIfEmptyAction } from 'BikeShare/bike-rack/actions/bikeRackActions';
+import { fetchBikeRacks as fetchBikeRacksAction } from 'BikeShare/bike-rack/actions/bikeRackActions';
 import { fetchCurrentRentalIfNotAlready as fetchCurrentRentalIfNotAlreadyAction } from 'BikeShare/rental/actions/rentalActions';
 
 import BikeRentalActions from '../BikeRentalActions';
@@ -18,7 +18,7 @@ import style from './RentalViewStyles';
 class MapContainer extends React.Component {
   static propTypes = {
     history: PropTypes.object,
-    fetchBikeRacksIfEmpty: PropTypes.func,
+    fetchBikeRacks: PropTypes.func,
     fetchCurrentRentalIfNotAlready: PropTypes.func,
   };
 
@@ -34,12 +34,14 @@ class MapContainer extends React.Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.pollInterval);
+  }
+
   componentWillMount() {
-    const {
-      fetchBikeRacksIfEmpty,
-      fetchCurrentRentalIfNotAlready,
-    } = this.props;
-    fetchBikeRacksIfEmpty();
+    const { fetchBikeRacks, fetchCurrentRentalIfNotAlready } = this.props;
+    fetchBikeRacks();
+    this.pollInterval = setInterval(() => fetchBikeRacks(), 5000);
     fetchCurrentRentalIfNotAlready();
   }
 
@@ -113,6 +115,6 @@ class MapContainer extends React.Component {
 }
 
 export default connect(null, {
-  fetchBikeRacksIfEmpty: fetchBikeRacksIfEmptyAction,
+  fetchBikeRacks: fetchBikeRacksAction,
   fetchCurrentRentalIfNotAlready: fetchCurrentRentalIfNotAlreadyAction,
 })(MapContainer);
