@@ -3,6 +3,8 @@ import bikeApi from './clients/bikeApi';
 import userApi from './clients/userApi';
 import lockApi from './clients/lockApi';
 import maintenanceApi from './clients/maintenanceApi';
+import statusApi from './clients/statusApi';
+
 import RequestManager from './RequestManager';
 
 export default (getToken, setToken) => {
@@ -13,5 +15,6 @@ export default (getToken, setToken) => {
     user: userApi(requestManager),
     lock: lockApi(requestManager),
     maintenance: maintenanceApi(requestManager),
+    status: statusApi(requestManager),
   };
 };

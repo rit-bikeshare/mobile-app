@@ -12,6 +12,7 @@ import damageTypesReducer from 'BikeShare/report-damage/reducers';
 import notificationsReducer from 'BikeShare/notifications/reducers/notificationsReducer';
 import lockReducer from 'BikeShare/lock/reducers/lockReducer';
 import maintenanceReducer from 'BikeShare/maintenance/reducers';
+import statusReducer from 'BikeShare/status/reducers';
 
 export default combineReducers({
   permissions: permissionReducer,
@@ -26,4 +27,5 @@ export default combineReducers({
   notifications: notificationsReducer,
   lock: lockReducer,
   maintenance: maintenanceReducer,
+  systemStatus: statusReducer,
 });
