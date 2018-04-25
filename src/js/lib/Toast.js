@@ -35,7 +35,7 @@ function showIOSToast(message, duration) {
 export default {
   LONG: LONG,
   SHORT: SHORT,
-  show(message, duration) {
+  show(message, duration = SHORT) {
     if (isAndroid()) {
       showAndroidToast(message, duration);
       return;

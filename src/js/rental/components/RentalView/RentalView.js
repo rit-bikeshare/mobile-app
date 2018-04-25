@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 import CheckoutContainer from 'BikeShare/check-out/components/CheckOutView';
 import CheckInContainer from 'BikeShare/check-in/components/CheckInView';
+import { StatusBanner } from 'BikeShare/status';
 
 import { fetchBikeRacks as fetchBikeRacksAction } from 'BikeShare/bike-rack/actions/bikeRackActions';
 import { fetchCurrentRentalIfNotAlready as fetchCurrentRentalIfNotAlreadyAction } from 'BikeShare/rental/actions/rentalActions';
@@ -24,6 +25,7 @@ class MapContainer extends React.Component {
     history: PropTypes.object,
     fetchBikeRacks: PropTypes.func,
     fetchCurrentRentalIfNotAlready: PropTypes.func,
+    allowCheckout: PropTypes.bool,
     markers: PropTypes.instanceOf(Map),
     showCheckInAreas: PropTypes.bool,
     bikeRacks: PropTypes.instanceOf(Map),
@@ -155,6 +157,7 @@ class MapContainer extends React.Component {
     return (
       <View style={{ flexGrow: 1 }}>
         {this.renderModal()}
+        <StatusBanner />
         <RentalTimer />
         <MapView>
           {this.renderBikeRackCheckinAreas()}
