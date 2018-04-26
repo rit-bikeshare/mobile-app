@@ -140,10 +140,10 @@ class ReportDamageView extends React.Component {
   }
 
   handleSubmitDamageReport() {
-    const { damageTypeId, comments, critical } = this.state;
+    const { damageTypeId, comments, critical, bikeId } = this.state;
     const { reportDamage } = this.props;
     const data = {
-      bikeId: 1,
+      bikeId,
       damageType: damageTypeId,
       comments,
       critical,
@@ -301,7 +301,7 @@ class ReportDamageView extends React.Component {
     }
 
     return (
-      <Container style={{ backgroundColor: '#ffffff' }}>
+      <Container>
         <View
           style={{
             backgroundColor: '#F36E1F',

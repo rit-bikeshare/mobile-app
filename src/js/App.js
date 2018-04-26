@@ -62,9 +62,11 @@ export default class App extends React.Component {
         <Container>
           {this.renderStatusBarPadding()}
           <StatusBar backgroundColor={brandPrimary} barStyle="light-content" />
-          <Provider store={store}>
-            <Router history={history} />
-          </Provider>
+          <Container style={{ backgroundColor: '#ffffff' }}>
+            <Provider store={store}>
+              <Router history={history} />
+            </Provider>
+          </Container>
         </Container>
       </StyleProvider>
     );
