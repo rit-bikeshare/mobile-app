@@ -72,7 +72,7 @@ class MaintenanceDeailView extends React.Component {
 
   renderOpenDamageReports() {
     const { damageReports } = this.props;
-    const openReports = damageReports.filter(report => !report.acknowleged);
+    const openReports = damageReports.filter(report => !report.acknowledged);
 
     if (openReports.size === 0) return null;
 
@@ -92,7 +92,7 @@ class MaintenanceDeailView extends React.Component {
 
   renderAckedDamageReports() {
     const { damageReports } = this.props;
-    const ackedReports = damageReports.filter(report => report.acknowleged);
+    const ackedReports = damageReports.filter(report => report.acknowledged);
 
     if (ackedReports.size === 0) return null;
 
