@@ -66,6 +66,11 @@ class CheckinContainer extends React.Component {
     checkInCurrentRentalByLocation();
   }
 
+  componentWillUnmount() {
+    const { clearCheckInStatus } = this.props;
+    clearCheckInStatus();
+  }
+
   retryScan() {
     const { clearCheckInStatus } = this.props;
     clearCheckInStatus();

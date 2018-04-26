@@ -47,6 +47,11 @@ class CheckoutContainer extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    const { clearCheckOutStatus } = this.props;
+    clearCheckOutStatus();
+  }
+
   retryScan() {
     const { clearCheckOutStatus } = this.props;
     clearCheckOutStatus();
