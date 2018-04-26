@@ -37,8 +37,8 @@ export default handleActions(
     },
 
     [DAMAGE_REPORT_UPDATED](state, action) {
-      const report = action.payload;
-      return state.set(report.id, new DamageReport(report));
+      const report = new DamageReport(action.payload);
+      return state.setIn(['reports', report.id], report);
     },
 
     [DAMAGE_LOOKUP_ERROR](state, action) {
